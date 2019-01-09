@@ -1,0 +1,65 @@
+/*показывать от:
+	hide_lap - 1200
+	hide_tab - 1025
+	hide_mob - 500
+	показывать до:
+	show_lap - 1200
+	show_tab - 1025
+	show_mob - 500
+	*/
+
+// helpers
++rwm(1300)
+	.show_lap
+		display: none !important
++rwm(1025)
+	.show_tab
+		display: none !important
++rwm(500)
+	.show_mob
+		display: none !important
+
++rw(1299)
+	.hide_lap
+		display: none !important
++rw(1024)
+	.hide_tab
+		display: none !important
++rw(499)
+	.hide_mob
+		display: none !important
+
+// 550
++rw(550)
+	.content
+		font-size: 17px
+	h1,.h1,
+	h2,.h2
+		font-size: 24px
+	h3,.h3
+		font-size: 22px
+	h4,.h4
+		font-size: 20px
+	h5,.h5
+		font-size: 19px
+	h6,.h6
+		font-size: 18px
+	.input
+			height: 40px
+	
+	.navigation
+		text-align: center
+		position: fixed
+		top: 0
+		right: -300px
+		height: 100vh
+		max-width: 280px
+		width: 100%
+		padding: 56px 0 0
+		+trans
+		z-index: 101
+		overflow-y: auto
+		&.nav-opened
+			right: 0
+		&_btn
+			display: block

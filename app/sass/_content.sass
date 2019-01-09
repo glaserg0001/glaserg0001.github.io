@@ -1,0 +1,103 @@
+.content 
+	font-size: 1.6rem
+	+clear
+	img
+		height: auto !important
+	table,
+	img,
+	iframe,
+	p
+		margin-bottom: 1.6rem
+
+	ul:last-child,
+	ol:last-child,
+	table:last-child,
+	img:last-child,
+	iframe:last-child,
+	p:last-child
+		margin-bottom: 0
+	// list
+	ul
+		margin-bottom: 2rem
+		list-style: disc inside
+		overflow: hidden
+		li
+			position: relative
+			padding: 0 0 0 1.6rem
+			overflow: hidden
+			&:before
+				display: block
+				position: absolute
+				top: 1.1rem
+				left: .3rem
+				content: ''
+				width: .6rem
+				height: .6rem
+				background-color: #000
+				vertical-align: middle
+				border-radius: 50%
+
+	ol
+		margin-bottom: 2rem
+		counter-reset: li
+		// list-style: decimal inside
+		&>li
+			padding-left: 2rem
+			margin-bottom: .4rem
+			overflow: hidden
+			&:before
+				margin-left: -2rem
+				counter-increment: li
+				content: counters(li, ".") ". "
+	li
+		font-size: 1em
+		line-height: 1.56
+	// text
+	h1,.h1,
+	h2,.h2,
+	h3,.h3,
+	h4,.h4,
+	h5,.h5,
+	h6,.h6
+		margin-bottom: .9em
+		color: #424141
+
+	p
+		color: #000
+		font-size: 1em
+		line-height: 1.6875
+
+	blockquote
+		margin-bottom: 1.2em
+		padding-left: 1.2rem
+		border-left: .7rem solid #777
+		font-size: 1em
+		line-height: 1.5625;
+		&:not(:first-child)
+			margin-top: 2em
+
+
++rw(992)
+	.content
+		img[style*="float"]
+			max-width: 50%;
+			&[style*=" right"]
+				margin-left: 20px !important
+				margin-right: 0 !important
+			&[style*=" left"]
+				margin-right: 20px !important
+				margin-left: 0 !important
+
+_rw(768)
+	.content
+		img
+			border-width: 5px
+		img[style*="float"]
+			float: none !important
+			display: block
+			max-width: 100%
+			margin: 0 auto 2rem !important
+			&[style*=" right"]
+				margin: 0 auto 2rem !important
+			&[style*=" left"]
+				margin: 0 auto 2rem !important

@@ -1,0 +1,116 @@
+// header
+.header
+
+.navigation
+
+.header_nav
+
+
+// navigation start
+.navigation_btn
+	display: none
+	position: fixed
+	top: 10px
+	right: 10px
+	padding: 16px 7px
+	cursor: pointer
+	-webkit-transition: all .3s
+	transition: all .3s
+	z-index: 103
+	background-color: rgba(black,.4)
+	span
+		position: relative
+		display: block
+		width: 32px
+		height: 5px
+		background-color: #fff
+		&:before,
+		&:after
+			content: ''
+			position: absolute
+			top: 10px
+			left: 0
+			width: 100%
+			height: 100%
+			background-color: #fff
+			+trans
+		&:before
+			top: -10px
+	&.isOpen,
+	&.isOpen span
+		background: none;
+
+		&:before,
+		&:after
+			width: 30px
+			top: 0
+			transform: rotate(45deg)
+
+		&:after
+			transform: rotate(-45deg)
+
+
+.dark_overlay.nav-opened:after
+	content: ''
+	display: block
+	width: 100%
+	height: 100vh
+	background: #000
+	opacity: .94
+	position: fixed
+	top: 0
+	left: 0
+	z-index: 100
+// navigation end
+
+
+
+
+
+
+
+
+// footer
+.footer
+
+
+// dialogs start
+.close_ico
+	position: absolute
+	top: -.5em
+	right: -.5em
+	display: block
+	width: 1em
+	height: 1em
+	font-size: 34px
+	color: #363636
+	background-color: #fff
+	border: none
+	border-radius: 50%
+	transition: all .3s
+	vertical-align: middle
+	cursor: pointer
+	&:hover
+		background-color: red
+		color: #fff
+	&:active
+		background-color: darken(red, 10%)
+		color: #fff
+	&:before,
+	&:after
+		content: ''
+		position: absolute
+		top: 50%
+		left: 50%
+		width: 0
+		height: 0
+		transform: rotate(45deg) translate(-50%, -50%)
+		transform-origin: 0 0
+		border: 1px solid
+		border-width: 2px 2px 1px 1px
+		border-radius: 4px
+	&:before
+		width: 48%
+	&:after
+		height: 48%
+// dialogs end

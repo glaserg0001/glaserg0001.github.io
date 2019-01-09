@@ -1,0 +1,152 @@
+/* Slider */
+
+.slick-slider {
+	position: relative;
+	display: block;
+	box-sizing: border-box;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-ms-touch-action: pan-y;
+	touch-action: pan-y;
+	-webkit-tap-highlight-color: transparent;
+}
+.slick-list {
+	position: relative;
+	overflow: hidden;
+	display: block;
+	margin: 0;
+	padding: 0;
+
+	&:focus {
+		outline: none;
+	}
+
+	&.dragging {
+		cursor: pointer;
+		cursor: hand;
+	}
+}
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.slick-track {
+	position: relative;
+	left: 0;
+	top: 0;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+
+	&:before,
+	&:after {
+		content: "";
+		display: table;
+	}
+
+	&:after {
+		clear: both;
+	}
+
+	.slick-loading & {
+		visibility: hidden;
+	}
+}
+.slick-slide {
+	float: left;
+	height: 100%;
+	min-height: 1px;
+	[dir="rtl"] & {
+		float: right;
+	}
+	img {
+		display: block;
+	}
+	&.slick-loading img {
+		display: none;
+	}
+
+	display: none;
+
+	&.dragging img {
+		pointer-events: none;
+	}
+
+	.slick-initialized & {
+		display: block;
+	}
+
+	.slick-loading & {
+		visibility: hidden;
+	}
+
+	.slick-vertical & {
+		display: block;
+		height: auto;
+		border: 1px solid transparent;
+	}
+}
+.slick-arrow.slick-hidden {
+	display: none;
+}
+
+
+
+// vendor
+
+.slick-arrow {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 2em;
+	height: 2em;
+	padding: 0;
+	margin-top: -1em;
+	font-size: 33px;
+	border-radius: 50%;
+	background-color: transparent;
+	color: #fff;
+	border: 2px solid;
+	z-index: 1;
+	text-indent: -9999px;
+	transition: all .3s
+}
+
+.slick-arrow:before,
+.slick-arrow:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: .6em;
+	display: block;
+	width: .8em;
+	border: 2px solid;
+	margin-top: -2px;
+	transform-origin: 0 0;
+	border-radius: 0 2px 2px 0
+}
+
+.slick-arrow:before {
+	transform: rotate(-45deg);
+	width: calc(.8em - 4px)
+}
+
+.slick-arrow:after {
+	transform: rotate(45deg);
+	border-radius: 0 2px 2px 2px
+}
+
+.slick-next {
+	left: auto;
+	right: 0;
+	transform: scaleX(-1)
+}
