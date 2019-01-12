@@ -39,7 +39,7 @@ gulp.task('browser-sync', function() {
 
 
 gulp.task('html-include', function() {
-	return gulp.src(app + '/html/*.html')
+	return gulp.src([app + '/html/*.html', app + '/html/tutorials/*.html'])
 	.pipe(include())
 	.pipe(gulp.dest('./app'))
 	.pipe(browserSync.reload({ stream: true }));
