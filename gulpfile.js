@@ -49,7 +49,7 @@ gulp.task('html-include', function() {
 gulp.task('watch', ['browser-sync'], function() {
     // gulp.watch(app + '/sass/**/*.sass', ['sass']);
     
-    gulp.watch(app + '/sass/*.+(scss|sass)', function () {
+    gulp.watch(app + '/sass/**/*.+(scss|sass)', function () {
         setTimeout (function () { 
             sassFun ()
         }, 500);

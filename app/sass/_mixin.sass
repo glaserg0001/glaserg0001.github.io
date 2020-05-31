@@ -1,70 +1,76 @@
 =clear
-	&:after
-		content: '';
-		display: table;
-		clear: both;
+    &:after
+        content: '';
+        display: table;
+        clear: both;
 
 =rw($width)
-	@media only screen and (max-width: $width+ "px")
-		@content
+    @media only screen and (max-width: $width+ "px")
+        @content
 
 =rwm($width)
-	@media only screen and (min-width: $width+ "px")
-		@content
+    @media only screen and (min-width: $width+ "px")
+        @content
 
 =rwr($min, $max)
-	@media only screen and (min-width: $min+ "px") and (max-width: $max+ "px")
-		@content
+    @media only screen and (min-width: $min+ "px") and (max-width: $max+ "px")
+        @content
 
 =img($perc)
-	position: relative
-	&:before
-		content: ''
-		display: block
-		padding-top: $perc+%
+    position: relative
+
+    &:before
+        content: ''
+        display: block
+        padding-top: $perc+%
 
 =center
-	position: absolute
-	top: 50%
-	left: 50%
-	transform: translate(-50%,-50%)
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%,-50%)
 
 =centerM($margin: auto)
-	position: absolute
-	top: 0
-	right: 0
-	left: 0
-	bottom: 0
-	margin: $margin
+    position: absolute
+    top: 0
+    right: 0
+    left: 0
+    bottom: 0
+    margin: $margin
 
 =bgi($pos: center)
-	background-size: cover
-	background-repeat: no-repeat
-	background-position: $pos
+    background-size: cover
+    background-repeat: no-repeat
+    background-position: $pos
 
 =trans($prop: .3s, $timing: ease)
-	transition: all $prop $timing
+    transition: all $prop $timing
 
 =n($n)
-	&:nth-child(#{$n})
-		@content
+    &:nth-child(#{$n})
+        @content
 
 =full
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
-	bottom: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
 
 =centerX
-	position: absolute
-	left: 50%
-	transform: translate(-50%, 0)
-	
+    position: absolute
+    left: 50%
+    transform: translate(-50%, 0)
+
 =centerY
-	position: absolute;
-	top: 50%;
-	transform: translate(0, -50%)
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%)
 
 =br($r: 50%)
-	border-radius: $r
+    border-radius: $r
+
+=on-event
+    +rwm(1025)
+        &:hover
+            @content
