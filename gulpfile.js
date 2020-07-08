@@ -1,24 +1,29 @@
-var gulp            = require('gulp'),
-sass            = require('gulp-sass'),
-browserSync		= require('browser-sync'),
-del             = require('del'),
-imagemin        = require('gulp-imagemin'),
-pngquant        = require('imagemin-pngquant'),
-cache           = require('gulp-cache'),
-include         = require('gulp-html-tag-include'),
-sourcemaps      = require('gulp-sourcemaps'),
-autoprefixer    = require('gulp-autoprefixer');
+var
+    gulp            = require('gulp'),
+    sass            = require('gulp-sass'),
+    browserSync		= require('browser-sync'),
+    del             = require('del'),
+    imagemin        = require('gulp-imagemin'),
+    pngquant        = require('imagemin-pngquant'),
+    cache           = require('gulp-cache'),
+    include         = require('gulp-html-tag-include'),
+    sourcemaps      = require('gulp-sourcemaps'),
+    autoprefixer    = require('gulp-autoprefixer'),
+    pug             = require('gulp-pug'),
+    plumber         = require('gulp-plumber'),
+    notify          = require("gulp-notify");
 
 
 var app = './app'
 
 var sassFun = function(){
     return gulp.src(app + '/sass/*.+(scss|sass)')
+    .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe( sass().on( 'error', function( error ){console.log( error ); }))
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
     // .pipe(sass())
-    .pipe(autoprefixer(['last 2 versions', '> 1%'], { cascade: true }))
+    // .pipe(autoprefixer(['last 2 versions', '> 1%'], { cascade: true }))
     .pipe(sourcemaps.write('../maps', {addComment: false}))
     .pipe(gulp.dest(app + '/css'))
     .pipe(browserSync.reload({stream: true}))
@@ -35,6 +40,21 @@ gulp.task('browser-sync', function() {
         notify: false,
         // ghostMode: false,
     });
+});
+
+// pug
+gulp.task('pug', function () {
+    return gulp.src(app + '/pug/pages/*.pug')
+        .pipe(plumber())
+        .pipe(pug({
+            pretty: true
+        }))
+        .on("error", notify.onError(function (error) {
+            return "Message to the notifier: " + error.message;
+        }))
+        // .pipe(plumber.stop())
+        .pipe(gulp.dest(app + '/pug-res'))
+        .pipe(browserSync.reload({ stream: true }));
 });
 
 
@@ -57,6 +77,7 @@ gulp.task('watch', ['browser-sync'], function() {
     
     
     gulp.watch(app + '/html/**/*.html', ['html-include']);
+    gulp.watch(app + '/pug/**/*.pug', ['pug']);
     
     // gulp.watch('./app/**/*.html', browserSync.reload);
     gulp.watch(app + '/js/**/*.js', browserSync.reload);
