@@ -1,10 +1,15 @@
 block variables
+include ../abstracts/functions
 include ../abstracts/mixins
+include ../abstracts/settings
 
 doctype html
 html(lang="en")
   head
-    title= pageTitle
+    include meta
   body
-    include ../layout/header
-    block content
+    .container
+      include ../layout/header
+      .wrapper
+        block content
+    include ../layout/footer

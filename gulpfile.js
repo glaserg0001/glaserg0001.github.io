@@ -17,7 +17,7 @@ var
 var app = './app'
 
 var sassFun = function(){
-    return gulp.src(app + '/sass/*.+(scss|sass)')
+    return gulp.src(app + '/sass/**/*.+(scss|sass)')
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe( sass().on( 'error', function( error ){console.log( error ); }))
@@ -44,7 +44,7 @@ gulp.task('browser-sync', function() {
 
 // pug
 gulp.task('pug', function () {
-    return gulp.src(app + '/pug/pages/*.pug')
+    return gulp.src(app + '/pug/pages/**/*.pug')
         .pipe(plumber())
         .pipe(pug({
             pretty: true

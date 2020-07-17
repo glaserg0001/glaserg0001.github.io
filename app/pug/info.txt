@@ -1,0 +1,16 @@
+// ==========
+// js functions in pug
+- var intToHex = function(){  
+-     return 'aa'
+- }
+
+div
+  p #{intToHex()}
+
+// ==========
+// include js code into pug
+script(type='text/javascript')
+      if (foo) {
+          bar()
+      }
+// ==========
