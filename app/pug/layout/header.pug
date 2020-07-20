@@ -1,13 +1,8 @@
 header.header
-  .header-logo.logo
-    a(href='/') Logo
-  nav.nav
-    ul.nav-list
-      each item in mainNav
-        li(class=item.subNav ? 'nav-item m-drop' : 'nav-item')
-          a(href=item.link).nav-link=item.name
-          if item.subNav
-            ul.nav-sublist
-              each subitem in item.subNav
-                li.nav-subitem
-                  a(href=subitem.link).nav-sublink=subitem.name
+  .container
+    .header-inner
+      .header-logo
+        a(href='/') Logo
+      
+      .header-nav
+        include ../components/navigation

@@ -1,0 +1,31 @@
+.nav
+    // 1 lvl
+    &-list
+        display: flex
+
+    &-item
+        position: relative
+
+    &-link
+        display: block
+        color: color(light)
+
+    // 2 lvl
+    &-sublist
+        background-color: color(light)
+        color: color(text)
+
+    &-subitem
+        &:not(:first-child)
+            border-top: 1px solid $grey-300
+
+    &-sublink
+        position: relative
+        display: block
+        padding: 10px 20px
+        color: color(text)
+        left: 0
+        transition: left 0.2s linear
+        
+        +on-event
+            left: 5px

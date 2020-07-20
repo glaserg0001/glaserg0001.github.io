@@ -35,7 +35,7 @@ gulp.task('sass', sassFun);
 gulp.task('browser-sync', function() {
     browserSync({
         server: {
-            baseDir: './app'
+            baseDir: './'
         },
         notify: false,
         // ghostMode: false,

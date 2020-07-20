@@ -11,7 +11,7 @@ body
     overflow-x: hidden
     line-height: 1.2
     font-size: 1.6em
-    color: #2f2f2f
+    color: color(text)
     font-family: $font
     background-color: #fff
     -webkit-text-size-adjust: 100%
@@ -23,8 +23,9 @@ body
     color: #fff
 a
     text-decoration: none
-    color: inherit
-    transition: all .3s
+    color: color(primary)
+    +on-event
+        color: color(primary-active)
 label
     user-select: none
 
@@ -81,11 +82,12 @@ h6,.h6
 .clear
     +clear
 
-.container
+.wrapper
     position: relative
     overflow-x: hidden
     flex: 1 0 auto
-.wrapper
+
+.container
     position: relative
     width: 100%
     max-width: $wrapper
