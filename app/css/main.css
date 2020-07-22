@@ -520,40 +520,44 @@ select.input {
 }
 
 .nav-item.m-drop .nav-link {
-  padding-right: 25px;
+  padding-right: 24px;
 }
 
 .nav-item.m-drop .nav-link::before {
   content: '';
-  position: absolute;
-  right: 16px;
-  bottom: 0;
   width: 1em;
   height: 1em;
+  position: absolute;
+  right: 10px;
+  bottom: calc(50% - 0.1em);
+  border: 0 solid #fff;
+  border-width: 0 2px 2px 0;
   font-size: 8px;
-  border: 0 solid #e0e0e0;
-  border-width: 0 1px 1px 0;
   transform: rotate(45deg);
   transform-origin: 0 100%;
-  opacity: 0;
   transition: all 0s linear;
+  transition: all 0.2s linear, border-color 0s 0.2s, background-color 0s;
 }
 
 @media only screen and (min-width: 1025px) {
+  .nav-item.m-drop:hover .nav-link {
+    box-shadow: inset 0 -2px #e0e0e0;
+    transition: all 0.2s linear, box-shadow 0s 0.2s linear;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .nav-item.m-drop:hover .nav-link::before {
+    bottom: 0;
+    background-color: #fff;
+    border-color: #e0e0e0;
+    transition: all 0.2s linear, border-color 0s, background-color 0.1s 0.1s linear;
+  }
   .nav-item.m-drop:hover .nav-sublist {
     visibility: visible;
     opacity: 1;
     transform: translateY(0);
     transition: all 0.2s linear;
-  }
-  .nav-item.m-drop:hover .nav-link {
-    box-shadow: inset 0 -1px #e0e0e0;
-    transition: all 0.2s linear, box-shadow 0s 0.2s linear;
-  }
-  .nav-item.m-drop:hover .nav-link::before {
-    opacity: 1;
-    background-color: #fff;
-    transition: all 0.1s 0.1s linear;
+    pointer-events: auto;
   }
 }
 
@@ -577,6 +581,7 @@ select.input {
   visibility: hidden;
   opacity: 0;
   transform: translateY(-10px);
+  pointer-events: none;
 }
 
 .nav-subitem:not(:first-child) {
@@ -584,18 +589,16 @@ select.input {
 }
 
 .nav-sublink {
-  position: relative;
   display: block;
   padding: 10px 20px;
   color: #212121;
-  left: 0;
-  transition: left 0.1s linear;
+  transition: all 0.2s ease-in-out;
   white-space: nowrap;
 }
 
 @media only screen and (min-width: 1025px) {
   .nav-sublink:hover {
-    left: 3px;
+    background-color: #fafafa;
   }
 }
 
