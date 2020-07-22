@@ -1,7 +1,7 @@
-$font: Verdana, Geneva, sans-serif;
+$font: 'Comic Sans MS', Verdana, Geneva, sans-serif;
 
 $wrap_padding: 20px;
-$wrapper: 1200px + $wrap_padding*2;
+$wrapper: 1200px + $wrap_padding * 2;
 
 $red-500: #ee6e73;
 $red-600: #b71c1c;
@@ -29,5 +29,6 @@ $colors: (
     tertiary: $indigo,
     text: $dark,
     dark: $dark,
-    light: $white
+    light: $white,
+    border: $grey-400
 )

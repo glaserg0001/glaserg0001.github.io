@@ -1,23 +1,83 @@
 .nav
+    $parent: nav
     // 1 lvl
     &-list
         display: flex
 
     &-item
         position: relative
+        z-index: 1
+        margin-left: 5px
+
+        
+        +on-event
+            .#{$parent}-link
+                color: color(text)
+                background-color: color(light)
+
+        // dropdown
+        &.m-drop
+            .#{$parent}-link
+                padding-right: 25px
+
+                &::before
+                    content: ''
+                    position: absolute
+                    right: 16px
+                    bottom: 0
+                    width: 1em
+                    height: 1em
+                    font-size: 8px
+                    border: 0 solid color(border)
+                    border-width: 0 1px 1px 0
+                    transform: rotate(45deg)
+                    transform-origin: 0 100%
+                    opacity: 0
+                    transition: all 0s linear
+            
+            // event dropdown
+            +on-event
+                .#{$parent}-sublist
+                    visibility: visible
+                    opacity: 1
+                    transform: translateY(0)
+                    transition: all 0.2s linear
+
+                .#{$parent}-link
+                    box-shadow: inset 0 -1px color(border)
+                    transition: all 0.2s linear, box-shadow 0s 0.2s linear
+                    
+                    &::before
+                        opacity: 1
+                        background-color: color(light)
+                        transition: all 0.1s 0.1s linear
+
+        &:nth-child(3)
 
     &-link
+        position: relative
         display: block
-        color: color(light)
+        padding: 8px
+        transition: all 0.2s linear, box-shadow 0s 0s linear
 
     // 2 lvl
     &-sublist
+        position: absolute
+        right: 0
+        top: 100%
+        z-index: -2
         background-color: color(light)
         color: color(text)
+        box-shadow: 3px 3px 10px rgba(color(dark), 0.3);
+        text-align: right
+        transition: all 0.2s linear, transform 0s 0.2s linear
+        visibility: hidden
+        opacity: 0
+        transform: translateY(-10px)
 
     &-subitem
         &:not(:first-child)
-            border-top: 1px solid $grey-300
+            border-top: 1px solid color(border)
 
     &-sublink
         position: relative
@@ -25,7 +85,8 @@
         padding: 10px 20px
         color: color(text)
         left: 0
-        transition: left 0.2s linear
+        transition: left 0.1s linear
+        white-space: nowrap
         
         +on-event
-            left: 5px
+            left: 3px

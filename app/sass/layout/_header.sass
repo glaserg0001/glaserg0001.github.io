@@ -1,4 +1,7 @@
 .header
+    position: relative
+    z-index: 1
+    padding: 10px 0
     background-color: color(secondary)
     color: color(light)
 
@@ -7,12 +10,37 @@
         align-items: center
     
     &-logo
-        padding: 10px 0
-        font-size: 40px
+        display: inline-block
+        font-size: 50px
         text-transform: uppercase
         font-weight: 700
         line-height: 1
-        color: color(light)
+
+        &-link
+            +font-fix
+            display: inline-block
+            position: relative
+            text-shadow: 0px 4px 3px rgba($black, 0.4),
+            0px 8px 13px rgba($black, 0.1),
+            0px 18px 23px rgba($black, 0.1)
+            transition: color 0.2s linear
+
+            &::before
+                content: attr(data-value)
+                color: color(primary)
+                position: absolute
+                left: -40px
+                left: 0
+                text-shadow: 0 0 1px currentColor
+                width: 35%
+                overflow: hidden
+                transition: width 0.2s linear
+            
+            +on-event
+                color: $grey-300
+
+                &::before
+                    width: 20%
     
     &-nav
         margin-left: auto
