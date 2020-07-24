@@ -23,12 +23,14 @@ $white: #fff;
 
 
 $colors: (
+    // common
     primary: $red-500,
     primary-active: $red-600,
     secondary: $teal,
     tertiary: $indigo,
-    text: $dark,
     dark: $dark,
     light: $white,
+    // component
+    text: $dark,
     border: $grey-400
 )

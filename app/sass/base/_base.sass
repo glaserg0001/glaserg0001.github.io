@@ -61,6 +61,8 @@ h6,.h6
     position: relative
     overflow-x: hidden
     flex: 1 0 auto
+    display: flex
+    flex-direction: column
 
 .container
     position: relative
@@ -70,9 +72,14 @@ h6,.h6
     padding-right: $wrap_padding
     margin: 0 auto
 
+    &.m-primary
+        flex: 1 0 auto
+        padding-top: 20px
+        padding-bottom: 20px
+
 ::placeholder
     color: inherit
-    transition: all .3s
+    transition: all 0.3s
 
 .input
     display: block

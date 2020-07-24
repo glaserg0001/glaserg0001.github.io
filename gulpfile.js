@@ -53,7 +53,7 @@ gulp.task('pug', function () {
             return "Message to the notifier: " + error.message;
         }))
         // .pipe(plumber.stop())
-        .pipe(gulp.dest(app + '/pug-res'))
+        .pipe(gulp.dest(app))
         .pipe(browserSync.reload({ stream: true }));
 });
 

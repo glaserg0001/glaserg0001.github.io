@@ -1,7 +1,8 @@
 -  var URL_Pug_MainNav = function(file, index = false) {
--    return '/app/pug-res/' + file + (index ? '/' : '.html')
+-    return '/app/' + file + (index ? '/' : '.html')
 -  }
 
 - var URL_CSS_file = function(file, cssDir) {
--   return cssDir ? cssDir + `../css/${file}.css` : `../css/${file}.css`
+-    cssDir = cssDir ? cssDir : ''
+-   return cssDir + `css/${file}.css`
 - }
