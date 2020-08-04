@@ -1,14 +1,14 @@
 //- mixins
-mixin listOfLinks(name, title)
+mixin listOfLinks(name)
 
-  if title
-    h1= title
   
   each key in mainNav
     if key.name == name
+      h1= key.title
+
       ul.list
         each item in key.subNav
           li
             if item.linkOuter
-              a(href=item.linkOuter class=`link_yt ${item.icon}` target="_blank")
-            a(href=item.link)= item.name
+              a(href=item.linkOuter class=`link_icon ${item.icon}` target="_blank")
+            a(href=item.link)= item.title

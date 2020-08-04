@@ -528,23 +528,13 @@ select.input {
   font-weight: 400;
 }
 
-.link_yt {
+.link_icon {
   margin-right: 5px;
   font-size: 10px;
   transition: background-color .2s;
 }
 
-@media only screen and (min-width: 1025px) {
-  .link_yt:hover {
-    background-color: #000;
-  }
-}
-
-.link_yt:active {
-  background-color: #333;
-}
-
-.ic_yt {
+.youtube {
   border-radius: 0.4em;
   position: relative;
   display: inline-block;
@@ -555,7 +545,13 @@ select.input {
   color: #fff;
 }
 
-.ic_yt:before {
+@media only screen and (min-width: 1025px) {
+  .youtube:hover {
+    background-color: #000;
+  }
+}
+
+.youtube:before {
   content: '';
   position: absolute;
   top: 0;

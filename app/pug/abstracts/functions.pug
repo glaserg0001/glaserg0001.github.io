@@ -2,7 +2,12 @@
 -    return '/app/' + file + (index ? '/' : '.html')
 -  }
 
-- var URL_CSS_file = function(file, cssDir) {
--    cssDir = cssDir ? cssDir : ''
+
+- var URL_CSS_file = function(file, lvl = 0) {
+-   var cssDir = ''
+-   while (lvl > 0) {
+-     cssDir = cssDir + '../'
+-     lvl--
+-   }
 -   return cssDir + `css/${file}.css`
 - }

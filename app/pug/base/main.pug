@@ -10,6 +10,6 @@ html(lang="en")
   body
     .wrapper
       include ../layout/header
-      .container.m-primary
+      div(class=`container m-primary ${pageContainerClass ? pageContainerClass : ''}`)
         block content
     include ../layout/footer
