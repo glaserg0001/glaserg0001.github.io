@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Cropping text</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/main.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <div class="container">
+          <div class="header-inner">
+            <div class="header-logo"><a class="header-logo-link" href="/" data-value="Logo">Logo</a></div>
+            <div class="header-nav">
+              <nav class="nav">
+                <ul class="nav-list">
+                  <li class="nav-item m-drop"><a class="nav-link" href="/app/ideas/">Ideas</a>
+                    <ul class="nav-sublist">
+                      <li class="nav-subitem"><a class="nav-sublink" href="/app/ideas/progress_bar.html">Progress Bar</a></li>
+                      <li class="nav-subitem"><a class="nav-sublink" href="/app/ideas/crop_text.html">Cropping text</a></li>
+                    </ul>
+                  </li>
+                  <li class="nav-item m-drop"><a class="nav-link" href="/app/tutorials/">Tutorials</a>
+                    <ul class="nav-sublist">
+                      <li class="nav-subitem"><a class="nav-sublink" href="/app/tutorials/tutorial_1.html">Sliding Border</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container m-primary ">
+        <style>
+          .js-crop-wrapper {max-width: 400px; border: 1px solid #ccc;padding: 5px 10px;margin-bottom: 10px}
+          
+        </style>
+        <div class="js-crop-wrapper">
+          <div class="js-crop-text">
+            <p>Lorem ipsum <strong>dolor sit</strong> amet <em>consectetur adipisicing</em> elit. Quam, aut eum voluptas similique et quia ea iste totam perspiciatis quaerat omnis numquam</p>
+          </div>
+          <button class="js-crop-btn js-crop-btn--1">Toggle</button>
+        </div>
+        <div class="js-crop-wrapper">
+          <div class="js-crop-text">
+            <p>Lorem <strong>dolor sit</strong> amet <em>adipisicing</em> elit. Quam, aut eum voluptas similique et quia ea iste totam perspiciatis quaerat omnis numquam</p>
+          </div>
+          <button class="js-crop-btn js-crop-btn--2">Toggle</button>
+        </div>
+        <script>
+          function Func(button) {
+            this.button = document.querySelector(button),
+            this.textElement = this.button.closest('.js-crop-wrapper').querySelector('.js-crop-text'),
+            this.text = this.textElement.innerHTML,
+            this.count = 5,
+            this.textArray = this.text.trim().split(' '),
+            this.eclipsis = '...',
+            this.textSliced = this.textArray.slice(0, this.count).join(' ') + this.eclipsis,
+            this.textEclipsed = false,
+          
+            this._updateText = () => {
+              if (this.textEclipsed) {
+                this.textElement.innerHTML = this.text;
+                this.textEclipsed = false;
+              } else {
+                this.textElement.innerHTML = this.textSliced;
+                this.textEclipsed = true;
+              }
+            }
+          
+            this.main = () => {
+              this._updateText();
+              this.button.addEventListener('mouseup', this._updateText);
+            }
+          }
+          
+          var bt1 = new Func('.js-crop-btn--1');
+          var bt2 = new Func('.js-crop-btn--2');
+          
+          bt1.main();
+          bt2.main();
+        </script>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="footer-copy">2020</div>
+    </footer>
+  </body>
+</html>
