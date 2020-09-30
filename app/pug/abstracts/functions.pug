@@ -2,7 +2,7 @@
 -    return '/app/' + file + (index ? '/' : '.html')
 -  }
 
-
+//- gerate the URL for the <link> tag for CSS file
 - var URL_CSS_file = function(file, lvl = 0) {
 -   var cssDir = ''
 -   while (lvl > 0) {
@@ -10,4 +10,14 @@
 -     lvl--
 -   }
 -   return cssDir + `css/${file}.css`
+- }
+
+//- gerate the URL for the <script> tag for JS file
+- var URL_JS_file = function(file, lvl = 0) {
+-   var cssDir = ''
+-   while (lvl > 0) {
+-     cssDir = cssDir + '../'
+-     lvl--
+-   }
+-   return cssDir + `js/${file}.js`
 - }

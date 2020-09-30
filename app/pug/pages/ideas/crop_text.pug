@@ -3,14 +3,12 @@ extends ../../base/main
 block variables
   - var pageTitle = 'Cropping text'
   - var cssDirMain = 1
+  - var jsDirMain = 1
 
 block styles
-  //- link(rel='stylesheet' href= URL_CSS_file('pages/ideas/crop_text', 1))
+  link(rel='stylesheet' href= URL_CSS_file('pages/ideas/crop_text', cssDirMain))
 
 block content
-  style.
-    .js-crop-wrapper {max-width: 400px; border: 1px solid #ccc;padding: 5px 10px;margin-bottom: 10px}
-
   .js-crop-wrapper
     .js-crop-text
       p.
@@ -21,37 +19,7 @@ block content
     .js-crop-text
       p.
         Lorem #[strong dolor sit] amet #[em adipisicing] elit. Quam, aut eum voluptas similique et quia ea iste totam perspiciatis quaerat omnis numquam
-    button.js-crop-btn.js-crop-btn--2 Toggle
+    button.js-crop-btn.js-crop-btn--2 Toggle 2
 
-  script.
-    function Func(button) {
-      this.button = document.querySelector(button),
-      this.textElement = this.button.closest('.js-crop-wrapper').querySelector('.js-crop-text'),
-      this.text = this.textElement.innerHTML,
-      this.count = 5,
-      this.textArray = this.text.trim().split(' '),
-      this.eclipsis = '...',
-      this.textSliced = this.textArray.slice(0, this.count).join(' ') + this.eclipsis,
-      this.textEclipsed = false,
-
-      this._updateText = () => {
-        if (this.textEclipsed) {
-          this.textElement.innerHTML = this.text;
-          this.textEclipsed = false;
-        } else {
-          this.textElement.innerHTML = this.textSliced;
-          this.textEclipsed = true;
-        }
-      }
-
-      this.main = () => {
-        this._updateText();
-        this.button.addEventListener('mouseup', this._updateText);
-      }
-    }
-
-    var bt1 = new Func('.js-crop-btn--1');
-    var bt2 = new Func('.js-crop-btn--2');
-
-    bt1.main();
-    bt2.main();
+block scripts
+  script(src= URL_JS_file('pages/ideas/crop_text', jsDirMain))

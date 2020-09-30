@@ -10,6 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/main.css">
+    <script src="../js/main.js"></script>
+    <link rel="stylesheet" href="../css/pages/ideas/crop_text.css">
   </head>
   <body>
     <div class="wrapper">
@@ -38,10 +40,6 @@
         </div>
       </header>
       <div class="container m-primary ">
-        <style>
-          .js-crop-wrapper {max-width: 400px; border: 1px solid #ccc;padding: 5px 10px;margin-bottom: 10px}
-          
-        </style>
         <div class="js-crop-wrapper">
           <div class="js-crop-text">
             <p>Lorem ipsum <strong>dolor sit</strong> amet <em>consectetur adipisicing</em> elit. Quam, aut eum voluptas similique et quia ea iste totam perspiciatis quaerat omnis numquam</p>
@@ -52,45 +50,13 @@
           <div class="js-crop-text">
             <p>Lorem <strong>dolor sit</strong> amet <em>adipisicing</em> elit. Quam, aut eum voluptas similique et quia ea iste totam perspiciatis quaerat omnis numquam</p>
           </div>
-          <button class="js-crop-btn js-crop-btn--2">Toggle</button>
+          <button class="js-crop-btn js-crop-btn--2">Toggle 2</button>
         </div>
-        <script>
-          function Func(button) {
-            this.button = document.querySelector(button),
-            this.textElement = this.button.closest('.js-crop-wrapper').querySelector('.js-crop-text'),
-            this.text = this.textElement.innerHTML,
-            this.count = 5,
-            this.textArray = this.text.trim().split(' '),
-            this.eclipsis = '...',
-            this.textSliced = this.textArray.slice(0, this.count).join(' ') + this.eclipsis,
-            this.textEclipsed = false,
-          
-            this._updateText = () => {
-              if (this.textEclipsed) {
-                this.textElement.innerHTML = this.text;
-                this.textEclipsed = false;
-              } else {
-                this.textElement.innerHTML = this.textSliced;
-                this.textEclipsed = true;
-              }
-            }
-          
-            this.main = () => {
-              this._updateText();
-              this.button.addEventListener('mouseup', this._updateText);
-            }
-          }
-          
-          var bt1 = new Func('.js-crop-btn--1');
-          var bt2 = new Func('.js-crop-btn--2');
-          
-          bt1.main();
-          bt2.main();
-        </script>
       </div>
     </div>
     <footer class="footer">
       <div class="footer-copy">2020</div>
     </footer>
+    <script src="../js/pages/ideas/crop_text.js"></script>
   </body>
 </html>
