@@ -1,0 +1,20 @@
+extends ../../base/main
+
+block variables
+  - var pageTitle = 'Multiplication'
+  - var cssDirMain = 1
+  - var jsDirMain = 1
+
+block styles
+  //- link(rel='stylesheet' href= URL_CSS_file('pages/ideas/filename', cssDirMain))
+
+block content
+  input(type='text').js-input
+  span  x
+  input(type='text').js-input
+  br
+  button.js-btn Submit
+  .js-res
+
+block scripts
+  script(src= URL_JS_file('pages/ideas/multiplication', jsDirMain))
