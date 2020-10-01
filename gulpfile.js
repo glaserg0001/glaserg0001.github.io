@@ -3,10 +3,7 @@ var
     sass            = require('gulp-sass'),
     browserSync		= require('browser-sync'),
     del             = require('del'),
-    cache           = require('gulp-cache'),
-    include         = require('gulp-html-tag-include'),
     sourcemaps      = require('gulp-sourcemaps'),
-    autoprefixer    = require('gulp-autoprefixer'),
     pug             = require('gulp-pug'),
     plumber         = require('gulp-plumber'),
     notify          = require("gulp-notify");
@@ -20,8 +17,6 @@ var sassFun = function(done){
     .pipe(sourcemaps.init())
     .pipe( sass().on( 'error', function( error ){console.log( error ); }))
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
-    // .pipe(sass())
-    // .pipe(autoprefixer(['last 2 versions', '> 1%'], { cascade: true }))
     .pipe(sourcemaps.write('../maps', {addComment: false}))
     .pipe(gulp.dest(app + '/css'))
     .pipe(browserSync.reload({stream: true}))

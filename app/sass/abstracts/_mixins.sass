@@ -70,10 +70,14 @@
 =br($r: 50%)
     border-radius: $r
 
-=on-event
+=on-event($type: null)
     +rwm(1025)
-        &:hover
-            @content
+        @if $type == active
+            &:active
+                @content
+        @else 
+            &:hover
+                @content
 
 =font-fix
     // font vertical align fix - 'Comic Sans MS'
