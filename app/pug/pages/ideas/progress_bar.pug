@@ -2,11 +2,10 @@ extends ../../base/main
 
 block variables
   - var pageTitle = 'Progress Bar'
-  - var cssDirMain = 1
-  - var jsDirMain = 1
+  - var baseUrlLvl = 1
 
 block styles
-  link(rel='stylesheet' href= URL_CSS_file('pages/ideas/progress_bar', cssDirMain))
+  link(rel='stylesheet' href= URL_file('pages/ideas/progress_bar', baseUrlLvl))
 
 block content
   .progress_wrap

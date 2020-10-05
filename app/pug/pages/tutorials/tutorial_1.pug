@@ -2,12 +2,11 @@ extends ../../base/main
 
 block variables
   - var pageTitle = 'Progress Bar'
-  - var cssDirMain = 1
-  - var jsDirMain = 1
+  - var baseUrlLvl = 1
   - var pageContainerClass ='p-wrap'
 
 block styles
-  link(rel='stylesheet' href= URL_CSS_file('pages/tutorials/tutorial_1', 1))
+  link(rel='stylesheet' href= URL_file('pages/tutorials/tutorial_1', baseUrlLvl))
 
 block content
   button.p-button Button

@@ -2,22 +2,15 @@
 -    return '/app/' + file + (index ? '/' : '.html')
 -  }
 
-//- gerate the URL for the <link> tag for CSS file
-- var URL_CSS_file = function(file, lvl = 0) {
--   var cssDir = ''
+//- function gerates the URL for files
+- var URL_file = function(file, lvl = 0, type = 'css') {
+-   var lvlDir = ''
 -   while (lvl > 0) {
--     cssDir = cssDir + '../'
+-     lvlDir = lvlDir + '../'
 -     lvl--
 -   }
--   return cssDir + `css/${file}.css`
-- }
-
-//- gerate the URL for the <script> tag for JS file
-- var URL_JS_file = function(file, lvl = 0) {
--   var cssDir = ''
--   while (lvl > 0) {
--     cssDir = cssDir + '../'
--     lvl--
+-   if (type == 'ico') {
+-     return lvlDir + 'favicon.ico'
 -   }
--   return cssDir + `js/${file}.js`
+-   return lvlDir + `${type}/${file}.${type}`
 - }

@@ -1,0 +1,89 @@
+.mlp-container {
+  margin-bottom: 50px;
+}
+
+.mlp-actions {
+  max-width: 400px;
+}
+
+.mlp-inputfield {
+  display: flex;
+  align-items: center;
+}
+
+.mlp-inputfield::before {
+  content: 'X';
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0.3em 0.6em;
+  line-height: 1;
+  color: #616161;
+}
+
+.mlp-input {
+  padding: 0.5em;
+  margin: 0.5em 0;
+  flex: 1 0 auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.25em;
+  letter-spacing: 0.1em;
+}
+
+.mlp-input:first-child {
+  order: -1;
+}
+
+.mlp-input:focus {
+  border-color: #bdbdbd;
+}
+
+.mlp-result {
+  display: inline-block;
+  font-size: 20px;
+  padding: 10px 10px 0;
+}
+
+.mlp-result-list {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mlp-result-list li {
+  width: 1em;
+  text-align: center;
+}
+
+.mlp-result-header {
+  padding-bottom: 0.2em;
+  margin-bottom: 0.2em;
+  border-bottom: 2px solid #eeeeee;
+}
+
+.mlp-result-header-item {
+  position: relative;
+}
+
+.mlp-result-header-item + .mlp-result-header-item::before {
+  content: 'x';
+  position: absolute;
+  top: -0.8em;
+  left: -0.5em;
+  font-size: 0.8em;
+}
+
+.mlp-result-middle {
+  position: relative;
+}
+
+.mlp-result-middle + .mlp-result-middle::before {
+  content: '+';
+  position: absolute;
+  left: -0.5em;
+  top: -0.68em;
+}
+
+.mlp-result-footer {
+  padding-top: 0.2em;
+  margin-top: 0.2em;
+  border-top: 2px solid #eeeeee;
+}

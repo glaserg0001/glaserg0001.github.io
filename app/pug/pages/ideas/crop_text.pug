@@ -2,11 +2,10 @@ extends ../../base/main
 
 block variables
   - var pageTitle = 'Cropping text'
-  - var cssDirMain = 1
-  - var jsDirMain = 1
+  - var baseUrlLvl = 1
 
 block styles
-  link(rel='stylesheet' href= URL_CSS_file('pages/ideas/crop_text', cssDirMain))
+  link(rel='stylesheet' href= URL_file('pages/ideas/crop_text', baseUrlLvl))
 
 block content
   .crop-wrapper.js-crop-wrapper
@@ -22,4 +21,4 @@ block content
     button.crop-btn.js-crop-btn.js-crop-btn--2 Toggle 2
 
 block scripts
-  script(src= URL_JS_file('pages/ideas/crop_text', jsDirMain))
+  script(src= URL_file('pages/ideas/crop_text', baseUrlLvl, 'js'))

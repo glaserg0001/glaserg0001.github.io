@@ -2,19 +2,21 @@ extends ../../base/main
 
 block variables
   - var pageTitle = 'Multiplication'
-  - var cssDirMain = 1
-  - var jsDirMain = 1
+  - var baseUrlLvl = 1
 
 block styles
-  //- link(rel='stylesheet' href= URL_CSS_file('pages/ideas/filename', cssDirMain))
+  link(rel='stylesheet' href= URL_file('pages/ideas/multiplication', baseUrlLvl))
 
 block content
-  input(type='text' value="12").js-input
-  span  x
-  input(type='text' value="34").js-input
-  br
-  button.js-btn Submit
-  .js-result
+  .mlp-container
+    .mlp-actions
+      .mlp-inputfield
+        input(type='text' value='128').mlp-input.js-mlp-input
+        input(type='text' value='3456').mlp-input.js-mlp-input
+      .mlp-cta
+        button.mlp-btn.js-mlp-btn Multiply
+    
+    .mlp-result.js-mlp-result
 
 block scripts
-  script(src= URL_JS_file('pages/ideas/multiplication', jsDirMain))
+  script(src= URL_file('pages/ideas/multiplication', baseUrlLvl, 'js'))

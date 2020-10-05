@@ -1,0 +1,79 @@
+@import "../../abstracts/index"
+
+.mlp
+    &-container
+        margin-bottom: 50px
+
+    &-actions
+        max-width: 400px
+        font-size: 
+
+    &-inputfield
+        display: flex
+        align-items: center
+        
+        &::before
+            content: 'X'
+            font-size: 16px
+            font-weight: 700
+            margin: 0.3em 0.6em
+            line-height: 1
+            color: $grey-800
+
+    &-input
+        padding: 0.5em
+        margin: 0.5em 0
+        flex: 1 0 auto
+        border: 1px solid $grey-400
+        border-radius: 0.25em
+        letter-spacing: 0.1em
+
+        &:first-child
+            order: -1
+
+        &:focus
+            border-color: $grey-500
+
+    &-result
+        display: inline-block
+        font-size: 20px
+        padding: 10px 10px 0
+
+        &-list
+            display: flex
+            justify-content: flex-end
+            li
+                width: 1em
+                text-align: center
+                // outline: 1px solid #ccc
+        &-header
+            padding-bottom: 0.2em
+            margin-bottom: 0.2em
+            border-bottom: 2px solid $grey-300
+
+            &-item
+                position: relative
+                
+                & + &::before
+                    content: 'x'
+                    position: absolute
+                    top: -0.8em
+                    left: -0.5em
+                    font-size: 0.8em
+                    
+        
+        &-middle
+            position: relative
+            // outline: 1px solid #eee
+
+            & + &::before
+                content: '+'
+                position: absolute
+                left: -0.5em
+                top: -0.68em
+        
+        &-footer
+            padding-top: 0.2em
+            margin-top: 0.2em
+            border-top: 2px solid $grey-300
+
