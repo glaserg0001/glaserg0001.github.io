@@ -3,29 +3,22 @@
 }
 
 .mlp-actions {
-  max-width: 400px;
+  max-width: 260px;
+  font-size: 18px;
 }
 
 .mlp-inputfield {
   display: flex;
   align-items: center;
-}
-
-.mlp-inputfield::before {
-  content: 'X';
-  font-size: 16px;
-  font-weight: 700;
-  margin: 0.3em 0.6em;
-  line-height: 1;
-  color: #616161;
+  flex-wrap: wrap;
 }
 
 .mlp-input {
   padding: 0.5em;
-  margin: 0.5em 0;
+  margin: 0 0 0.5em;
   flex: 1 0 auto;
-  border: 1px solid #e0e0e0;
-  border-radius: 0.25em;
+  border: 2px solid #e0e0e0;
+  border-radius: 5px;
   letter-spacing: 0.1em;
 }
 
@@ -35,6 +28,41 @@
 
 .mlp-input:focus {
   border-color: #bdbdbd;
+}
+
+.mlp-cta {
+  display: flex;
+}
+
+.mlp-btn {
+  padding: 0.3em 1em 0.5em;
+  background-color: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+  flex: 1 0 0;
+}
+
+@media only screen and (min-width: 1025px) {
+  .mlp-btn:hover {
+    background-color: #fafafa;
+  }
+}
+
+.mlp-btn + .mlp-btn {
+  margin-left: 10px;
+}
+
+.mlp-btn.m-primary {
+  background-color: #ee6e73;
+  border-color: transparent;
+  color: #fff;
+}
+
+@media only screen and (min-width: 1025px) {
+  .mlp-btn.m-primary:hover {
+    background-color: #eb575d;
+  }
 }
 
 .mlp-result {

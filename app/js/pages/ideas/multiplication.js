@@ -1,15 +1,49 @@
 function multiplication () {
     const btn = document.querySelector('.js-mlp-btn');
+    const btnReset = document.querySelector('.js-mlp-btn-reset');
     const result = document.querySelector('.js-mlp-result');
+    const inputList = document.querySelectorAll('.js-mlp-input');
     
     btn.addEventListener('click', submit);
+    btnReset.addEventListener('click', reset);
+    btnReset.addEventListener('click', reset);
+
+
+    function allnumeric(inputtxt) {
+        var numbers = /^[0-9]+$/;
+
+        inputList.forEach((el) => {
+
+            el.addEventListener('input', function () {
+                if (el.value.match(numbers)) {
+                    console.log('Your Registration number has accepted....');
+                    return true;
+                }
+                else {
+                    console.log('Please input numeric characters only');
+                    return false;
+                }
+            })
+            
+        });
+    }
+
+    allnumeric()
+
     
+    function reset() {
+        inputList.forEach((el) => {
+            let val = el.value = '';
+        });
+
+        result.innerHTML = '';
+    }
+
     function submit() {
         result.innerHTML = '';
-        const inputList = document.querySelectorAll('.js-mlp-input');
+        
         let arr = [];
         let arrVal = [];
-        
         
         inputList.forEach((el) => {
             let val = el.value;

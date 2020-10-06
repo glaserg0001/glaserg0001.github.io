@@ -7,7 +7,7 @@ $wrapper: 1200px + $wrap_padding * 2;
 $red-500: #ee6e73;
 $red-600: #b71c1c;
 $teal: #009688;
-$indigo: #0d47a1;
+$blue-900: #0d47a1;
 
 $grey-100: #fafafa;
 $grey-200: #f5f5f5;
@@ -28,7 +28,7 @@ $colors: (
     primary: $red-500,
     primary-active: $red-600,
     secondary: $teal,
-    tertiary: $indigo,
+    tertiary: $blue-900,
     dark: $dark,
     light: $white,
     // component

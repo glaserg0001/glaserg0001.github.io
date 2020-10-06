@@ -5,27 +5,28 @@
         margin-bottom: 50px
 
     &-actions
-        max-width: 400px
-        font-size: 
+        max-width: 260px
+        font-size: 18px
 
     &-inputfield
         display: flex
         align-items: center
+        flex-wrap: wrap
         
-        &::before
-            content: 'X'
-            font-size: 16px
-            font-weight: 700
-            margin: 0.3em 0.6em
-            line-height: 1
-            color: $grey-800
+        // &::before
+        //     content: 'X'
+        //     font-size: 16px
+        //     font-weight: 700
+        //     margin: 0.3em 0.6em
+        //     line-height: 1
+        //     color: $grey-800
 
     &-input
         padding: 0.5em
-        margin: 0.5em 0
+        margin: 0 0 0.5em
         flex: 1 0 auto
-        border: 1px solid $grey-400
-        border-radius: 0.25em
+        border: 2px solid $grey-400
+        border-radius: 5px
         letter-spacing: 0.1em
 
         &:first-child
@@ -33,6 +34,31 @@
 
         &:focus
             border-color: $grey-500
+    &-cta
+        display: flex
+        
+    &-btn
+        padding: 0.3em 1em 0.5em
+        background-color: $white
+        border: 2px solid color(border)
+        border-radius: 5px
+        transition: all 0.2s ease-in-out
+        flex: 1 0 0
+
+        +on-event
+            background-color: $grey-100
+
+        & + &
+            margin-left: 10px
+
+
+        &.m-primary
+            background-color: color(primary)
+            border-color: transparent
+            color: $white
+
+            +on-event
+                background-color: darken(color(primary), 5)
 
     &-result
         display: inline-block
