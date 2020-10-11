@@ -13,6 +13,20 @@
   flex-wrap: wrap;
 }
 
+.mlp-inputfield::before {
+  content: 'X';
+  font-size: 3em;
+  font-weight: 700;
+  margin: -0.5em 0.2em -0.5em auto;
+  top: -0.12em;
+  line-height: 1;
+  color: #616161;
+  position: relative;
+  z-index: 1;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
 .mlp-input {
   padding: 0.5em;
   margin: 0 0 0.5em;
@@ -114,4 +128,11 @@
   padding-top: 0.2em;
   margin-top: 0.2em;
   border-top: 2px solid #eeeeee;
+}
+
+.mlp-error {
+  color: #b71c1c;
+  margin-left: -10px;
+  font-size: 18px;
+  letter-spacing: 0.04em;
 }

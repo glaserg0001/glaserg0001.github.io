@@ -3,37 +3,26 @@ function multiplication () {
     const btnReset = document.querySelector('.js-mlp-btn-reset');
     const result = document.querySelector('.js-mlp-result');
     const inputList = document.querySelectorAll('.js-mlp-input');
+    const errorText = 'Please enter correct value';
     
     btn.addEventListener('click', submit);
     btnReset.addEventListener('click', reset);
     btnReset.addEventListener('click', reset);
 
+    inputValidation();
 
-    function allnumeric(inputtxt) {
-        var numbers = /^[0-9]+$/;
-
+    function inputValidation() {
+        const regexp = /[^0-9]/g;
         inputList.forEach((el) => {
-
-            el.addEventListener('input', function () {
-                if (el.value.match(numbers)) {
-                    console.log('Your Registration number has accepted....');
-                    return true;
-                }
-                else {
-                    console.log('Please input numeric characters only');
-                    return false;
-                }
+            el.addEventListener('blur', () => {
+                el.value = el.value.replace(regexp, '');
             })
-            
         });
     }
 
-    allnumeric()
-
-    
     function reset() {
         inputList.forEach((el) => {
-            let val = el.value = '';
+            el.value = '';
         });
 
         result.innerHTML = '';
@@ -48,10 +37,18 @@ function multiplication () {
         inputList.forEach((el) => {
             let val = el.value;
             let valArr = el.value.split('');
-            
+
             arr.push(valArr);
             arrVal.push(val);
         });
+
+        if (!+arrVal[0] || !+arrVal[1]) {
+            const err = document.createElement('div');
+            err.classList.add('mlp-error');
+            err.innerText = errorText;
+            result.appendChild(err)
+            return false;
+        }
         
         // ==== header
         const resultHtmlWrap = document.createElement('div');

@@ -13,13 +13,18 @@
         align-items: center
         flex-wrap: wrap
         
-        // &::before
-        //     content: 'X'
-        //     font-size: 16px
-        //     font-weight: 700
-        //     margin: 0.3em 0.6em
-        //     line-height: 1
-        //     color: $grey-800
+        &::before
+            content: 'X'
+            font-size: 3em
+            font-weight: 700
+            margin: -0.5em 0.2em -0.5em auto
+            top: -0.12em
+            line-height: 1
+            color: $grey-800
+            position: relative
+            z-index: 1
+            opacity: 0.05
+            pointer-events: none
 
     &-input
         padding: 0.5em
@@ -71,7 +76,6 @@
             li
                 width: 1em
                 text-align: center
-                // outline: 1px solid #ccc
         &-header
             padding-bottom: 0.2em
             margin-bottom: 0.2em
@@ -90,7 +94,6 @@
         
         &-middle
             position: relative
-            // outline: 1px solid #eee
 
             & + &::before
                 content: '+'
@@ -103,3 +106,8 @@
             margin-top: 0.2em
             border-top: 2px solid $grey-300
 
+    &-error
+        color: $red-600
+        margin-left: -10px
+        font-size: 18px
+        letter-spacing: 0.04em
