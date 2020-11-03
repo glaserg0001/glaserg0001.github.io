@@ -522,6 +522,20 @@ select.input {
   vertical-align: middle;
 }
 
+.list-link {
+  background: linear-gradient(0deg, #ee6e73 0px, #ee6e73 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 100%);
+  background-repeat: no-repeat;
+  transition: all .3s ease-in-out;
+  background-size: 0% 100%;
+  padding: 0 0 2px;
+}
+
+@media only screen and (min-width: 1025px) {
+  .list-link:hover {
+    background-size: 100% 100%;
+  }
+}
+
 .list_title {
   margin: 20px 0 10px;
   text-transform: none;

@@ -57,6 +57,17 @@
     a
         vertical-align: middle
 
+    &-link
+        background: linear-gradient(0deg, color(primary) 0px, color(primary) 2px, rgba($white, 0) 2px, rgba($white, 0) 100%)
+        background-repeat: no-repeat
+        transition: all .3s ease-in-out
+        background-size: 0% 100%
+        padding: 0 0 2px
+
+        +on-event
+            // color: $grey-800
+            background-size: 100% 100%
+
     &_title
         margin: 20px 0 10px
         text-transform: none

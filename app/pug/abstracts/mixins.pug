@@ -11,4 +11,4 @@ mixin listOfLinks(name)
           li
             if item.linkOuter
               a(href=item.linkOuter class=`link_icon ${item.icon}` target="_blank")
-            a(href=item.link)= item.title
+            a(href=item.link).list-link= item.title

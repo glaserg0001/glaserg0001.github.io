@@ -15,10 +15,10 @@
 
 .mlp-inputfield::before {
   content: 'X';
-  font-size: 3em;
+  font-size: 2em;
   font-weight: 700;
   margin: -0.5em 0.2em -0.5em auto;
-  top: -0.12em;
+  top: -0.16em;
   line-height: 1;
   color: #616161;
   position: relative;
@@ -34,6 +34,7 @@
   border: 2px solid #e0e0e0;
   border-radius: 5px;
   letter-spacing: 0.1em;
+  max-width: 100%;
 }
 
 .mlp-input:first-child {
