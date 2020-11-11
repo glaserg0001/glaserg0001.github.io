@@ -1,18 +1,48 @@
-var xx = 0;
-let a = pow(2, 4);
+let target = document.getElementById('some-id');
 
-console.log('result: ' + a);
+// Конфигурация observer (за какими изменениями наблюдать)
+const config = {
+    attributes: true,
+    childList: true,
+    subtree: true
+}; 
 
-
-function pow(x, n) {
-    
-    console.log(xx)
-    if (n === 1) {
-        console.log('if 1');
-        return x;
+// Функция обратного вызова при срабатывании мутации
+const callback = function(mutationsList, observer) {
+    console.log(mutationsList)
+    for (let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+            console.log('A child node has been added or removed.');
+        } else if (mutation.type === 'attributes') {
+            console.log('The ' + mutation.attributeName + ' attribute was modified.');
+        }
     }
-    
-    xx = x * pow(x, n - 1);
-    console.log(xx)
-    return xx
-}
+};
+
+// Создаем экземпляр наблюдателя с указанной функцией обратного вызова
+const observer = new MutationObserver(callback);
+
+// Начинаем наблюдение за настроенными изменениями целевого элемента
+observer.observe(target, config);
+
+let btn = document.querySelector('.js-btn');
+let btnAttr = document.querySelector('.js-btn-1');
+
+let count = 1;
+let countAttr = 1;
+
+btn.addEventListener('click', () => {
+    const div = document.createElement('div');
+    div.classList.add('test');
+    div.innerHTML = `Content ${count}`;
+    target.appendChild(div);
+    count++;
+});
+
+btnAttr.addEventListener('click', () => {
+    const div = document.querySelector('.test');
+    div.classList.add(`test-${countAttr}`);
+    countAttr++;
+
+    btn.click()
+})
