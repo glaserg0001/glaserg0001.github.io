@@ -133,19 +133,19 @@ select.input
     padding: .4em .8em .6em
     font-size: 20px
     line-height: 1
-    color: #fff
-    background-color: #fff
+    color: $dark
+    background-color: $grey-200
     border: 1px solid transparent
     white-space: nowrap
     text-align: center
     text-decoration: none
     cursor: pointer
-    border-radius: 15px
     +trans
     user-select: none
     z-index: 1
-    &:hover
-        background-color: darken(#fff, 5%)
+    
+    +on-event
+        background-color: $grey-400
 
 .cup
     position: relative
