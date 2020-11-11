@@ -11,20 +11,33 @@
 (function() {
   'use strict';
 
-  let target = document.querySelector('.html5-video-player');
+  const target = document.querySelector('.html5-video-player');
+  const btnMute = document.querySelector('.ytp-mute-button');
+  const volSlider = document.querySelector('.ytp-volume-slider-handle');
+
+//   console.log(target)
 
   const config = {
       attributes: true,
-      childList: true,
-      subtree: true
+    //   childList: true,
+    //   subtree: true
   };
 
   const callback = function(mutationsList, observer) {
+      console.log('start')
       for (let mutation of mutationsList) {
           if (mutation.attributeName === 'class') {
-            if (target.classList.contains('ad-showing')) {
-                console.log('wwwwwwww')
+
+            const vol = !!parseInt(volSlider.style.left);
+
+            console.log(vol)
+
+            if (target.classList.contains('ad-showing') && vol) {
+                btnMute.click()
+                // btnMute.setAttribute('data-mute', true)
             }
+
+            if () {}
           }
       }
   };

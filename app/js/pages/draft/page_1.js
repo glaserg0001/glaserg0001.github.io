@@ -1,4 +1,10 @@
-let target = document.getElementById('some-id');
+let target = document.getElementById('some-id') || false;
+let testing = document.getElementById('aaaaa') || false;
+
+// console.log(target)
+// console.log(testing)
+
+console.log( parseInt(target.style.left) )
 
 // Конфигурация observer (за какими изменениями наблюдать)
 const config = {
