@@ -4,7 +4,7 @@ let testing = document.getElementById('aaaaa') || false;
 // console.log(target)
 // console.log(testing)
 
-console.log( parseInt(target.style.left) )
+// console.log( parseInt(target.style.left) )
 
 // Конфигурация observer (за какими изменениями наблюдать)
 const config = {
@@ -15,7 +15,7 @@ const config = {
 
 // Функция обратного вызова при срабатывании мутации
 const callback = function(mutationsList, observer) {
-    console.log(mutationsList)
+    // console.log(mutationsList)
     for (let mutation of mutationsList) {
         if (mutation.type === 'childList') {
             console.log('A child node has been added or removed.');
@@ -51,4 +51,44 @@ btnAttr.addEventListener('click', () => {
     countAttr++;
 
     btn.click()
-})
+});
+
+// ======================================== Замыкания START ====
+// https://youtu.be/pahO5XjnfLA
+
+function urlGenerator(domain) {
+    return function (url) {
+        return `https://${url}.${domain}`
+    }
+}
+
+const comUrl = urlGenerator('com');
+
+// console.log(comUrl('google'))
+
+// ----
+
+function bind(context, fn) {
+    return function (...args) {
+        fn.apply(context, ...args)
+    }
+}
+
+function logPerson() {
+    console.log(`Person: ${this.name}, ${this.age}, ${this.job}`)
+}
+
+const person1 = {name: 'Михаил', age: 22, job: 'Frontend'}
+const person2 = {name: 'Елена', age: 19, job: 'SMM'}
+
+// bind(person1, logPerson)()
+// bind(person2, logPerson)()
+
+// ======================================== Замыкания END ====
+
+// ======================================== Event Loop START ====
+window.setTimeout(function () {
+    console.log('Time')
+}, 2000)
+// ======================================== Event Loop END ====
+
