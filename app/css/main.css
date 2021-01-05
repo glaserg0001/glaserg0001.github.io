@@ -655,7 +655,6 @@ select.input {
   background-color: #fff;
   color: #212121;
   box-shadow: 3px 3px 10px rgba(33, 33, 33, 0.3);
-  text-align: right;
   transition: all 0.2s linear, transform 0s 0.2s linear;
   visibility: hidden;
   opacity: 0;

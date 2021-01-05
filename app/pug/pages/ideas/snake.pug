@@ -1,0 +1,14 @@
+extends ../../base/main
+
+block variables
+  - var pageTitle = 'Snake'
+  - var baseUrlLvl = 1
+
+block styles
+  link(rel='stylesheet' href= URL_file('pages/ideas/snake', baseUrlLvl))
+
+block content
+  .snake#js-snake
+  
+block scripts
+  script(src= URL_file('pages/ideas/snake', baseUrlLvl, 'js'))
