@@ -4,6 +4,23 @@
   border-bottom: 1px solid #e0e0e0;
 }
 
+.snake-body__cell {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 0 2px;
+  color: #e0e0e0;
+  border: 4px solid currentColor;
+  background: linear-gradient(currentColor, currentColor) no-repeat center;
+  background-size: 12px 12px;
+  transition: all 1s;
+}
+
+.snake-body__cell:hover {
+  color: #212121;
+  transition: all 0s;
+}
+
 .snake-footer {
   padding-top: 10px;
   margin-top: 10px;

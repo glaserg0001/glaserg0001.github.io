@@ -1,10 +1,14 @@
-function Snake(id) {
+function Snake(id, size) {
+    const blockName = 'snake';
+
     this.container = document.getElementById(id);
+    this.x = size[0];
+    this.y = size[1];
 
     // ==== Header
     this.header = function () {
         const _header = document.createElement('div');
-        _header.classList.add('snake-header');
+        _header.classList.add(`${blockName}-header`);
 
         _header.innerText = 'Header'
 
@@ -12,21 +16,37 @@ function Snake(id) {
         this.container.append(_header);
     };
 
-    // ==== Body
-    this.body = function () {
-        const _body = document.createElement('div');
-        _body.classList.add('snake-body');
+    // ==== Middle
+    this.middle = function () {
+        const _middle = document.createElement('div');
+        _middle.classList.add(`${blockName}-body`);
 
-        _body.innerText = 'body'
+        for (let i = 0; i < this.y; i++) {
+            for (let j = 0; j < this.x; j++) {
+                console.log(this.y)
+                const _cell = document.createElement('i');
+                _cell.classList.add(`${blockName}-body__cell`, `js-${blockName}-cell`);
+                _cell.setAttribute('data-x', j + 1);
+                _cell.setAttribute('data-y', i + 1);
+                _middle.append(_cell);
+            }
+            const br = document.createElement('br');
+            _middle.append(br)
+        }
 
-        // append body block
-        this.container.append(_body);
+        // append middle block
+        this.container.append(_middle);
+        
+        // create snake
+        function snakeBody() {
+            
+        }
     };
 
     // ==== Footer
     this.footer = function () {
         const _footer = document.createElement('div');
-        _footer.classList.add('snake-footer');
+        _footer.classList.add(`${blockName}-footer`);
 
         _footer.innerText = 'Footer'
 
@@ -38,11 +58,11 @@ function Snake(id) {
 
     this.main = function () {
         this.header();
-        this.body();
+        this.middle();
         this.footer();
     }
 
     this.main()
 }
 
-let snake = new Snake('js-snake')
+let snake = new Snake('js-snake', [10, 12])
