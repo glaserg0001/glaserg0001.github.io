@@ -1,10 +1,10 @@
-.snake-header {
+.field-header {
   padding-bottom: 10px;
   margin-bottom: 10px;
   border-bottom: 1px solid #e0e0e0;
 }
 
-.snake-body__cell {
+.field-middle__cell {
   display: inline-block;
   width: 30px;
   height: 30px;
@@ -16,13 +16,16 @@
   transition: all 1s;
 }
 
-.snake-body__cell:hover {
-  color: #212121;
-  transition: all 0s;
-}
-
-.snake-footer {
+.field-footer {
   padding-top: 10px;
   margin-top: 10px;
   border-top: 1px solid #e0e0e0;
+}
+
+.snake-body {
+  color: #616161;
+}
+
+.snake-head {
+  color: #000;
 }

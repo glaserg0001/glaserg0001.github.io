@@ -1,5 +1,5 @@
 function Snake(id, size) {
-    const blockName = 'snake';
+    const blockName = 'field';
 
     this.container = document.getElementById(id);
     this.x = size[0];
@@ -19,28 +19,48 @@ function Snake(id, size) {
     // ==== Middle
     this.middle = function () {
         const _middle = document.createElement('div');
-        _middle.classList.add(`${blockName}-body`);
+        _middle.classList.add(`${blockName}-middle`);
 
+        let _coords = [];
+
+        // create grid
         for (let i = 0; i < this.y; i++) {
+            let _coordsRow = [];
             for (let j = 0; j < this.x; j++) {
-                console.log(this.y)
                 const _cell = document.createElement('i');
-                _cell.classList.add(`${blockName}-body__cell`, `js-${blockName}-cell`);
-                _cell.setAttribute('data-x', j + 1);
-                _cell.setAttribute('data-y', i + 1);
+                _cell.classList.add(`${blockName}-middle__cell`, `js-${blockName}-cell`);
+                _cell.setAttribute('data-x', j);
+                _cell.setAttribute('data-y', i);
                 _middle.append(_cell);
+
+                _coordsRow.push(_cell);
             }
+            _coords.push(_coordsRow)
             const br = document.createElement('br');
             _middle.append(br)
         }
+
+        console.log(_coords[4][5].getAttribute('data-x'))
+        // _coords[4][5].classList.add('snake-body')
+
+        console.log(_coords[1][3])
 
         // append middle block
         this.container.append(_middle);
         
         // create snake
-        function snakeBody() {
-            
+        function snakeCreate() {
+            const bodyMinSize = 3;
+            const bodyArr = [[3,5], [2,5], [1,5]];
+
+            for (let i = 0; i < bodyArr.length; i++) {
+                const a = _coords[bodyArr[i][1]][bodyArr[i][0]];
+                a.classList.add('snake-body');
+                if (i == 0) a.classList.add('snake-head');
+            }
         }
+
+        snakeCreate();
     };
 
     // ==== Footer
@@ -54,7 +74,7 @@ function Snake(id, size) {
         this.container.append(_footer);
     };
     
-    console.log(this.container);
+    // console.log(this.container);
 
     this.main = function () {
         this.header();
