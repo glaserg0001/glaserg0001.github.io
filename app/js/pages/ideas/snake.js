@@ -1,9 +1,53 @@
-function Snake(id, size) {
+function Snake(id, size, snakeSizeBase) {
     const blockName = 'field';
 
     this.container = document.getElementById(id);
     this.x = size[0];
     this.y = size[1];
+    this.snakeSizeBase = snakeSizeBase;
+    this.snakeBody = [];
+    this.coords = []; // y - 1st level; x - 2nd level; e.g. this.coords[y][x]
+
+    if (this.snakeSizeBase >= this.x) {
+        this.container.innerHTML = '<div style="color: red;">Please enter less value for the size of the snake</div>'
+        return false
+    }
+
+    // generate the random integer
+    this.getRandomInt = function(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    };
+    // generate random food position
+    this.foodGenerate = function () {
+        const x = this.getRandomInt(0, this.x);
+        const y = this.getRandomInt(0, this.y);
+        return [x, y]
+    }
+    // create a food
+    this.foodCreate = function () {
+        let foodCoords = this.foodGenerate();
+        while (this.coords[foodCoords[1]][foodCoords[0]].classList.contains('snake-body')) {
+            console.log('while')
+            foodCoords = this.foodGenerate();
+        }
+        this.coords[foodCoords[1]][foodCoords[0]].classList.add('snake-food');
+    };
+
+    // create a snake
+    this.snakeCreate = function () {
+        let _snakeX = this.getRandomInt(this.snakeSizeBase - 1, this.x);
+        const _snakeY = this.getRandomInt(0, this.y);
+        for (let i = 1; i <= this.snakeSizeBase; i++) {
+            this.snakeBody.push([_snakeX, _snakeY]);
+            _snakeX--
+        }
+
+        for (let i = 0; i < this.snakeBody.length; i++) {
+            const _snakeBodyCell = this.coords[this.snakeBody[i][1]][this.snakeBody[i][0]];
+            _snakeBodyCell.classList.add('snake-body');
+            if (i == 0) _snakeBodyCell.classList.add('m-head');
+        }
+    }
 
     // ==== Header
     this.header = function () {
@@ -15,13 +59,10 @@ function Snake(id, size) {
         // append header block
         this.container.append(_header);
     };
-
     // ==== Middle
     this.middle = function () {
         const _middle = document.createElement('div');
         _middle.classList.add(`${blockName}-middle`);
-
-        let _coords = [];
 
         // create grid
         for (let i = 0; i < this.y; i++) {
@@ -35,34 +76,19 @@ function Snake(id, size) {
 
                 _coordsRow.push(_cell);
             }
-            _coords.push(_coordsRow)
+            this.coords.push(_coordsRow)
             const br = document.createElement('br');
             _middle.append(br)
         }
 
-        console.log(_coords[4][5].getAttribute('data-x'))
-        // _coords[4][5].classList.add('snake-body')
-
-        console.log(_coords[1][3])
-
         // append middle block
         this.container.append(_middle);
         
-        // create snake
-        function snakeCreate() {
-            const bodyMinSize = 3;
-            const bodyArr = [[3,5], [2,5], [1,5]];
+        this.snakeCreate();
+        this.foodCreate();
 
-            for (let i = 0; i < bodyArr.length; i++) {
-                const a = _coords[bodyArr[i][1]][bodyArr[i][0]];
-                a.classList.add('snake-body');
-                if (i == 0) a.classList.add('snake-head');
-            }
-        }
-
-        snakeCreate();
     };
-
+    
     // ==== Footer
     this.footer = function () {
         const _footer = document.createElement('div');
@@ -73,16 +99,16 @@ function Snake(id, size) {
         // append footer block
         this.container.append(_footer);
     };
-    
-    // console.log(this.container);
-
     this.main = function () {
         this.header();
         this.middle();
         this.footer();
     }
-
     this.main()
 }
 
-let snake = new Snake('js-snake', [10, 12])
+let snake = new Snake(
+        id = 'js-snake',
+        size = [10, 12],
+        snakeSizeBase = 3
+    )

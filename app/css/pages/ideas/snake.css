@@ -26,6 +26,10 @@
   color: #616161;
 }
 
-.snake-head {
+.snake-body.m-head {
   color: #000;
+}
+
+.snake-food {
+  color: #ee6e73;
 }
