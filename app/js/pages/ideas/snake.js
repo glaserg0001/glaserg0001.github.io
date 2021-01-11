@@ -8,6 +8,9 @@ function Snake(id, size, snakeSizeBase) {
     this.snakeBody = [];
     this.coords = []; // y - 1st level; x - 2nd level; e.g. this.coords[y][x]
     this.error = 'Please enter less value for the snake size';
+    let direction = 'right';
+    let stop = false;
+    let enableKeydown = true; // allow to change direction
 
     if (this.snakeSizeBase >= this.x) {
         this.container.innerHTML = `<div style="color: red;">${this.error}</div>`
@@ -54,22 +57,27 @@ function Snake(id, size, snakeSizeBase) {
 
     // Snake move
     this.snakeMove = function () {
+
+        window.addEventListener('keydown', function (event) {
+            // TODO: switch or direction = event.code
+            if (event.code == 'ArrowRight' && direction != 'left' && enableKeydown) {
+                direction = 'right';
+            } else if (event.code == 'ArrowLeft' && direction != 'right' && enableKeydown) {
+                direction = 'left';
+            } else if (event.code == 'ArrowUp' && direction != 'down' && enableKeydown) {
+                direction = 'up';
+            } else if (event.code == 'ArrowDown' && direction != 'up' && enableKeydown) {
+                direction = 'down';
+            }
+            enableKeydown = false;
+        });
+
         let interval = setInterval(() => {
             // debugger
             const snakeHeadX = this.snakeBody[0][0];
             const snakeHeadY = this.snakeBody[0][1];
-            const snakeHeadHTML = this.coords[snakeHeadY][snakeHeadX];
             // remove class m-head from head of Snake
-            snakeHeadHTML.classList.remove('m-head');
-            
-            // right START
-            // add new cell
-            const snakeHeadXNext = (snakeHeadX == this.x - 1) ? 0 : snakeHeadX + 1;
-            // console.log(snakeHeadXNext);
-            // console.log(snakeHeadX, snakeHeadY);
-            this.snakeBody.unshift([snakeHeadXNext, snakeHeadY]);
-            // add class for a new cell
-            this.coords[snakeHeadY][snakeHeadXNext].classList.add('snake-body', 'm-head');
+            this.coords[snakeHeadY][snakeHeadX].classList.remove('m-head');
             // remove class for old cell (last)
             const snakeBodyLast = this.snakeBody[this.snakeBody.length - 1];
             const snakeBodyLastX = snakeBodyLast[0];
@@ -77,11 +85,50 @@ function Snake(id, size, snakeSizeBase) {
             this.coords[snakeBodyLastY][snakeBodyLastX].classList.remove('snake-body');
             // remove old cell (last)
             this.snakeBody.pop()
+        
+            // TODO: switch
+            if (direction == 'right') {
+                // add new cell
+                const snakeHeadXNext = (snakeHeadX == this.x - 1) ? 0 : snakeHeadX + 1;
+                this.snakeBody.unshift([snakeHeadXNext, snakeHeadY]);
+                // check if snake collided with itself
+                stop = this.coords[snakeHeadY][snakeHeadXNext].classList.contains('snake-body');
+                // add class for a new cell
+                this.coords[snakeHeadY][snakeHeadXNext].classList.add('snake-body', 'm-head');
+            } else if (direction == 'left') {
+                // add new cell
+                const snakeHeadXNext = (snakeHeadX == 0) ? this.x - 1 : snakeHeadX - 1;
+                this.snakeBody.unshift([snakeHeadXNext, snakeHeadY]);
+                // check if snake collided with itself
+                stop = this.coords[snakeHeadY][snakeHeadXNext].classList.contains('snake-body');
+                // add class for a new cell
+                this.coords[snakeHeadY][snakeHeadXNext].classList.add('snake-body', 'm-head');
+            } else if (direction == 'up') {
+                // add new cell
+                const snakeHeadYNext = (snakeHeadY == 0) ? this.y - 1 : snakeHeadY - 1;
+                this.snakeBody.unshift([snakeHeadX, snakeHeadYNext]);
+                // check if snake collided with itself
+                stop = this.coords[snakeHeadYNext][snakeHeadX].classList.contains('snake-body');
+                // add class for a new cell
+                this.coords[snakeHeadYNext][snakeHeadX].classList.add('snake-body', 'm-head');
+            } else if (direction == 'down') {
+                // add new cell
+                const snakeHeadYNext = (snakeHeadY == this.y - 1) ? 0 : snakeHeadY + 1;
+                this.snakeBody.unshift([snakeHeadX, snakeHeadYNext]);
+                // check if snake collided with itself
+                stop = this.coords[snakeHeadYNext][snakeHeadX].classList.contains('snake-body');
+                // add class for a new cell
+                this.coords[snakeHeadYNext][snakeHeadX].classList.add('snake-body', 'm-head');
+            }
 
-            // console.log(snakeBodyLastX);
-            console.log(this.snakeBody)
+            if (stop) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    alert('stop')
+                }, 100);
+            }
             
-            // right END
+            enableKeydown = true;
         }, 2000);
     }
 
@@ -158,7 +205,7 @@ function Snake(id, size, snakeSizeBase) {
 let snake = new Snake(
         id = 'js-snake',
         size = [10, 12],
-        snakeSizeBase = 3
+        snakeSizeBase = 9
     )
 
 
