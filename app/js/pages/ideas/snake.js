@@ -8,15 +8,15 @@ function Snake(id, size, snakeSizeBase) {
     this.snakeBody = [];
     this.coords = []; // y - 1st level; x - 2nd level; e.g. this.coords[y][x]
     this.error = 'Please enter less value for the snake size';
-    let direction = 'right';
-    let stop = false;
-    let enableKeydown = true; // allow to change direction
+    this.direction = 'right';
+    this.stop = false;
+    this.enableKeydown = true; // allow to change direction
+    this.snakeSpeed = 1000;
 
     if (this.snakeSizeBase >= this.x) {
         this.container.innerHTML = `<div style="color: red;">${this.error}</div>`
         return false
     }
-
     // generate the random integer
     this.getRandomInt = function(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
@@ -27,6 +27,24 @@ function Snake(id, size, snakeSizeBase) {
         const y = this.getRandomInt(0, this.y);
         return [x, y]
     }
+    // arrows to control the snake
+    this.snakeMoveArrows = function (event) {
+        console.log(this.enableKeydown)
+        // TODO: switch or direction = event.code
+        if (event.code == 'ArrowRight' && this.direction != 'left' && this.enableKeydown) {
+            this.direction = 'right';
+            this.enableKeydown = false;
+        } else if (event.code == 'ArrowLeft' && this.direction != 'right' && this.enableKeydown) {
+            this.direction = 'left';
+            this.enableKeydown = false;
+        } else if (event.code == 'ArrowUp' && this.direction != 'down' && this.enableKeydown) {
+            this.direction = 'up';
+            this.enableKeydown = false;
+        } else if (event.code == 'ArrowDown' && this.direction != 'up' && this.enableKeydown) {
+            this.direction = 'down';
+            this.enableKeydown = false;
+        }
+    }
     // create a food
     this.foodCreate = function () {
         let foodCoords = this.foodGenerate();
@@ -36,7 +54,6 @@ function Snake(id, size, snakeSizeBase) {
         }
         this.coords[foodCoords[1]][foodCoords[0]].classList.add('snake-food');
     };
-
     // create a snake
     this.snakeCreate = function () {
         let _snakeX = this.getRandomInt(this.snakeSizeBase - 1, this.x);
@@ -52,25 +69,11 @@ function Snake(id, size, snakeSizeBase) {
             if (i == 0) _snakeBodyCell.classList.add('m-head');
         }
     }
-
-    
-
     // Snake move
     this.snakeMove = function () {
+        window.addEventListener('keydown', this.snakeMoveArrows.bind(this));
 
-        window.addEventListener('keydown', function (event) {
-            // TODO: switch or direction = event.code
-            if (event.code == 'ArrowRight' && direction != 'left' && enableKeydown) {
-                direction = 'right';
-            } else if (event.code == 'ArrowLeft' && direction != 'right' && enableKeydown) {
-                direction = 'left';
-            } else if (event.code == 'ArrowUp' && direction != 'down' && enableKeydown) {
-                direction = 'up';
-            } else if (event.code == 'ArrowDown' && direction != 'up' && enableKeydown) {
-                direction = 'down';
-            }
-            enableKeydown = false;
-        });
+        
 
         let interval = setInterval(() => {
             // debugger
@@ -87,49 +90,49 @@ function Snake(id, size, snakeSizeBase) {
             this.snakeBody.pop()
         
             // TODO: switch
-            if (direction == 'right') {
+            if (this.direction == 'right') {
                 // add new cell
                 const snakeHeadXNext = (snakeHeadX == this.x - 1) ? 0 : snakeHeadX + 1;
                 this.snakeBody.unshift([snakeHeadXNext, snakeHeadY]);
                 // check if snake collided with itself
-                stop = this.coords[snakeHeadY][snakeHeadXNext].classList.contains('snake-body');
+                this.stop = this.coords[snakeHeadY][snakeHeadXNext].classList.contains('snake-body');
                 // add class for a new cell
                 this.coords[snakeHeadY][snakeHeadXNext].classList.add('snake-body', 'm-head');
-            } else if (direction == 'left') {
+            } else if (this.direction == 'left') {
                 // add new cell
                 const snakeHeadXNext = (snakeHeadX == 0) ? this.x - 1 : snakeHeadX - 1;
                 this.snakeBody.unshift([snakeHeadXNext, snakeHeadY]);
                 // check if snake collided with itself
-                stop = this.coords[snakeHeadY][snakeHeadXNext].classList.contains('snake-body');
+                this.stop = this.coords[snakeHeadY][snakeHeadXNext].classList.contains('snake-body');
                 // add class for a new cell
                 this.coords[snakeHeadY][snakeHeadXNext].classList.add('snake-body', 'm-head');
-            } else if (direction == 'up') {
+            } else if (this.direction == 'up') {
                 // add new cell
                 const snakeHeadYNext = (snakeHeadY == 0) ? this.y - 1 : snakeHeadY - 1;
                 this.snakeBody.unshift([snakeHeadX, snakeHeadYNext]);
                 // check if snake collided with itself
-                stop = this.coords[snakeHeadYNext][snakeHeadX].classList.contains('snake-body');
+                this.stop = this.coords[snakeHeadYNext][snakeHeadX].classList.contains('snake-body');
                 // add class for a new cell
                 this.coords[snakeHeadYNext][snakeHeadX].classList.add('snake-body', 'm-head');
-            } else if (direction == 'down') {
+            } else if (this.direction == 'down') {
                 // add new cell
                 const snakeHeadYNext = (snakeHeadY == this.y - 1) ? 0 : snakeHeadY + 1;
                 this.snakeBody.unshift([snakeHeadX, snakeHeadYNext]);
                 // check if snake collided with itself
-                stop = this.coords[snakeHeadYNext][snakeHeadX].classList.contains('snake-body');
+                this.stop = this.coords[snakeHeadYNext][snakeHeadX].classList.contains('snake-body');
                 // add class for a new cell
                 this.coords[snakeHeadYNext][snakeHeadX].classList.add('snake-body', 'm-head');
             }
 
-            if (stop) {
+            if (this.stop) {
                 clearInterval(interval);
                 setTimeout(() => {
                     alert('stop')
                 }, 100);
             }
             
-            enableKeydown = true;
-        }, 2000);
+            this.enableKeydown = true;
+        }, this.snakeSpeed);
     }
 
     // ==== Header

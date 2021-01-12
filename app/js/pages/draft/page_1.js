@@ -53,6 +53,42 @@ btnAttr.addEventListener('click', () => {
     btn.click()
 });
 
+// ======================================== call, bind, apply START ====
+// ==== bind START
+function func() {}
+func.bind() // передать контекст, который будет привязан к этой функции
+function hello() {
+    console.log('hello', this)
+}
+const person10 = {
+    name: 'Name 10',
+    age: 25,
+    sayHello: hello,
+    sayHelloWindow: hello.bind(window),
+    logInfo: function (arg1, arg2) {
+        console.log(this, arg1, arg2)
+    }
+}
+
+const person11 = {
+    name: 'Name 11',
+    age: 26
+}
+
+// person10.sayHelloWindow() // this = window
+// person10.logInfo.bind(person11, 1, 2)() // в объект person10 передали person11; console: {name: "Name 11", age: 26} 1 2
+// ==== bind END
+// ==== call START
+func.call() // метод вызывает функцию сразу
+person10.logInfo.call(person11, 1, 2)
+// ==== call END
+// ==== apply START
+func.apply() // передаем всегда 2 параметра. 2 параметра и больше - массив. Сразу вызывает функцию
+person10.logInfo.apply(person11,[ 1, 2])
+// ==== apply END
+// ======================================== call, bind, apply END ====
+
+
 // ======================================== Замыкания START ====
 // https://youtu.be/pahO5XjnfLA
 
@@ -88,7 +124,7 @@ const person2 = {name: 'Елена', age: 19, job: 'SMM'}
 
 // ======================================== Event Loop START ====
 window.setTimeout(function () {
-    console.log('Time')
+    // console.log('Time')
 }, 2000)
 // ======================================== Event Loop END ====
 
