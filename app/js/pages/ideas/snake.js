@@ -9,7 +9,7 @@ function Snake(id, size, snakeSizeBase) {
     this.coords = []; // y - 1st level; x - 2nd level; e.g. this.coords[y][x]
     this.error = 'Please enter less value for the snake size';
     this.direction = 'right';
-    this.stop = false;
+    this.gameOver = false;
     this.enableKeydown = true; // allow to change direction
     this.snakeSpeed = 1000;
 
@@ -29,7 +29,6 @@ function Snake(id, size, snakeSizeBase) {
     }
     // arrows to control the snake
     this.snakeMoveArrows = function (event) {
-        console.log(this.enableKeydown)
         // TODO: switch or direction = event.code
         if (event.code == 'ArrowRight' && this.direction != 'left' && this.enableKeydown) {
             this.direction = 'right';
@@ -49,7 +48,7 @@ function Snake(id, size, snakeSizeBase) {
     this.foodCreate = function () {
         let foodCoords = this.foodGenerate();
         while (this.coords[foodCoords[1]][foodCoords[0]].classList.contains('snake-body')) {
-            console.log('while')
+            console.log('food & snake')
             foodCoords = this.foodGenerate();
         }
         this.coords[foodCoords[1]][foodCoords[0]].classList.add('snake-food');
@@ -73,29 +72,19 @@ function Snake(id, size, snakeSizeBase) {
     this.snakeMove = function () {
         window.addEventListener('keydown', this.snakeMoveArrows.bind(this));
 
-        
-
         let interval = setInterval(() => {
-            // debugger
             const snakeHeadX = this.snakeBody[0][0];
             const snakeHeadY = this.snakeBody[0][1];
             // remove class m-head from head of Snake
             this.coords[snakeHeadY][snakeHeadX].classList.remove('m-head');
-            // remove class for old cell (last)
-            const snakeBodyLast = this.snakeBody[this.snakeBody.length - 1];
-            const snakeBodyLastX = snakeBodyLast[0];
-            const snakeBodyLastY = snakeBodyLast[1];
-            this.coords[snakeBodyLastY][snakeBodyLastX].classList.remove('snake-body');
-            // remove old cell (last)
-            this.snakeBody.pop()
-        
+            
             // TODO: switch
             if (this.direction == 'right') {
                 // add new cell
                 const snakeHeadXNext = (snakeHeadX == this.x - 1) ? 0 : snakeHeadX + 1;
                 this.snakeBody.unshift([snakeHeadXNext, snakeHeadY]);
                 // check if snake collided with itself
-                this.stop = this.coords[snakeHeadY][snakeHeadXNext].classList.contains('snake-body');
+                this.gameOver = this.coords[snakeHeadY][snakeHeadXNext].classList.contains('snake-body');
                 // add class for a new cell
                 this.coords[snakeHeadY][snakeHeadXNext].classList.add('snake-body', 'm-head');
             } else if (this.direction == 'left') {
@@ -103,7 +92,7 @@ function Snake(id, size, snakeSizeBase) {
                 const snakeHeadXNext = (snakeHeadX == 0) ? this.x - 1 : snakeHeadX - 1;
                 this.snakeBody.unshift([snakeHeadXNext, snakeHeadY]);
                 // check if snake collided with itself
-                this.stop = this.coords[snakeHeadY][snakeHeadXNext].classList.contains('snake-body');
+                this.gameOver = this.coords[snakeHeadY][snakeHeadXNext].classList.contains('snake-body');
                 // add class for a new cell
                 this.coords[snakeHeadY][snakeHeadXNext].classList.add('snake-body', 'm-head');
             } else if (this.direction == 'up') {
@@ -111,7 +100,7 @@ function Snake(id, size, snakeSizeBase) {
                 const snakeHeadYNext = (snakeHeadY == 0) ? this.y - 1 : snakeHeadY - 1;
                 this.snakeBody.unshift([snakeHeadX, snakeHeadYNext]);
                 // check if snake collided with itself
-                this.stop = this.coords[snakeHeadYNext][snakeHeadX].classList.contains('snake-body');
+                this.gameOver = this.coords[snakeHeadYNext][snakeHeadX].classList.contains('snake-body');
                 // add class for a new cell
                 this.coords[snakeHeadYNext][snakeHeadX].classList.add('snake-body', 'm-head');
             } else if (this.direction == 'down') {
@@ -119,29 +108,43 @@ function Snake(id, size, snakeSizeBase) {
                 const snakeHeadYNext = (snakeHeadY == this.y - 1) ? 0 : snakeHeadY + 1;
                 this.snakeBody.unshift([snakeHeadX, snakeHeadYNext]);
                 // check if snake collided with itself
-                this.stop = this.coords[snakeHeadYNext][snakeHeadX].classList.contains('snake-body');
+                this.gameOver = this.coords[snakeHeadYNext][snakeHeadX].classList.contains('snake-body');
                 // add class for a new cell
                 this.coords[snakeHeadYNext][snakeHeadX].classList.add('snake-body', 'm-head');
             }
 
-            if (this.stop) {
+            const snakeHeadNew = this.coords[this.snakeBody[0][1]][this.snakeBody[0][0]];
+            const snakeHasFood = snakeHeadNew.classList.contains('snake-food');
+            // to check if the Snake has eaten food
+            if (snakeHasFood) {
+                console.log(`Points: ${this.snakeBody.length}`);
+                snakeHeadNew.classList.remove('snake-food');
+                this.foodCreate()
+            } else {
+                // remove class for old cell (last)
+                const snakeBodyLast = this.snakeBody[this.snakeBody.length - 1];
+                const snakeBodyLastX = snakeBodyLast[0];
+                const snakeBodyLastY = snakeBodyLast[1];
+                this.coords[snakeBodyLastY][snakeBodyLastX].classList.remove('snake-body');
+                // remove old cell (last)
+                this.snakeBody.pop()
+            }
+
+            if (this.gameOver) {
                 clearInterval(interval);
                 setTimeout(() => {
-                    alert('stop')
+                    alert('Game Over')
                 }, 100);
             }
             
             this.enableKeydown = true;
         }, this.snakeSpeed);
     }
-
     // ==== Header
     this.header = function () {
         const _header = document.createElement('div');
         _header.classList.add(`${blockName}-header`);
-
         _header.innerHTML = 'Points: 0 <span style="float: right">Best Result: 0</span>'
-
         // append header block
         this.container.append(_header);
     };
