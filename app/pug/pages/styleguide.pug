@@ -1,0 +1,14 @@
+extends ../base/main
+
+block variables
+  - var pageTitle = 'Styleguide'
+  //- - var baseUrlLvl = 1
+
+block styles
+  link(rel='stylesheet' href= URL_file('pages/styleguide', baseUrlLvl))
+
+block content
+  h1 Styleguide
+  
+block scripts
+  script(src= URL_file('pages/styleguide', baseUrlLvl, 'js'))

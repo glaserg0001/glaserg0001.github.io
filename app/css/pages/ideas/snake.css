@@ -9,11 +9,14 @@
   border-bottom: 1px solid #e0e0e0;
 }
 
+.field-middle__row {
+  display: flex;
+}
+
 .field-middle__cell {
-  display: inline-block;
   width: 30px;
   height: 30px;
-  margin: 0 2px;
+  margin: 2px;
   color: #e0e0e0;
   border: 4px solid currentColor;
   background: linear-gradient(currentColor, currentColor) no-repeat center;

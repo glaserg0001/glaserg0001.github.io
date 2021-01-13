@@ -2,9 +2,10 @@ function Snake(id, size, snakeSizeBase) {
     this.blockName = 'field'; // CSS class
     this.jsPrefix = id; // `${this.jsPrefix}`
     
-    // classes of elements
+    // js classes of elements
     this.buttonStart = `${this.jsPrefix}-btn-start`;
     this.buttonReset = `${this.jsPrefix}-btn-reset`;
+    this.buttonPause = `${this.jsPrefix}-btn-pause`;
 
     this.container = document.getElementById(id);
     this.x = size[0];
@@ -18,6 +19,7 @@ function Snake(id, size, snakeSizeBase) {
     this.enableKeydown = true; // allow to change direction
     this.snakeSpeed = 1000;
     this.interval;
+    this.points = 0;
 
 
     if (this.snakeSizeBase >= this.x) {
@@ -75,79 +77,82 @@ function Snake(id, size, snakeSizeBase) {
             if (i == 0) _snakeBodyCell.classList.add('m-head');
         }
     }
+    this.snakeInterval = function () {
+        const snakeHeadX = this.snakeBody[0][0];
+        const snakeHeadY = this.snakeBody[0][1];
+        // remove class m-head from head of Snake
+        this.coords[snakeHeadY][snakeHeadX].classList.remove('m-head');
+        
+        // TODO: switch
+        if (this.direction == 'right') {
+            // add new cell
+            const snakeHeadXNext = (snakeHeadX == this.x - 1) ? 0 : snakeHeadX + 1;
+            this.snakeBody.unshift([snakeHeadXNext, snakeHeadY]);
+            // check if snake collided with itself
+            this.gameOver = this.coords[snakeHeadY][snakeHeadXNext].classList.contains('snake-body');
+            // add class for a new cell
+            this.coords[snakeHeadY][snakeHeadXNext].classList.add('snake-body', 'm-head');
+        } else if (this.direction == 'left') {
+            // add new cell
+            const snakeHeadXNext = (snakeHeadX == 0) ? this.x - 1 : snakeHeadX - 1;
+            this.snakeBody.unshift([snakeHeadXNext, snakeHeadY]);
+            // check if snake collided with itself
+            this.gameOver = this.coords[snakeHeadY][snakeHeadXNext].classList.contains('snake-body');
+            // add class for a new cell
+            this.coords[snakeHeadY][snakeHeadXNext].classList.add('snake-body', 'm-head');
+        } else if (this.direction == 'up') {
+            // add new cell
+            const snakeHeadYNext = (snakeHeadY == 0) ? this.y - 1 : snakeHeadY - 1;
+            this.snakeBody.unshift([snakeHeadX, snakeHeadYNext]);
+            // check if snake collided with itself
+            this.gameOver = this.coords[snakeHeadYNext][snakeHeadX].classList.contains('snake-body');
+            // add class for a new cell
+            this.coords[snakeHeadYNext][snakeHeadX].classList.add('snake-body', 'm-head');
+        } else if (this.direction == 'down') {
+            // add new cell
+            const snakeHeadYNext = (snakeHeadY == this.y - 1) ? 0 : snakeHeadY + 1;
+            this.snakeBody.unshift([snakeHeadX, snakeHeadYNext]);
+            // check if snake collided with itself
+            this.gameOver = this.coords[snakeHeadYNext][snakeHeadX].classList.contains('snake-body');
+            // add class for a new cell
+            this.coords[snakeHeadYNext][snakeHeadX].classList.add('snake-body', 'm-head');
+        }
+
+        const snakeHeadNew = this.coords[this.snakeBody[0][1]][this.snakeBody[0][0]];
+        const snakeHasFood = snakeHeadNew.classList.contains('snake-food');
+        // to check if the Snake has eaten food
+        if (snakeHasFood) {
+            snakeHeadNew.classList.remove('snake-food');
+            this.foodCreate();
+            this.points++
+        } else {
+            // remove class for old cell (last)
+            const snakeBodyLast = this.snakeBody[this.snakeBody.length - 1];
+            const snakeBodyLastX = snakeBodyLast[0];
+            const snakeBodyLastY = snakeBodyLast[1];
+            this.coords[snakeBodyLastY][snakeBodyLastX].classList.remove('snake-body');
+            // remove old cell (last)
+            this.snakeBody.pop()
+        }
+
+        console.log(this.points);
+
+        if (this.gameOver) {
+            clearInterval(this.interval);
+            setTimeout(() => {
+                alert('Game Over')
+            }, 100);
+        }
+        
+        this.enableKeydown = true;
+    }
     // Snake move
     this.snakeMove = function (buttonStart) {
         this.enableKeydown = true
         buttonStart.disabled = true
-
+        
         window.addEventListener('keydown', this.snakeMoveArrows.bind(this));
-
-        this.interval = setInterval(() => {
-            const snakeHeadX = this.snakeBody[0][0];
-            const snakeHeadY = this.snakeBody[0][1];
-            // remove class m-head from head of Snake
-            this.coords[snakeHeadY][snakeHeadX].classList.remove('m-head');
-            
-            // TODO: switch
-            if (this.direction == 'right') {
-                // add new cell
-                const snakeHeadXNext = (snakeHeadX == this.x - 1) ? 0 : snakeHeadX + 1;
-                this.snakeBody.unshift([snakeHeadXNext, snakeHeadY]);
-                // check if snake collided with itself
-                this.gameOver = this.coords[snakeHeadY][snakeHeadXNext].classList.contains('snake-body');
-                // add class for a new cell
-                this.coords[snakeHeadY][snakeHeadXNext].classList.add('snake-body', 'm-head');
-            } else if (this.direction == 'left') {
-                // add new cell
-                const snakeHeadXNext = (snakeHeadX == 0) ? this.x - 1 : snakeHeadX - 1;
-                this.snakeBody.unshift([snakeHeadXNext, snakeHeadY]);
-                // check if snake collided with itself
-                this.gameOver = this.coords[snakeHeadY][snakeHeadXNext].classList.contains('snake-body');
-                // add class for a new cell
-                this.coords[snakeHeadY][snakeHeadXNext].classList.add('snake-body', 'm-head');
-            } else if (this.direction == 'up') {
-                // add new cell
-                const snakeHeadYNext = (snakeHeadY == 0) ? this.y - 1 : snakeHeadY - 1;
-                this.snakeBody.unshift([snakeHeadX, snakeHeadYNext]);
-                // check if snake collided with itself
-                this.gameOver = this.coords[snakeHeadYNext][snakeHeadX].classList.contains('snake-body');
-                // add class for a new cell
-                this.coords[snakeHeadYNext][snakeHeadX].classList.add('snake-body', 'm-head');
-            } else if (this.direction == 'down') {
-                // add new cell
-                const snakeHeadYNext = (snakeHeadY == this.y - 1) ? 0 : snakeHeadY + 1;
-                this.snakeBody.unshift([snakeHeadX, snakeHeadYNext]);
-                // check if snake collided with itself
-                this.gameOver = this.coords[snakeHeadYNext][snakeHeadX].classList.contains('snake-body');
-                // add class for a new cell
-                this.coords[snakeHeadYNext][snakeHeadX].classList.add('snake-body', 'm-head');
-            }
-
-            const snakeHeadNew = this.coords[this.snakeBody[0][1]][this.snakeBody[0][0]];
-            const snakeHasFood = snakeHeadNew.classList.contains('snake-food');
-            // to check if the Snake has eaten food
-            if (snakeHasFood) {
-                snakeHeadNew.classList.remove('snake-food');
-                this.foodCreate()
-            } else {
-                // remove class for old cell (last)
-                const snakeBodyLast = this.snakeBody[this.snakeBody.length - 1];
-                const snakeBodyLastX = snakeBodyLast[0];
-                const snakeBodyLastY = snakeBodyLast[1];
-                this.coords[snakeBodyLastY][snakeBodyLastX].classList.remove('snake-body');
-                // remove old cell (last)
-                this.snakeBody.pop()
-            }
-
-            if (this.gameOver) {
-                clearInterval(this.interval);
-                setTimeout(() => {
-                    alert('Game Over')
-                }, 100);
-            }
-            
-            this.enableKeydown = true;
-        }, this.snakeSpeed);
+        this.interval = setInterval(this.snakeInterval.bind(this), this.snakeSpeed);
     }
     // start Snake
     this.snakeStartMove = function () {
@@ -176,13 +181,14 @@ function Snake(id, size, snakeSizeBase) {
         }
         let _middle = document.querySelector(`.${this.jsPrefix}-middle`)
         if (_middle) {
-            // clear all configuration when the reset button is clicked
+            // clear all configuration. Button Reset is clicked
             _middle.innerHTML = '';
             this.coords = [];
             this.snakeBody = [];
             clearInterval(this.interval);
             this.direction = 'right';
             this.enableKeydown = false;
+            this.points = 0;
         } else {
             _middle = document.createElement('div');
             _middle.classList.add(`${this.blockName}-middle`, `${this.jsPrefix}-middle`);
@@ -193,10 +199,11 @@ function Snake(id, size, snakeSizeBase) {
         for (let i = 0; i < this.y; i++) {
             let _coordsRow = [];
             const _row = document.createElement('div');
+            _row.classList.add(`${this.blockName}-middle__row`);
             for (let j = 0; j < this.x; j++) {
                 const _cell = document.createElement('i');
                 _cell.classList.add(`${this.blockName}-middle__cell`);
-                _middle.append(_cell);
+                _row.append(_cell);
 
                 _coordsRow.push(_cell);
             }
@@ -213,16 +220,20 @@ function Snake(id, size, snakeSizeBase) {
         _footer.classList.add(`${this.blockName}-footer`);
 
         const btnStart = document.createElement('button');
+        const btnPause = document.createElement('button');
         const btnReset = document.createElement('button');
 
         btnStart.classList.add(this.buttonStart);
+        btnPause.classList.add(this.buttonPause);
         btnReset.classList.add(this.buttonReset);
+        btnPause.style.marginLeft = '100px'; // temporary, should be deleted
         btnReset.style.float = 'right'; // temporary, should be deleted
         btnStart.innerText = 'Start';
+        btnPause.innerText = 'Pause';
         btnReset.innerText = 'Reset';
 
 
-        _footer.append(btnStart, btnReset);
+        _footer.append(btnStart, btnPause, btnReset);
 
         // append footer block
         this.container.append(_footer);
