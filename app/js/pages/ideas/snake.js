@@ -1,5 +1,10 @@
 function Snake(id, size, snakeSizeBase) {
-    const blockName = 'field';
+    this.blockName = 'field'; // CSS class
+    this.jsPrefix = id; // `${this.jsPrefix}`
+    
+    // classes of elements
+    this.buttonStart = `${this.jsPrefix}-btn-start`;
+    this.buttonReset = `${this.jsPrefix}-btn-reset`;
 
     this.container = document.getElementById(id);
     this.x = size[0];
@@ -12,6 +17,8 @@ function Snake(id, size, snakeSizeBase) {
     this.gameOver = false;
     this.enableKeydown = true; // allow to change direction
     this.snakeSpeed = 1000;
+    this.interval;
+
 
     if (this.snakeSizeBase >= this.x) {
         this.container.innerHTML = `<div style="color: red;">${this.error}</div>`
@@ -69,10 +76,13 @@ function Snake(id, size, snakeSizeBase) {
         }
     }
     // Snake move
-    this.snakeMove = function () {
+    this.snakeMove = function (buttonStart) {
+        this.enableKeydown = true
+        buttonStart.disabled = true
+
         window.addEventListener('keydown', this.snakeMoveArrows.bind(this));
 
-        let interval = setInterval(() => {
+        this.interval = setInterval(() => {
             const snakeHeadX = this.snakeBody[0][0];
             const snakeHeadY = this.snakeBody[0][1];
             // remove class m-head from head of Snake
@@ -117,7 +127,6 @@ function Snake(id, size, snakeSizeBase) {
             const snakeHasFood = snakeHeadNew.classList.contains('snake-food');
             // to check if the Snake has eaten food
             if (snakeHasFood) {
-                console.log(`Points: ${this.snakeBody.length}`);
                 snakeHeadNew.classList.remove('snake-food');
                 this.foodCreate()
             } else {
@@ -131,7 +140,7 @@ function Snake(id, size, snakeSizeBase) {
             }
 
             if (this.gameOver) {
-                clearInterval(interval);
+                clearInterval(this.interval);
                 setTimeout(() => {
                     alert('Game Over')
                 }, 100);
@@ -140,55 +149,75 @@ function Snake(id, size, snakeSizeBase) {
             this.enableKeydown = true;
         }, this.snakeSpeed);
     }
+    // start Snake
+    this.snakeStartMove = function () {
+        const buttonStart = document.querySelector(`.${this.buttonStart}`);
+        buttonStart.addEventListener('click', this.snakeMove.bind(this, buttonStart));
+    }
+    // reset Snake
+    this.snakeReset = function () {
+        const buttonReset = document.querySelector(`.${this.buttonReset}`);
+        const buttonStart = document.querySelector(`.${this.buttonStart}`);
+        buttonReset.addEventListener('click', this.middle.bind(this, buttonStart));
+    }
     // ==== Header
     this.header = function () {
         const _header = document.createElement('div');
-        _header.classList.add(`${blockName}-header`);
+        _header.classList.add(`${this.blockName}-header`);
         _header.innerHTML = 'Points: 0 <span style="float: right">Best Result: 0</span>'
         // append header block
         this.container.append(_header);
     };
     // ==== Middle
-    this.middle = function () {
-        const _middle = document.createElement('div');
-        _middle.classList.add(`${blockName}-middle`);
+    this.middle = function (buttonStart) {
+        if (buttonStart) {
+            // buttonStart.removeAttribute('disabled')
+            buttonStart.disabled = false
+        }
+        let _middle = document.querySelector(`.${this.jsPrefix}-middle`)
+        if (_middle) {
+            // clear all configuration when the reset button is clicked
+            _middle.innerHTML = '';
+            this.coords = [];
+            this.snakeBody = [];
+            clearInterval(this.interval);
+            this.direction = 'right';
+            this.enableKeydown = false;
+        } else {
+            _middle = document.createElement('div');
+            _middle.classList.add(`${this.blockName}-middle`, `${this.jsPrefix}-middle`);
+            this.container.append(_middle);
+        }
 
         // create grid
         for (let i = 0; i < this.y; i++) {
             let _coordsRow = [];
+            const _row = document.createElement('div');
             for (let j = 0; j < this.x; j++) {
                 const _cell = document.createElement('i');
-                _cell.classList.add(`${blockName}-middle__cell`, `js-${blockName}-cell`);
-                // _cell.setAttribute('data-x', j);
-                // _cell.setAttribute('data-y', i);
+                _cell.classList.add(`${this.blockName}-middle__cell`);
                 _middle.append(_cell);
 
                 _coordsRow.push(_cell);
             }
-            this.coords.push(_coordsRow)
-            const br = document.createElement('br');
-            _middle.append(br)
+            this.coords.push(_coordsRow);
+            _middle.append(_row);
         }
 
-        // append middle block
-        this.container.append(_middle);
-        
         this.snakeCreate();
         this.foodCreate();
-
     };
-    
     // ==== Footer
     this.footer = function () {
         const _footer = document.createElement('div');
-        _footer.classList.add(`${blockName}-footer`);
+        _footer.classList.add(`${this.blockName}-footer`);
 
         const btnStart = document.createElement('button');
         const btnReset = document.createElement('button');
 
-        btnStart.classList.add('button1');
-        btnReset.classList.add('button2');
-        btnReset.style.float = 'right';
+        btnStart.classList.add(this.buttonStart);
+        btnReset.classList.add(this.buttonReset);
+        btnReset.style.float = 'right'; // temporary, should be deleted
         btnStart.innerText = 'Start';
         btnReset.innerText = 'Reset';
 
@@ -203,7 +232,9 @@ function Snake(id, size, snakeSizeBase) {
         this.middle();
         this.footer();
 
-        this.snakeMove();
+        this.snakeStartMove();
+        this.snakeReset();
+        
     }
     this.main()
 }
@@ -211,7 +242,7 @@ function Snake(id, size, snakeSizeBase) {
 let snake = new Snake(
         id = 'js-snake',
         size = [10, 12],
-        snakeSizeBase = 9
+        snakeSizeBase = 3
     )
 
 
