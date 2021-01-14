@@ -51,9 +51,9 @@
 
 .field-alert-gameover__body {
   position: relative;
-  padding: 20px;
+  padding: 12px 35px 15px 15px;
   border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.75);
   color: #fff;
 }
 
@@ -63,9 +63,17 @@
   right: 0;
   width: 20px;
   height: 20px;
+  height: 100%;
   line-height: 0;
   background-color: transparent;
   border: 1px solid transparent;
+  border-left-color: currentColor;
+}
+
+@media only screen and (min-width: 1025px) {
+  .field-alert-gameover__close:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
 }
 
 .field-alert-gameover__close::before {

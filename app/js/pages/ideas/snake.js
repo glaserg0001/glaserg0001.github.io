@@ -24,7 +24,8 @@ function Snake(id, size, snakeSizeBase) {
     this.direction = 'right';
     this.gameOver = false;
     this.enableKeydown = true; // allow to change direction
-    this.snakeSpeed = 300;
+    this.readyToStart = true;
+    this.snakeSpeed = 400;
     this.interval;
     this.scoreValue = 0;
     this.hiScore = [0];
@@ -71,6 +72,10 @@ function Snake(id, size, snakeSizeBase) {
         } else if (event.code == 'ArrowDown' && this.direction != 'up' && this.enableKeydown) {
             this.direction = 'down';
             this.enableKeydown = false;
+        }
+        
+        if (this.readyToStart && (event.code == 'Enter' || event.code == 'ArrowRight')) {
+            document.getElementsByClassName(this.buttonStart)[0].click()
         }
     };
     // create a food
@@ -151,13 +156,13 @@ function Snake(id, size, snakeSizeBase) {
     // Snake move
     this.snakeMove = function (buttonStart) {
         this.enableKeydown = true
+        this.readyToStart = false
         buttonStart.disabled = true
         
-        window.addEventListener('keydown', this.snakeMoveArrows.bind(this));
         this.interval = setInterval(this.snakeInterval.bind(this), this.snakeSpeed);
     };
     // reset Snake
-    this.snakeReset = function (buttonStart) {
+    this.snakeReset = function (buttonStart, buttonReset) {
         const _middle = document.getElementsByClassName(this.blockMiddle)[0];
         _middle.innerHTML = '';
         this.coords = [];
@@ -165,7 +170,9 @@ function Snake(id, size, snakeSizeBase) {
         clearInterval(this.interval);
         this.direction = 'right';
         this.enableKeydown = false;
+        this.readyToStart = true;
         buttonStart.disabled = false;
+        buttonReset.blur();
         this.scoreValue = 0;
         this.score(true);
         this.middle();
@@ -283,7 +290,9 @@ function Snake(id, size, snakeSizeBase) {
         // click button Start
         buttonStart.addEventListener('click', this.snakeMove.bind(this, buttonStart));
         // click button Reset
-        buttonReset.addEventListener('click', this.snakeReset.bind(this, buttonStart));
+        buttonReset.addEventListener('click', this.snakeReset.bind(this, buttonStart, buttonReset));
+        // listener of keyboard
+        window.addEventListener('keydown', this.snakeMoveArrows.bind(this));
 
     }
     this.main = function () {
