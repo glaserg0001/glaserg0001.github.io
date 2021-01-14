@@ -9,7 +9,14 @@
         margin-bottom: 10px
         border-bottom: 1px solid $grey-400
 
+        &__info
+            display: flex
+            justify-content: space-between
+        &__score
+        &__hiscore
+
     &-middle
+        position: relative
         &__row
             display: flex
 
@@ -26,6 +33,38 @@
         padding-top: 10px
         margin-top: 10px
         border-top: 1px solid $grey-400
+    
+    &-alert-gameover
+        position: absolute
+        display: flex
+        justify-content: center 
+        align-items: center
+        top: 0
+        right: 0
+        left: 0
+        bottom: 0
+
+        &__body
+            position: relative
+            padding: 20px
+            border-radius: 5px
+            background-color: rgba($black, .5)
+            color: $white
+        
+        &__close
+            position: absolute
+            top: 0
+            right: 0
+            width: 20px
+            height: 20px
+            line-height: 0
+            background-color: transparent
+            border: 1px solid transparent
+
+            &::before
+                content: 'x'
+                position: relative
+                top: -1px
 
 .snake-body
     color: $grey-800
