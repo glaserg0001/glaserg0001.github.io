@@ -9,7 +9,9 @@ function Snake(id, size, snakeSizeBase) {
     this.elAlertGameOverClose = `${this.jsPrefix}-alert-gameover-close`;
     // header
     this.headerScoreValue = `${this.jsPrefix}-score-value`;
+    this.headerHiScore = `${this.jsPrefix}-hiscore`;
     this.headerHiScoreValue = `${this.jsPrefix}-hiscore-value`;
+    this.headerHiScoreList = `${this.jsPrefix}-hiscore-list`;
     // buttons
     this.buttonStart = `${this.jsPrefix}-btn-start`;
     this.buttonReset = `${this.jsPrefix}-btn-reset`;
@@ -28,7 +30,8 @@ function Snake(id, size, snakeSizeBase) {
     this.snakeSpeed = 400;
     this.interval;
     this.scoreValue = 0;
-    this.hiScore = [0];
+    this.hiScoreArray = [];
+    this.hiScoreValue = 0;
     // data store
     this.data = {
         header: {
@@ -75,7 +78,8 @@ function Snake(id, size, snakeSizeBase) {
         }
         
         if (this.readyToStart && (event.code == 'Enter' || event.code == 'ArrowRight')) {
-            document.getElementsByClassName(this.buttonStart)[0].click()
+            document.getElementsByClassName(this.buttonStart)[0].click();
+            this.direction = 'right'
         }
     };
     // create a food
@@ -137,6 +141,7 @@ function Snake(id, size, snakeSizeBase) {
         if (this.gameOver) {
             clearInterval(this.interval);
             this.alertGameOver();
+            this.scoreHigh();
         } else if (snakeHasFood) {
             snakeHeadNew.classList.remove('snake-food');
             this.foodCreate();
@@ -153,7 +158,7 @@ function Snake(id, size, snakeSizeBase) {
         snakeHeadNew.classList.add('snake-body', 'm-head');
         this.enableKeydown = true;
     };
-    // Snake move
+    // Snake move. Activated by the Start button
     this.snakeMove = function (buttonStart) {
         this.enableKeydown = true
         this.readyToStart = false
@@ -173,6 +178,7 @@ function Snake(id, size, snakeSizeBase) {
         this.readyToStart = true;
         buttonStart.disabled = false;
         buttonReset.blur();
+        if (!this.gameOver) this.scoreHigh(); // should be launched before this.scoreValue = 0
         this.scoreValue = 0;
         this.score(true);
         this.middle();
@@ -197,12 +203,43 @@ function Snake(id, size, snakeSizeBase) {
         })
     }
     // ==== Header Methods START
+    // Score
     this.score = function (reset) {
         const _headerScoreValue = document.getElementsByClassName(this.headerScoreValue)[0];
         _headerScoreValue.innerText = reset ? 0 : ++this.scoreValue;
     };
+    // High Score
     this.scoreHigh = function () {
-        const _headerHiScoreValue = document.getElementsByClassName(headerHiScoreValue)[0];
+        const _headerHiScoreValue = document.getElementsByClassName(this.headerHiScoreValue)[0];
+        const _headerHiScore = document.getElementsByClassName(this.headerHiScore)[0];
+        let _headerHiScoreList = document.getElementsByClassName(this.headerHiScoreList)[0];
+        let _lookForScoreValueCurrent = true;
+        console.log(_headerHiScoreList)
+        if (_headerHiScoreList) {
+            _headerHiScoreList.innerText = ''
+        } else {
+            _headerHiScoreList = document.createElement('ul');
+            _headerHiScoreList.classList.add(`${this.blockName}-header__hiscore__list`, this.headerHiScoreList);
+        }
+
+        this.hiScoreArray.push(this.scoreValue);
+        this.hiScoreValue = Math.max(...this.hiScoreArray);
+        this.hiScoreArray.sort((a, b) => b - a);
+        _headerHiScoreValue.innerText = this.hiScoreValue;
+
+        for (let i = 0; i < this.hiScoreArray.length; i++) {
+            const _headerHiScoreItem = document.createElement('li');
+            _headerHiScoreItem.classList.add(`${this.blockName}-header__hiscore__item`);
+            if (this.hiScoreArray[i] == this.scoreValue && _lookForScoreValueCurrent) {
+                _headerHiScoreItem.innerHTML = `<b>${this.hiScoreArray[i]}</b>`;
+                _lookForScoreValueCurrent = false;
+            } else {
+                _headerHiScoreItem.innerText = this.hiScoreArray[i];
+            }
+            _headerHiScoreList.append(_headerHiScoreItem);
+        }
+
+        _headerHiScore.append(_headerHiScoreList);
     };
     // ==== Header Methods END
     // ==== Header
@@ -218,13 +255,13 @@ function Snake(id, size, snakeSizeBase) {
         _headerInfo.classList.add(`${this.blockName}-header__info`);
         _headerScore.classList.add(`${this.blockName}-header__score`);
         _headerScoreValue.classList.add(this.headerScoreValue);
-        _headerHiScore.classList.add(`${this.blockName}-header__hiscore`);
+        _headerHiScore.classList.add(`${this.blockName}-header__hiscore`, this.headerHiScore);
         _headerHiScoreValue.classList.add(this.headerHiScoreValue);
         
         _headerScore.innerText = this.data.header.scoreLabel;
         _headerScoreValue.innerText = this.scoreValue;
         _headerHiScore.innerText = this.data.header.hiScoreLabel;
-        _headerHiScoreValue.innerText = this.hiScore;
+        _headerHiScoreValue.innerText = this.hiScoreValue;
 
         _headerScore.append(_headerScoreValue);
         _headerHiScore.append(_headerHiScoreValue);
@@ -293,7 +330,6 @@ function Snake(id, size, snakeSizeBase) {
         buttonReset.addEventListener('click', this.snakeReset.bind(this, buttonStart, buttonReset));
         // listener of keyboard
         window.addEventListener('keydown', this.snakeMoveArrows.bind(this));
-
     }
     this.main = function () {
         this.header();
