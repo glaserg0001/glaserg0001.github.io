@@ -1,6 +1,7 @@
 .field {
   display: inline-flex;
   flex-direction: column;
+  font-size: 16px;
 }
 
 .field-header {
@@ -12,6 +13,82 @@
 .field-header__info {
   display: flex;
   justify-content: space-between;
+}
+
+.field-header__score {
+  padding: 0 2px;
+}
+
+.field-header__hiscore {
+  position: relative;
+  padding: 0 2px;
+}
+
+.field-header__hiscore:hover .field-header__hiscore__list {
+  visibility: visible;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+}
+
+.field-header__hiscore__list {
+  position: absolute;
+  top: 100%;
+  right: 2px;
+  min-width: 100%;
+  margin-top: 8px;
+  font-size: 0.85em;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.8);
+  text-align: right;
+  z-index: 1;
+  border-radius: 5px 0 5px 5px;
+  visibility: hidden;
+  opacity: 0;
+  transform: translate3d(0, -6px, 0);
+}
+
+.field-header__hiscore__list::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -12px;
+  border: 6px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.8);
+  border-right: none;
+}
+
+.field-header__hiscore__list::after {
+  content: '';
+  position: absolute;
+  top: -28px;
+  right: 0;
+  left: 0;
+  bottom: 100%;
+  z-index: 1;
+  cursor: pointer;
+  cursor: default;
+}
+
+.field-header__hiscore__item {
+  padding: 4px 10px 3px;
+  transition: background-color .2s ease-in-out;
+}
+
+.field-header__hiscore__item + .field-header__hiscore__item {
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+@media only screen and (min-width: 1025px) {
+  .field-header__hiscore__item:hover {
+    cursor: default;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
+.field-header__hiscore__item.m-highlight {
+  color: #ee6e73;
+  font-weight: 700;
 }
 
 .field-middle {
@@ -53,7 +130,7 @@
   position: relative;
   padding: 12px 35px 15px 15px;
   border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
 }
 
