@@ -9,6 +9,25 @@ block styles
 
 block content
   h1 Styleguide
+  h2 Forms
+  -
+    var inputFields = {
+      input1: {
+        label: 'Name',
+        value: 'Mike',
+        disabled: false
+      },
+      input2: {
+        label: 'Surname',
+        value: '',
+        disabled: false
+      },
+    }
+
+  each val, key in inputFields
+    .input-field
+      input(type='text' value=val.value).js-input-field
+      label=val.label
   
 block scripts
   script(src= URL_file('pages/styleguide', baseUrlLvl, 'js'))

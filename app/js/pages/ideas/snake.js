@@ -21,6 +21,7 @@ function Snake(id, size, snakeSizeBase) {
     this.x = size[0];
     this.y = size[1];
     this.snakeSizeBase = snakeSizeBase;
+    this.regexpNumber = /[^0-9]/g;
     this.snakeBody = [];
     this.coords = []; // y - 1st level; x - 2nd level; e.g. this.coords[y][x]
     this.direction = 'right';
@@ -35,6 +36,21 @@ function Snake(id, size, snakeSizeBase) {
     this.hiScoreValue = 0;
     // data store
     this.data = {
+        settings: {
+            htmlSizeXInput: null,
+            htmlSizeYInput: null,
+            htmlSnakeSizeInput: null,
+            htmlCTASubmit: null,
+            htmlSettings: null,
+            settingsHeading: 'Settings',
+            sizeLabel: 'Playing Field Size',
+            sizeXLabel: 'Width:',
+            sizeYLabel: 'Height:',
+            SnakeHeading: 'Snake',
+            snakeSizeLabel: 'Snake Size:',
+            CTASubmit: 'Submit',
+            GotoSettingsButton: 'Go to Settings'
+        },
         header: {
             scoreLabel: 'Score: ',
             hiScoreLabel: 'He-Score: '
@@ -46,19 +62,140 @@ function Snake(id, size, snakeSizeBase) {
             lengthSnake: `Please enter less length than ${this.x} value for the snake size`
         }
     }
-    if (this.snakeSizeBase >= this.x) {
-        this.container.innerHTML = `<div style="color: red;">${this.data.error.lengthSnake}</div>`
-        return false
-    };
     // generate the random integer
     this.getRandomInt = function(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
     };
+    // create new form input
+    this.createFormInput = function (label, value, type) {
+        const
+            _inputField = document.createElement('div'),
+            _input = document.createElement('input'),
+            _label = document.createElement('label');
+        _inputField.classList.add('input-field');
+        _input.classList.add('js-input-field');
+        _input.setAttribute('type', type ? type : 'text');
+        if (value) _input.setAttribute('value', value)
+        _label.innerText = label;
+
+        _inputField.append(_input, _label);
+        this.container.prepend(_inputField);
+
+        return {
+            input: _input,
+            wrap: _inputField
+        }
+    }
+
+    // block Settings
+    this.settings = function () {
+        const $data = this.data.settings;
+        const _htmlSettings = document.createElement('div');
+        const _htmlSettingsHeading = document.createElement('div');
+        _htmlSettings.classList.add(`${this.blockName}-settings`);
+        _htmlSettingsHeading.classList.add(`${this.blockName}-settings__title`);
+        $data.htmlSettings = _htmlSettings;
+        _htmlSettingsHeading.innerText = $data.settingsHeading;
+        // == Field Size
+        const
+            _htmlSizeWrap = document.createElement('div'),
+            _htmlSizeHeading = document.createElement('div'),
+            _sizeX = this.createFormInput($data.sizeXLabel, this.x),
+            _sizeY = this.createFormInput($data.sizeYLabel, this.y);
+
+        _htmlSizeHeading.classList.add(`${this.blockName}-settings__heading`);
+        _htmlSizeHeading.innerText = $data.sizeLabel;
+        $data.htmlSizeXInput = _sizeX.input;
+        $data.htmlSizeYInput = _sizeY.input;
+
+        _htmlSizeWrap.append(
+            _htmlSizeHeading,
+            _sizeX.wrap,
+            _sizeY.wrap
+        );
+
+        // == Snake size
+        const _htmlSnakeWrap = document.createElement('div');
+        const _htmlSnakeHeading = document.createElement('div');
+        const _snakeSize = this.createFormInput($data.snakeSizeLabel, this.snakeSizeBase);
+        $data.htmlSnakeSizeInput = _snakeSize.input;
+        _htmlSnakeHeading.classList.add(`${this.blockName}-settings__heading`);
+        _htmlSnakeHeading.innerText = $data.SnakeHeading;
+        // == Snake Speed
+        _htmlSnakeWrap.append(
+            _htmlSnakeHeading,
+            _snakeSize.wrap
+        )
+        // == CTA
+        const
+            _htmlCTA = document.createElement('div');
+            _htmlCTASubmit = document.createElement('button');
+        
+        _htmlCTA.classList.add(`${this.blockName}-settings__cta`);
+        $data.htmlCTASubmit = _htmlCTASubmit
+        _htmlCTASubmit.innerText = $data.CTASubmit;
+        _htmlCTA.append(_htmlCTASubmit);
+
+        _htmlSettings.append(
+            _htmlSettingsHeading,
+            _htmlSizeWrap,
+            _htmlSnakeWrap,
+            _htmlCTA
+        );
+
+        this.container.append(_htmlSettings);
+        // initialize input component
+        componentInputField();
+        // click om the "Sumbit" button
+        _htmlCTASubmit.addEventListener('click', this.settingsSubmit.bind(this, $data))
+    }
+    // method for the 'Submit' button within the settings
+    this.settingsSubmit = function ($data) {
+        this.x = +$data.htmlSizeXInput.value;
+        this.y = +$data.htmlSizeYInput.value;
+        this.snakeSizeBase = +$data.htmlSnakeSizeInput.value;
+        $data.htmlSettings.remove()
+
+        this.header();
+        this.middle();
+        this.footer();
+        this.events();
+    }
+    if (this.snakeSizeBase >= this.x) {
+        this.container.innerHTML = `<div style="color: red;">${this.data.error.lengthSnake}</div>`
+        return false
+    };
+    // return to Settings
+    this.settingsGoTo = function (parent) {
+        const
+            $data = this.data.settings;
+            _htmlGotoSettings = document.createElement('div'),
+            _htmlGotoSettingsButton = document.createElement('button');
+        // $data.htmlGotoSettingsButton = _htmlGotoSettingsButton;
+        _htmlGotoSettings.classList.add(`${this.blockName}-settings__goto`);
+        _htmlGotoSettingsButton.classList.add(`${this.blockName}-settings__goto__button`);
+        _htmlGotoSettingsButton.innerText = $data.GotoSettingsButton;
+        _htmlGotoSettings.append(_htmlGotoSettingsButton);
+        parent.prepend(_htmlGotoSettings);
+
+        _htmlGotoSettingsButton.addEventListener('click', () => {
+            this.container.innerText = '';
+            this.coords = [];
+            this.snakeBody = [];
+            clearInterval(this.interval);
+            this.direction = 'right';
+            this.enableKeydown = false;
+            this.readyToStart = true;
+            this.scoreValue = 0;
+            this.hiScoreValue = 0;
+            this.hiScoreArray = [];
+            this.settings();
+        })
+    }
     // generate random food position
     this.foodGenerate = function () {
         const x = this.getRandomInt(0, this.x);
         const y = this.getRandomInt(0, this.y);
-        console.log(x,y)
         return [x, y]
     };
     // arrows to control the snake
@@ -261,17 +398,18 @@ function Snake(id, size, snakeSizeBase) {
             }
         }
 
-        _headerHiScore.append(_headerHiScoreList);
+        if (this.hiScoreArray.length > 1) _headerHiScore.append(_headerHiScoreList);
     };
     // ==== Header Methods END
     // ==== Header
     this.header = function () {
-        const _header = document.createElement('div');
-        const _headerInfo = document.createElement('div');
-        const _headerScore = document.createElement('div');
-        const _headerScoreValue = document.createElement('span');
-        const _headerHiScore = document.createElement('div');
-        const _headerHiScoreValue = document.createElement('span');
+        const
+            _header = document.createElement('div'),
+            _headerInfo = document.createElement('div'),
+            _headerScore = document.createElement('div'),
+            _headerScoreValue = document.createElement('span'),
+            _headerHiScore = document.createElement('div'),
+            _headerHiScoreValue = document.createElement('span');
 
         _header.classList.add(`${this.blockName}-header`);
         _headerInfo.classList.add(`${this.blockName}-header__info`);
@@ -289,6 +427,7 @@ function Snake(id, size, snakeSizeBase) {
         _headerHiScore.append(_headerHiScoreValue);
         _headerInfo.append(_headerScore, _headerHiScore);
         _header.append(_headerInfo);
+        this.settingsGoTo(_header);
         this.container.append(_header); // append header block
     };
     // ==== Middle
@@ -356,19 +495,11 @@ function Snake(id, size, snakeSizeBase) {
         buttonReset.addEventListener('click', this.gameReset.bind(this, buttonStart, buttonPause, buttonReset));
         // listener of keyboard
         window.addEventListener('keydown', this.snakeMoveArrows.bind(this));
-    }
+    };
     this.main = function () {
-        this.header();
-        this.middle();
-        this.footer();
-
-        this.events();
-    }
-    this.main()
-
-    // let ii = setInterval(() => {
-    //     console.log(this.enableKeydown)
-    // }, 150);
+        this.settings();
+    };
+    this.main();
 };
 
 let snake = new Snake(
@@ -376,9 +507,6 @@ let snake = new Snake(
     size = [10, 12],
     snakeSizeBase = 3
 )
-
-// notes
-// https://www.educative.io/blog/javascript-snake-game-tutorial`
 
 // TODO:
 // - html class => id

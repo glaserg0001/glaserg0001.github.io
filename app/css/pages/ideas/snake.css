@@ -2,6 +2,80 @@
   display: inline-flex;
   flex-direction: column;
   font-size: 16px;
+  border: 2px solid #e0e0e0;
+  padding: 10px 5px;
+}
+
+.field-settings {
+  max-width: 300px;
+}
+
+.field-settings__title {
+  font-size: 24px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.field-settings__heading {
+  padding: 1px 10px 3px;
+  margin-bottom: 10px;
+  background-color: #616161;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.field-settings__cta {
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.field-settings__goto {
+  margin-bottom: 4px;
+}
+
+.field-settings__goto__button {
+  position: relative;
+  padding: 4px 8px 4px 34px;
+  background-color: #fff;
+  border: 2px solid #bdbdbd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.field-settings__goto__button::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 26px;
+  background-color: #bdbdbd;
+  border-right: 2px solid #bdbdbd;
+}
+
+.field-settings__goto__button::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  border: 6px solid transparent;
+  border-right-color: currentColor;
+  border-right-width: 10px;
+  border-left: none;
+}
+
+@media only screen and (min-width: 1025px) {
+  .field-settings__goto__button:hover::before {
+    background-color: transparent;
+  }
+  .field-settings__goto__button:hover::after {
+    color: #bdbdbd;
+  }
 }
 
 .field-header {

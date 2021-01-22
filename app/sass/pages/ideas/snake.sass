@@ -5,6 +5,72 @@
     display: inline-flex
     flex-direction: column
     font-size: 16px
+    border: 2px solid $grey-400
+    padding: 10px 5px
+
+    &-settings
+        max-width: 300px
+
+        &__title
+            font-size: 24px
+            padding-bottom: 5px
+            margin-bottom: 10px
+            border-bottom: 1px solid $grey-400
+            text-align: center
+
+        &__heading
+            padding: 1px 10px 3px
+            margin-bottom: 10px
+            background-color: $grey-800
+            color: $white
+            border-radius: 4px
+        
+        &__cta
+            padding-top: 10px
+            margin-top: 10px
+            border-top: 1px solid $grey-400
+
+        &__goto
+            margin-bottom: 4px
+
+            &__button
+                // $_btn-color: $blue-700
+                $_btn-color: $grey-500
+                position: relative
+                padding: 4px 8px 4px 34px
+                background-color: $white
+                border: 2px solid $_btn-color
+                border-radius: 5px
+                font-size: 14px
+
+                &::before
+                    content: ''
+                    position: absolute
+                    left: 0
+                    top: 0
+                    bottom: 0
+                    width: 26px
+                    background-color: $_btn-color
+                    border-right: 2px solid $_btn-color
+
+                &::after
+                    content: ''
+                    position: absolute
+                    left: 6px
+                    top: 50%
+                    transform: translateY(-50%)
+                    color: $white
+                    border: 6px solid transparent
+                    border-right-color: currentColor
+                    border-right-width: 10px
+                    border-left: none
+                
+                +on-event
+                    &::before
+                        background-color: transparent
+                    
+                    &::after
+                        color: $_btn-color
 
     &-header
         padding-bottom: 10px
@@ -81,6 +147,7 @@
 
     &-middle
         position: relative
+
         &__row
             display: flex
 
