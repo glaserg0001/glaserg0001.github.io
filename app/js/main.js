@@ -1,5 +1,10 @@
 // common js
 // ================================ COMPONENTS START
+
+// const x = document.querySelector('.main-container');
+
+// form
+// ======== Input START
 function componentInputField() {
     const activeClass = 'm-active';
 
@@ -16,7 +21,6 @@ function componentInputField() {
                 event.target.parentElement.classList.remove(activeClass)
             }
         })
-
         if (inputArr[i].value) {
             !!inputArr[i].parentElement.classList.add(activeClass)
         }
@@ -44,9 +48,7 @@ function componentInputFieldCreate(label, value, type, htmlClass) {
             else _inputField.classList.add(htmlClass[i])
         }
     }
-
     _input.setAttribute('type', type ? type : 'text');
-    
     _inputField.append(_input);
 
     if (label) {
@@ -66,8 +68,6 @@ function componentInputFieldCreate(label, value, type, htmlClass) {
     }
 }
 
-// const x = document.querySelector('.main-container');
-
-componentInputField()
+// ======== Input END
 
 // ================================ COMPONENTS END

@@ -11,6 +11,7 @@ block content
   h1 Styleguide
   h2 Forms
   h3 Input
+  //- INPUT START
   -
     var inputFields = {
       input1: {
@@ -29,6 +30,16 @@ block content
     div(class='form-input ' + (val.label ? ' m-label' : ''))
       input(type='text' value=val.value class=val.label ? 'js-form-input' : '')
       label=val.label
+  //- INPUT END
+  //- QTY START
+  h3='Quantity'
+  label.label='Quantity'
+  .form-qty
+    button.form-qty__btn.m-minus.js-form-qty-minus='-'
+    input(type='number' value='1').form-qty__input.js-form-qty-input
+    button.form-qty__btn.m-plus.js-form-qty-plus='+'
+  
+  //- QTY END
 
 block scripts
   script(src= URL_file('pages/styleguide', baseUrlLvl, 'js'))

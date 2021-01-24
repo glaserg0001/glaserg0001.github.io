@@ -1,5 +1,5 @@
 function Snake(id, size, snakeSizeBase) {
-    this.blockName = 'field'; // CSS class `${this.blockName}`
+    this.blockName = 's-field'; // CSS class `${this.blockName}`
     this.jsPrefix = id; // `${this.jsPrefix}`
     
     // js classes for elements
@@ -81,33 +81,56 @@ function Snake(id, size, snakeSizeBase) {
             _htmlSizeWrap = document.createElement('div'),
             _htmlSizeHeading = document.createElement('div'),
             _sizeX = componentInputFieldCreate($data.sizeXLabel, this.x),
-            _sizeY = componentInputFieldCreate($data.sizeYLabel, this.y);
+            _sizeY = componentInputFieldCreate($data.sizeYLabel, this.y),
+            _htmlSizeRow = document.createElement('div'),
+            _htmlSizeColX = document.createElement('div'),
+            _htmlSizeColY = document.createElement('div')
 
+        _htmlSizeRow.classList.add('row');
+        _htmlSizeColX.classList.add('col-6');
+        _htmlSizeColY.classList.add('col-6');
         _htmlSizeWrap.classList.add(`${this.blockName}-settings__group`);
         _htmlSizeHeading.classList.add(`${this.blockName}-settings__group__heading`);
         _htmlSizeHeading.innerText = $data.sizeLabel;
         $data.htmlSizeXInput = _sizeX.input;
         $data.htmlSizeYInput = _sizeY.input;
 
+        _htmlSizeColX.append(_sizeX.wrap)
+        _htmlSizeColY.append(_sizeY.wrap)
+        _htmlSizeRow.append(
+            _htmlSizeColX,
+            _htmlSizeColY
+        )
+
         _htmlSizeWrap.append(
             _htmlSizeHeading,
-            _sizeX.wrap,
-            _sizeY.wrap
+            _htmlSizeRow
         );
 
         // == Snake size
-        const _htmlSnakeWrap = document.createElement('div');
-        const _htmlSnakeHeading = document.createElement('div');
-        const _snakeSize = componentInputFieldCreate($data.snakeSizeLabel, this.snakeSizeBase);
+        const
+            _htmlSnakeWrap = document.createElement('div'),
+            _htmlSnakeHeading = document.createElement('div'),
+            _htmlSnakeRow = document.createElement('div'),
+            _htmlSnakeColSize = document.createElement('div'),
+            _htmlSnakeColSpeed = document.createElement('div'),
+            _snakeSize = componentInputFieldCreate($data.snakeSizeLabel, this.snakeSizeBase)
+
         $data.htmlSnakeSizeInput = _snakeSize.input;
         
         _htmlSnakeWrap.classList.add(`${this.blockName}-settings__group`);
         _htmlSnakeHeading.classList.add(`${this.blockName}-settings__group__heading`);
+        _htmlSnakeRow.classList.add('row');
+        _htmlSnakeColSize.classList.add('col-6');
+        _htmlSnakeColSpeed.classList.add('col-6');
         _htmlSnakeHeading.innerText = $data.SnakeHeading;
         // == Snake Speed
+        _htmlSnakeColSize.append(_snakeSize.wrap)
+        _htmlSnakeRow.append(_htmlSnakeColSize, _htmlSnakeColSpeed)
+
         _htmlSnakeWrap.append(
             _htmlSnakeHeading,
-            _snakeSize.wrap
+            _htmlSnakeRow
         )
         // == CTA
         const

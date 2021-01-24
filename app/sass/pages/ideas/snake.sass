@@ -1,6 +1,6 @@
 @import "../../abstracts/index"
 
-// mixins
+// mixins START
 =cell-bg($color: $grey-400, $color_bg: $white, $repeat: true, $position: 100% 100%)
     color: $color
     background-color: $color_bg
@@ -15,9 +15,9 @@
 
     @if $repeat == false
         background-repeat: no-repeat
+// mixins END
 
-.field
-    $this: &
+.s-field
     display: inline-flex
     flex-direction: column
     max-width: 100%

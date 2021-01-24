@@ -2813,6 +2813,15 @@ select.input {
   transform: translate(0, -10px) scale(0.8);
 }
 
+.form-qty__input::-webkit-outer-spin-button, .form-qty__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-qty__input[type='number'] {
+  -moz-appearance: textfield;
+}
+
 .nav-list {
   display: flex;
 }
