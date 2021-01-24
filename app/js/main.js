@@ -1,5 +1,5 @@
 // common js
-// components
+// ================================ COMPONENTS START
 function componentInputField() {
     const activeClass = 'm-active';
 
@@ -24,13 +24,27 @@ function componentInputField() {
 }
 
 // create new form input
-function createFormInput(label, value, type, classes) {
+function componentInputFieldCreate(label, value, type, htmlClass) {
+    // Example:
+    // componentInputFieldCreate(null, 'Value', 'text', [null, 'class1', 'class2']);
+    // componentInputFieldCreate('Label Text', 'Input Value');
+
     let
         _inputField = document.createElement('div'),
         _input = document.createElement('input'),
         _label;
 
     _inputField.classList.add('form-input');
+
+    if (typeof htmlClass == 'string') {
+        _inputField.classList.add(htmlClass)
+    } else if (Array.isArray(htmlClass)) {
+        for (let i = 0; i < htmlClass.length; i++) {
+            if (htmlClass[i] == null) _inputField.className = ''
+            else _inputField.classList.add(htmlClass[i])
+        }
+    }
+
     _input.setAttribute('type', type ? type : 'text');
     
     _inputField.append(_input);
@@ -52,12 +66,8 @@ function createFormInput(label, value, type, classes) {
     }
 }
 
-const x = document.querySelector('.main-container');
-const aa = createFormInput(null, 'ss')
-const bb = createFormInput('lab', 'val')
-
-x.append(aa.wrap)
-x.append(bb.wrap)
-
+// const x = document.querySelector('.main-container');
 
 componentInputField()
+
+// ================================ COMPONENTS END

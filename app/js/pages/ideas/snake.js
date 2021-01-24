@@ -67,27 +67,6 @@ function Snake(id, size, snakeSizeBase) {
     this.getRandomInt = function(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
     };
-    // create new form input
-    this.createFormInput = function (label, value, type) {
-        const
-            _inputField = document.createElement('div'),
-            _input = document.createElement('input'),
-            _label = document.createElement('label');
-        _inputField.classList.add('form-input');
-        _input.classList.add('js-form-input');
-        _input.setAttribute('type', type ? type : 'text');
-        if (value) _input.setAttribute('value', value)
-        _label.innerText = label;
-
-        _inputField.append(_input, _label);
-        // this.container.prepend(_inputField);
-
-        return {
-            input: _input,
-            wrap: _inputField
-        }
-    }
-
     // block Settings
     this.settings = function () {
         const $data = this.data.settings;
@@ -101,8 +80,8 @@ function Snake(id, size, snakeSizeBase) {
         const
             _htmlSizeWrap = document.createElement('div'),
             _htmlSizeHeading = document.createElement('div'),
-            _sizeX = this.createFormInput($data.sizeXLabel, this.x),
-            _sizeY = this.createFormInput($data.sizeYLabel, this.y);
+            _sizeX = componentInputFieldCreate($data.sizeXLabel, this.x),
+            _sizeY = componentInputFieldCreate($data.sizeYLabel, this.y);
 
         _htmlSizeWrap.classList.add(`${this.blockName}-settings__group`);
         _htmlSizeHeading.classList.add(`${this.blockName}-settings__group__heading`);
@@ -119,7 +98,7 @@ function Snake(id, size, snakeSizeBase) {
         // == Snake size
         const _htmlSnakeWrap = document.createElement('div');
         const _htmlSnakeHeading = document.createElement('div');
-        const _snakeSize = this.createFormInput($data.snakeSizeLabel, this.snakeSizeBase);
+        const _snakeSize = componentInputFieldCreate($data.snakeSizeLabel, this.snakeSizeBase);
         $data.htmlSnakeSizeInput = _snakeSize.input;
         
         _htmlSnakeWrap.classList.add(`${this.blockName}-settings__group`);

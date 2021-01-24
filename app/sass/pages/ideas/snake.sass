@@ -15,8 +15,6 @@
 
     @if $repeat == false
         background-repeat: no-repeat
-    
-    height: 80%
 
 .field
     $this: &
@@ -183,7 +181,7 @@
             height: 0
             background-color: $white
             animation: middle-show 1s linear
-            +cell-bg($repeat: false)
+            // +cell-bg($repeat: false)
         
         &::after
             content: attr(data-load-text)
