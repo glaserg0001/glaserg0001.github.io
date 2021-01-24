@@ -1,29 +1,38 @@
 .field {
   display: inline-flex;
   flex-direction: column;
+  max-width: 100%;
+  padding: 10px;
   font-size: 16px;
   border: 2px solid #e0e0e0;
-  padding: 10px 5px;
+  font-family: monospace;
 }
 
 .field-settings {
-  max-width: 300px;
+  width: 300px;
+  max-width: 100%;
 }
 
 .field-settings__title {
   font-size: 24px;
-  padding-bottom: 5px;
-  margin-bottom: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
   border-bottom: 1px solid #e0e0e0;
   text-align: center;
 }
 
-.field-settings__heading {
-  padding: 1px 10px 3px;
-  margin-bottom: 10px;
-  background-color: #616161;
-  color: #fff;
-  border-radius: 4px;
+.field-settings__group {
+  border: 2px solid #e0e0e0;
+  padding: 0 10px;
+  margin: 15px 0 10px;
+}
+
+.field-settings__group__heading {
+  padding: 0 5px;
+  margin: -12px 15px 10px;
+  font-size: 16px;
+  background-color: #fff;
+  display: table;
 }
 
 .field-settings__cta {
@@ -33,7 +42,7 @@
 }
 
 .field-settings__goto {
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
 .field-settings__goto__button {
@@ -69,7 +78,7 @@
   border-left: none;
 }
 
-@media only screen and (min-width: 1025px) {
+@media (min-width: 1024px) {
   .field-settings__goto__button:hover::before {
     background-color: transparent;
   }
@@ -153,7 +162,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-@media only screen and (min-width: 1025px) {
+@media (min-width: 1024px) {
   .field-header__hiscore__item:hover {
     cursor: default;
     background-color: rgba(0, 0, 0, 0.2);
@@ -167,6 +176,35 @@
 
 .field-middle {
   position: relative;
+}
+
+.field-middle::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0;
+  background-color: #fff;
+  animation: middle-show 1s linear;
+  color: #e0e0e0;
+  background-color: #fff;
+  background-image: linear-gradient(90deg, #fff 2px, transparent 2px calc(100% - 2px), #fff calc(100% - 2px)), linear-gradient(#fff 2px, currentColor 2px 6px, transparent 6px calc(100% - 6px), currentColor calc(100% - 6px) calc(100% - 2px), #fff calc(100% - 2px)), linear-gradient(90deg, #fff 2px, currentColor 2px 6px, #fff 6px 11px, transparent 11px calc(100% - 11px), #fff calc(100% - 11px) calc(100% - 6px), currentColor calc(100% - 6px) calc(100% - 2px), #fff calc(100% - 2px)), linear-gradient(transparent 11px, currentColor 11px calc(100% - 11px), transparent calc(100% - 11px));
+  background-position: 100% 100%;
+  background-size: 34px 34px;
+  background-repeat: no-repeat;
+  height: 80%;
+}
+
+.field-middle::after {
+  content: attr(data-load-text);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: text-blink 0.5s ease-in-out 2;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .field-middle__row {
@@ -221,7 +259,7 @@
   border-left-color: currentColor;
 }
 
-@media only screen and (min-width: 1025px) {
+@media (min-width: 1024px) {
   .field-alert-gameover__close:hover {
     background-color: rgba(0, 0, 0, 0.2);
   }
@@ -243,10 +281,10 @@
 
 .snake-food {
   color: #b71c1c;
-  animation: blink 1s linear infinite;
+  animation: food-blink 1s linear infinite;
 }
 
-@keyframes blink {
+@keyframes food-blink {
   0% {
     color: #ee6e73;
   }
@@ -255,5 +293,26 @@
   }
   100% {
     color: #ee6e73;
+  }
+}
+
+@keyframes middle-show {
+  0% {
+    height: 100%;
+  }
+  100% {
+    height: 0;
+  }
+}
+
+@keyframes text-blink {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
   }
 }

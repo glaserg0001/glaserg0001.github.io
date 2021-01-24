@@ -71,7 +71,7 @@
     border-radius: $r
 
 =on-event($type: null)
-    +rwm(1025)
+    +media-breakpoint-up(lg)
         @if $type == active
             &:active
                 @content

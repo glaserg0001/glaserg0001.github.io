@@ -10,6 +10,7 @@ block styles
 block content
   h1 Styleguide
   h2 Forms
+  h3 Input
   -
     var inputFields = {
       input1: {
@@ -25,9 +26,9 @@ block content
     }
 
   each val, key in inputFields
-    .input-field
-      input(type='text' value=val.value).js-input-field
+    div(class='form-input ' + (val.label ? ' m-label' : ''))
+      input(type='text' value=val.value class=val.label ? 'js-form-input' : '')
       label=val.label
-  
+
 block scripts
   script(src= URL_file('pages/styleguide', baseUrlLvl, 'js'))

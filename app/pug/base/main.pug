@@ -10,7 +10,7 @@ html(lang="en")
   body
     .wrapper
       include ../layout/header
-      div(class=`container m-primary ${pageContainerClass ? pageContainerClass : ''}`)
+      div(class=`container main-container ${pageContainerClass ? pageContainerClass : ''}`)
         block content
     include ../layout/footer
     include scripts

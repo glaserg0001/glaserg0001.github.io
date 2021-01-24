@@ -53,10 +53,11 @@ function Snake(id, size, snakeSizeBase) {
         },
         header: {
             scoreLabel: 'Score: ',
-            hiScoreLabel: 'He-Score: '
+            hiScoreLabel: 'Hi-Score: '
         },
         alert: {
-            gameOverText: `Game Over`
+            gameOverText: `Game Over`,
+            loadText: 'Loader...'
         },
         error: {
             lengthSnake: `Please enter less length than ${this.x} value for the snake size`
@@ -72,14 +73,14 @@ function Snake(id, size, snakeSizeBase) {
             _inputField = document.createElement('div'),
             _input = document.createElement('input'),
             _label = document.createElement('label');
-        _inputField.classList.add('input-field');
-        _input.classList.add('js-input-field');
+        _inputField.classList.add('form-input');
+        _input.classList.add('js-form-input');
         _input.setAttribute('type', type ? type : 'text');
         if (value) _input.setAttribute('value', value)
         _label.innerText = label;
 
         _inputField.append(_input, _label);
-        this.container.prepend(_inputField);
+        // this.container.prepend(_inputField);
 
         return {
             input: _input,
@@ -103,7 +104,8 @@ function Snake(id, size, snakeSizeBase) {
             _sizeX = this.createFormInput($data.sizeXLabel, this.x),
             _sizeY = this.createFormInput($data.sizeYLabel, this.y);
 
-        _htmlSizeHeading.classList.add(`${this.blockName}-settings__heading`);
+        _htmlSizeWrap.classList.add(`${this.blockName}-settings__group`);
+        _htmlSizeHeading.classList.add(`${this.blockName}-settings__group__heading`);
         _htmlSizeHeading.innerText = $data.sizeLabel;
         $data.htmlSizeXInput = _sizeX.input;
         $data.htmlSizeYInput = _sizeY.input;
@@ -119,7 +121,9 @@ function Snake(id, size, snakeSizeBase) {
         const _htmlSnakeHeading = document.createElement('div');
         const _snakeSize = this.createFormInput($data.snakeSizeLabel, this.snakeSizeBase);
         $data.htmlSnakeSizeInput = _snakeSize.input;
-        _htmlSnakeHeading.classList.add(`${this.blockName}-settings__heading`);
+        
+        _htmlSnakeWrap.classList.add(`${this.blockName}-settings__group`);
+        _htmlSnakeHeading.classList.add(`${this.blockName}-settings__group__heading`);
         _htmlSnakeHeading.innerText = $data.SnakeHeading;
         // == Snake Speed
         _htmlSnakeWrap.append(
@@ -135,7 +139,7 @@ function Snake(id, size, snakeSizeBase) {
         $data.htmlCTASubmit = _htmlCTASubmit
         _htmlCTASubmit.innerText = $data.CTASubmit;
         _htmlCTA.append(_htmlCTASubmit);
-
+        // == Common
         _htmlSettings.append(
             _htmlSettingsHeading,
             _htmlSizeWrap,
@@ -436,6 +440,7 @@ function Snake(id, size, snakeSizeBase) {
         if (!_middle) {
             _middle = document.createElement('div');
             _middle.classList.add(`${this.blockName}-middle`, `${this.jsPrefix}-middle`);
+            _middle.setAttribute('data-load-text', this.data.alert.loadText)
             this.container.append(_middle);
         }
 

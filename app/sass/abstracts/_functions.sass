@@ -1,2 +1,15 @@
 @function color($key: "blue")
     @return map-get($colors, $key)
+
+// frid START
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints)
+    $min: map-get($breakpoints, $name)
+    @return if($min != 0, $min, null)
+
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints)
+    $next: breakpoint-next($name, $breakpoints)
+    @return if($next, breakpoint-min($next, $breakpoints) - .02, null)
+
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints)
+    @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+// frid END

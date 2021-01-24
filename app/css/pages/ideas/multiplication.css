@@ -58,7 +58,7 @@
   flex: 1 0 0;
 }
 
-@media only screen and (min-width: 1025px) {
+@media (min-width: 1024px) {
   .mlp-btn:hover {
     background-color: #fafafa;
   }
@@ -74,7 +74,7 @@
   color: #fff;
 }
 
-@media only screen and (min-width: 1025px) {
+@media (min-width: 1024px) {
   .mlp-btn.m-primary:hover {
     background-color: #eb575d;
   }
