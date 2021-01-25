@@ -1,6 +1,52 @@
 .form-qty
+    $_border_width: 2px
+    $_border_color: color(border)
+    $_btn_color: $grey-600
+
+    width: 100px
+    max-width: 100%
+    display: flex
+    // padding: 10px 0
+    // background-color: gray
+    // outline: 1px dashed $grey-400
+
     &__btn
+        flex: 0 0 30px
+        max-width: 33%
+        min-width: 1.4em
+        position: relative
+        font-size: 12px
+        background-color: $white
+        border: $_border_width solid $_border_color
+        color: $_btn_color
+
+        &::before
+            content: ''
+            display: block
+            width: 1em
+            margin: 0 auto
+            border: 1px solid
+
+        &.m-plus
+            &::after
+                +positionCenterM
+                
+                content: ''
+                position: absolute
+                height: 1em
+                width: 0
+                border: 1px solid
+
     &__input
+        flex: 1 1 0
+        width: 0
+        height: 30px
+        background-color: $white
+        border: $_border_width solid $_border_color
+        border-left: none
+        border-right: none
+        text-align: center
+
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button
             -webkit-appearance: none

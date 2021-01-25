@@ -80,8 +80,8 @@ function Snake(id, size, snakeSizeBase) {
         const
             _htmlSizeWrap = document.createElement('div'),
             _htmlSizeHeading = document.createElement('div'),
-            _sizeX = componentInputFieldCreate($data.sizeXLabel, this.x),
-            _sizeY = componentInputFieldCreate($data.sizeYLabel, this.y),
+            _sizeX = componentInputCreate($data.sizeXLabel, this.x),
+            _sizeY = componentInputCreate($data.sizeYLabel, this.y),
             _htmlSizeRow = document.createElement('div'),
             _htmlSizeColX = document.createElement('div'),
             _htmlSizeColY = document.createElement('div')
@@ -114,7 +114,7 @@ function Snake(id, size, snakeSizeBase) {
             _htmlSnakeRow = document.createElement('div'),
             _htmlSnakeColSize = document.createElement('div'),
             _htmlSnakeColSpeed = document.createElement('div'),
-            _snakeSize = componentInputFieldCreate($data.snakeSizeLabel, this.snakeSizeBase)
+            _snakeSize = componentInputCreate($data.snakeSizeLabel, this.snakeSizeBase)
 
         $data.htmlSnakeSizeInput = _snakeSize.input;
         
@@ -151,7 +151,7 @@ function Snake(id, size, snakeSizeBase) {
 
         this.container.append(_htmlSettings);
         // initialize input component
-        componentInputField();
+        componentInput();
         // click om the "Sumbit" button
         _htmlCTASubmit.addEventListener('click', this.settingsSubmit.bind(this, $data))
     }
@@ -206,7 +206,6 @@ function Snake(id, size, snakeSizeBase) {
     };
     // arrows to control the snake
     this.snakeMoveArrows = function (event) {
-        // TODO: switch or direction = event.code
         if (event.code == 'ArrowRight' && this.direction != 'left' && this.enableKeydown) {
             this.direction = 'right';
             this.enableKeydown = false;

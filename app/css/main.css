@@ -219,24 +219,6 @@ ul, ol {
   margin-left: auto;
 }
 
-@media (min-width: 576px) {
-  .container {
-    max-width: 540px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    max-width: 960px;
-  }
-}
-
 @media (min-width: 1200px) {
   .container {
     max-width: 1140px;
@@ -2811,6 +2793,56 @@ select.input {
 
 .form-input.m-active label {
   transform: translate(0, -10px) scale(0.8);
+}
+
+.form-qty {
+  width: 100px;
+  max-width: 100%;
+  display: flex;
+}
+
+.form-qty__btn {
+  flex: 0 0 30px;
+  max-width: 33%;
+  min-width: 1.4em;
+  position: relative;
+  font-size: 12px;
+  background-color: #fff;
+  border: 2px solid #e0e0e0;
+  color: #9e9e9e;
+}
+
+.form-qty__btn::before {
+  content: '';
+  display: block;
+  width: 1em;
+  margin: 0 auto;
+  border: 1px solid;
+}
+
+.form-qty__btn.m-plus::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  content: '';
+  position: absolute;
+  height: 1em;
+  width: 0;
+  border: 1px solid;
+}
+
+.form-qty__input {
+  flex: 1 1 0;
+  width: 0;
+  height: 30px;
+  background-color: #fff;
+  border: 2px solid #e0e0e0;
+  border-left: none;
+  border-right: none;
+  text-align: center;
 }
 
 .form-qty__input::-webkit-outer-spin-button, .form-qty__input::-webkit-inner-spin-button {

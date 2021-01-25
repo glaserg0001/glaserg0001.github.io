@@ -5,7 +5,7 @@
 
 // form
 // ======== Input START
-function componentInputField() {
+function componentInput() {
     const activeClass = 'm-active';
 
     let inputArr = document.getElementsByClassName('js-form-input');
@@ -28,10 +28,10 @@ function componentInputField() {
 }
 
 // create new form input
-function componentInputFieldCreate(label, value, type, htmlClass) {
+function componentInputCreate(label, value, type, htmlClass) {
     // Example:
-    // componentInputFieldCreate(null, 'Value', 'text', [null, 'class1', 'class2']);
-    // componentInputFieldCreate('Label Text', 'Input Value');
+    // componentInputCreate(null, 'Value', 'text', [null, 'class1', 'class2']);
+    // componentInputCreate('Label Text', 'Input Value');
 
     let
         _inputField = document.createElement('div'),
@@ -69,5 +69,16 @@ function componentInputFieldCreate(label, value, type, htmlClass) {
 }
 
 // ======== Input END
+function componentQuantity() {
+    const _inputArr = document.getElementsByClassName('js-form-qty-input')
 
+        for (let i = 0; i < _inputArr.length; i++) {
+            // _inputArr[i].addEventListener()
+            const _minus = _inputArr[i].previousElementSibling;
+            const _plus = _inputArr[i].nextElementSibling;
+            _minus.addEventListener('click', () => {
+
+            })
+        }
+}
 // ================================ COMPONENTS END

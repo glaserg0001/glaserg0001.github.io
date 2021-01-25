@@ -1,2 +1,3 @@
 // styleguide
-componentInputField()
+componentInput()
+componentQuantity()

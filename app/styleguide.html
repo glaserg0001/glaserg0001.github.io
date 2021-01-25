@@ -61,11 +61,17 @@
           <label>Surname</label>
         </div>
         <h3>Quantity</h3>
-        <label class="label">Quantity</label>
+        <label class="label">Quantity 1</label>
         <div class="form-qty">
-          <button class="form-qty__btn m-minus js-form-qty-minus">-</button>
-          <input class="form-qty__input js-form-qty-input" type="number" value="1">
-          <button class="form-qty__btn m-plus js-form-qty-plus">+</button>
+          <button class="form-qty__btn m-minus js-form-qty-minus" type="button"></button>
+          <input class="form-qty__input js-form-qty-input" type="number" value="1" data-min="5" data-max="10">
+          <button class="form-qty__btn m-plus js-form-qty-plus" type="button"></button>
+        </div>
+        <label class="label">Quantity 2</label>
+        <div class="form-qty m-disabled">
+          <button class="form-qty__btn m-minus js-form-qty-minus" type="button"></button>
+          <input class="form-qty__input js-form-qty-input" type="number" value="2" data-min="1" data-max="20" disabled>
+          <button class="form-qty__btn m-plus js-form-qty-plus" type="button"></button>
         </div>
       </div>
     </div>

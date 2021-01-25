@@ -22,7 +22,7 @@ block content
       input2: {
         label: 'Surname',
         value: '',
-        disabled: false
+        disabled: true
       },
     }
 
@@ -32,12 +32,30 @@ block content
       label=val.label
   //- INPUT END
   //- QTY START
+  -
+    var qtyFields = {
+      qty1: {
+        label: 'Quantity 1',
+        value: 1,
+        min: 5,
+        max: 10,
+        disabled: false
+      },
+      qty2: {
+        label: 'Quantity 2',
+        value: 2,
+        min: 1,
+        max: 20,
+        disabled: true
+      },
+    }
   h3='Quantity'
-  label.label='Quantity'
-  .form-qty
-    button.form-qty__btn.m-minus.js-form-qty-minus='-'
-    input(type='number' value='1').form-qty__input.js-form-qty-input
-    button.form-qty__btn.m-plus.js-form-qty-plus='+'
+  each val, key in qtyFields
+    label.label=val.label
+    .form-qty(class=val.disabled ? 'm-disabled' : '')
+      button(type='button').form-qty__btn.m-minus.js-form-qty-minus
+      input(type='number' value=val.value data-min=val.min data-max=val.max disabled=val.disabled).form-qty__input.js-form-qty-input
+      button(type='button').form-qty__btn.m-plus.js-form-qty-plus
   
   //- QTY END
 

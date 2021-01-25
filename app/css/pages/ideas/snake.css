@@ -110,8 +110,9 @@
 .s-field-header__hiscore:hover .s-field-header__hiscore__list {
   visibility: visible;
   opacity: 1;
-  transform: translate3d(0, 0, 0);
-  transition: all .3s;
+  transform: scale(1);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  will-change: transform, opacity;
 }
 
 .s-field-header__hiscore__list {
@@ -128,7 +129,7 @@
   border-radius: 5px 0 5px 5px;
   visibility: hidden;
   opacity: 0;
-  transform: translate3d(0, -6px, 0);
+  transform: scale(0.9);
 }
 
 .s-field-header__hiscore__list::before {
