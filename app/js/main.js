@@ -15,11 +15,10 @@ function componentInput() {
             event.target.parentElement.classList.add(activeClass)
         })
         inputArr[i].addEventListener('blur', (event) => {
-            if (event.target.value) {
+            if (event.target.value)
                 event.target.parentElement.classList.add(activeClass)
-            } else {
+            else
                 event.target.parentElement.classList.remove(activeClass)
-            }
         })
         if (inputArr[i].value) {
             !!inputArr[i].parentElement.classList.add(activeClass)
@@ -44,8 +43,10 @@ function componentInputCreate(label, value, type, htmlClass) {
         _inputField.classList.add(htmlClass)
     } else if (Array.isArray(htmlClass)) {
         for (let i = 0; i < htmlClass.length; i++) {
-            if (htmlClass[i] == null) _inputField.className = ''
-            else _inputField.classList.add(htmlClass[i])
+            if (htmlClass[i] == null)
+                _inputField.className = ''
+            else
+                _inputField.classList.add(htmlClass[i])
         }
     }
     _input.setAttribute('type', type ? type : 'text');
@@ -70,15 +71,34 @@ function componentInputCreate(label, value, type, htmlClass) {
 
 // ======== Input END
 function componentQuantity() {
-    const _inputArr = document.getElementsByClassName('js-form-qty-input')
+    const inputArr = document.getElementsByClassName('js-form-qty-input')
+    
+    for (let i = 0; i < inputArr.length; i++) {
+        const
+            input = inputArr[i],
+            minusBtn = input.previousElementSibling,
+            plusBtn = input.nextElementSibling,
+            min = input.getAttribute('min'),
+            max = input.getAttribute('max'),
+            valBase = input.value
 
-        for (let i = 0; i < _inputArr.length; i++) {
-            // _inputArr[i].addEventListener()
-            const _minus = _inputArr[i].previousElementSibling;
-            const _plus = _inputArr[i].nextElementSibling;
-            _minus.addEventListener('click', () => {
+        if (valBase >= max) plusBtn.disabled = true
+        if (valBase <= min) minusBtn.disabled = true
+        if (valBase == max && valBase == min) input.disabled = true
 
-            })
-        }
+        minusBtn.addEventListener('click', () => {
+            if (input.disabled || input.value <= min) return false
+            const val = --input.value
+            if (val == min) minusBtn.disabled = true
+            else if (val < max ) plusBtn.disabled = false
+        })
+
+        plusBtn.addEventListener('click', () => {
+            if (input.disabled || input.value >= max) return false
+            const val = ++input.value
+            if (val == max) plusBtn.disabled = true
+            else if (val > min ) minusBtn.disabled = false
+        })
+    }
 }
 // ================================ COMPONENTS END

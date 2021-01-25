@@ -2,7 +2,6 @@
   box-sizing: inherit;
   padding: 0;
   margin: 0;
-  outline: none;
 }
 
 audio, canvas, iframe, img, svg, video {
@@ -44,10 +43,6 @@ audio:not([controls]) {
 
 a {
   background-color: transparent;
-}
-
-a:active, a:hover, a:focus {
-  outline: 0;
 }
 
 abbr[title] {
@@ -2770,6 +2765,7 @@ select.input {
 
 .form-input input:focus {
   border-color: #1976d2;
+  outline: none;
 }
 
 .form-input input:focus + label {
@@ -2796,20 +2792,39 @@ select.input {
 }
 
 .form-qty {
-  width: 100px;
-  max-width: 100%;
   display: flex;
+  flex-wrap: wrap;
+  width: 90px;
+  max-width: 100%;
+  margin-bottom: 10px;
+  user-select: none;
+}
+
+.form-qty__label {
+  width: 100%;
+  font-size: 14px;
+  margin-bottom: 6px;
+  line-height: 1;
+  text-align: center;
 }
 
 .form-qty__btn {
   flex: 0 0 30px;
-  max-width: 33%;
+  max-width: 33.33333%;
   min-width: 1.4em;
   position: relative;
   font-size: 12px;
-  background-color: #fff;
+  background-color: #fafafa;
   border: 2px solid #e0e0e0;
   color: #9e9e9e;
+  outline: none;
+}
+
+@media (min-width: 1024px) {
+  .form-qty__btn:hover {
+    background-color: #f5f5f5;
+    color: #757575;
+  }
 }
 
 .form-qty__btn::before {
@@ -2818,6 +2833,14 @@ select.input {
   width: 1em;
   margin: 0 auto;
   border: 1px solid;
+}
+
+.form-qty__btn.m-minus {
+  border-right-width: 1px;
+}
+
+.form-qty__btn.m-plus {
+  border-left-width: 1px;
 }
 
 .form-qty__btn.m-plus::after {
@@ -2834,6 +2857,10 @@ select.input {
   border: 1px solid;
 }
 
+.form-qty__btn:disabled {
+  color: #fafafa;
+}
+
 .form-qty__input {
   flex: 1 1 0;
   width: 0;
@@ -2843,6 +2870,7 @@ select.input {
   border-left: none;
   border-right: none;
   text-align: center;
+  pointer-events: none;
 }
 
 .form-qty__input::-webkit-outer-spin-button, .form-qty__input::-webkit-inner-spin-button {

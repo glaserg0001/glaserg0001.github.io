@@ -82,3 +82,19 @@
 =font-fix
     // font vertical align fix - 'Comic Sans MS'
     padding-bottom: 0.12em
+
+=inputNumberAppiarancePrevent
+    @if &
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button
+            -webkit-appearance: none
+            margin: 0
+        &[type='number']
+            -moz-appearance: textfield
+    @else
+        ::-webkit-outer-spin-button,
+        ::-webkit-inner-spin-button
+            -webkit-appearance: none
+            margin: 0
+        [type='number']
+            -moz-appearance: textfield
