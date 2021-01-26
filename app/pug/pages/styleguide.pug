@@ -53,9 +53,9 @@ block content
   each val, key in qtyFields
     .form-qty(class=val.disabled ? 'm-disabled' : '')
       label.form-qty__label=val.label
-      button(type='button').form-qty__btn.m-minus.js-form-qty-minus
+      button(type='button').form-qty__btn.m-minus
       input(type='number' value=val.value min=val.min max=val.max disabled=val.disabled tabindex=-1).form-qty__input.js-form-qty-input
-      button(type='button').form-qty__btn.m-plus.js-form-qty-plus
+      button(type='button').form-qty__btn.m-plus
   
   //- QTY END
 
