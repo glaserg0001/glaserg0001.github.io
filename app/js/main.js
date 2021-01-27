@@ -1,7 +1,7 @@
 // common js
 // ================================ COMPONENTS START
 
-// const x = document.querySelector('.main-container');
+const x = document.querySelector('.main-container');
 
 // form
 // ======== Input START
@@ -100,6 +100,66 @@ function componentQuantity() {
             if (val == max) plusBtn.disabled = true
             else if (val > min ) minusBtn.disabled = false
         })
+    }
+}
+function componentQuantityCreate(value=1, range, label, htmlClass) {
+    // example:
+    // componentQuantityCreate(5, [1, 9], 'Qty', [null, 'class1', 'class2'])
+    const
+        wrapper = document.createElement('div'),
+        input = document.createElement('input'),
+        btnMinus = document.createElement('button'),
+        btnPlus = document.createElement('button'),
+        blockName = 'form-qty', // `${blockName}`
+        min = range[0],
+        max = range[1]
+
+    let _label;
+
+    wrapper.classList.add(blockName)
+    if (typeof htmlClass == 'string') {
+        wrapper.classList.add(htmlClass)
+    } else if (Array.isArray(htmlClass)) {
+        for (let i = 0; i < htmlClass.length; i++) {
+            if (htmlClass[i] == null)
+                wrapper.className = ''
+            else
+                wrapper.classList.add(htmlClass[i])
+        }
+    }
+    // input
+    input.setAttribute('type', 'number')
+    if (min) input.setAttribute('min', min)
+    if (max) input.setAttribute('max', max)
+    input.setAttribute('tabindex', -1)
+    input.value = value
+    input.classList.add(`${blockName}__input` ,'js-form-qty-input')
+    // button Minus
+    btnMinus.setAttribute('type', 'button')
+    btnMinus.classList.add(`${blockName}__btn` ,'m-minus')
+    // button Plus
+    btnPlus.setAttribute('type', 'button')
+    btnPlus.classList.add(`${blockName}__btn` ,'m-plus')
+
+    if (label) {
+        _label = document.createElement('label')
+        _label.innerText = label
+        _label.classList.add(`${blockName}__label`)
+        wrapper.prepend(_label)
+    }
+
+    wrapper.append(
+        btnMinus,
+        input,
+        btnPlus
+    )
+
+    return {
+        wrap: wrapper,
+        input: input,
+        btnMinus: btnMinus,
+        btnPlus: btnPlus,
+        label: _label
     }
 }
 // ================================ COMPONENTS END
