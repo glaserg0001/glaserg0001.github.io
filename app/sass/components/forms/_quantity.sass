@@ -10,6 +10,10 @@
     margin-bottom: 10px
     user-select: none
 
+    &.m-disabled
+        opacity: 0.6
+        pointer-events: none
+
     &__label
         width: 100%
         font-size: 14px
@@ -31,9 +35,6 @@
         +on-event
             background-color: $grey-100
             color: $grey-700
-            // background-color: $_color_focus
-            // color: $white
-            // border-color: $_color_focus
 
         &::before
             content: ''
@@ -43,10 +44,10 @@
             border: 1px solid
 
         &.m-minus
-            // border-right-width: 1px
+            border-right-width: 1px
 
         &.m-plus
-            // border-left-width: 1px
+            border-left-width: 1px
 
             &::after
                 +positionCenterM

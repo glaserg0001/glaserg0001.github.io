@@ -2800,6 +2800,11 @@ select.input {
   user-select: none;
 }
 
+.form-qty.m-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
 .form-qty__label {
   width: 100%;
   font-size: 14px;
@@ -2833,6 +2838,14 @@ select.input {
   width: 1em;
   margin: 0 auto;
   border: 1px solid;
+}
+
+.form-qty__btn.m-minus {
+  border-right-width: 1px;
+}
+
+.form-qty__btn.m-plus {
+  border-left-width: 1px;
 }
 
 .form-qty__btn.m-plus::after {

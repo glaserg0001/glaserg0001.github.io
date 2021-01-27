@@ -75,19 +75,22 @@ function componentQuantity() {
     const inputArr = document.getElementsByClassName('js-form-qty-input')
     
     for (let i = 0; i < inputArr.length; i++) {
-        const
+        let
             input = inputArr[i],
             minusBtn = input.previousElementSibling,
             plusBtn = input.nextElementSibling,
-            min = input.getAttribute('min'),
-            max = input.getAttribute('max'),
+            min = parseInt(input.getAttribute('min')),
+            max = parseInt(input.getAttribute('max')),
             valBase = input.value
 
-        if (valBase >= max) plusBtn.disabled = true
-        if (valBase <= min) minusBtn.disabled = true
+        if (valBase >= max && max) plusBtn.disabled = true
+        if (valBase <= min && min) minusBtn.disabled = true
         if (valBase == max && valBase == min) input.disabled = true
 
+        console.log(max)
+
         minusBtn.addEventListener('click', () => {
+            // debugger
             if (input.disabled || input.value <= min) return false
             const val = --input.value
             if (val == min) minusBtn.disabled = true
@@ -95,7 +98,8 @@ function componentQuantity() {
         })
 
         plusBtn.addEventListener('click', () => {
-            if (input.disabled || input.value >= max) return false
+            if (max && (input.disabled || input.value >= max)) return false
+            console.log('c')
             const val = ++input.value
             if (val == max) plusBtn.disabled = true
             else if (val > min ) minusBtn.disabled = false

@@ -1,3 +1,24 @@
+// font vertical align fix - 'Comic Sans MS'
+=font-fix
+    padding-bottom: 0.12em
+
+// hide default arrows for the input type number 
+=inputNumberAppiarancePrevent
+    @if &
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button
+            -webkit-appearance: none
+            margin: 0
+        &[type='number']
+            -moz-appearance: textfield
+    @else
+        ::-webkit-outer-spin-button,
+        ::-webkit-inner-spin-button
+            -webkit-appearance: none
+            margin: 0
+        [type='number']
+            -moz-appearance: textfield
+
 =clear
     &:after
         content: '';
@@ -38,6 +59,16 @@
     bottom: 0
     margin: $margin
 
+=centerX
+    position: absolute
+    left: 50%
+    transform: translate(-50%, 0)
+
+=centerY
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%)
+
 =bgi($pos: center)
     background-size: cover
     background-repeat: no-repeat
@@ -57,44 +88,21 @@
     left: 0;
     bottom: 0;
 
-=centerX
-    position: absolute
-    left: 50%
-    transform: translate(-50%, 0)
+=on-event($events: null)
+    // Example: +on-event(['hover', 'focus'])
 
-=centerY
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%)
-
-=br($r: 50%)
-    border-radius: $r
-
-=on-event($type: null)
-    +media-breakpoint-up(lg)
-        @if $type == active
-            &:active
-                @content
-        @else 
+    @if $events == null
+        +media-breakpoint-up(lg)
             &:hover
                 @content
-
-=font-fix
-    // font vertical align fix - 'Comic Sans MS'
-    padding-bottom: 0.12em
-
-=inputNumberAppiarancePrevent
-    @if &
-        &::-webkit-outer-spin-button,
-        &::-webkit-inner-spin-button
-            -webkit-appearance: none
-            margin: 0
-        &[type='number']
-            -moz-appearance: textfield
     @else
-        ::-webkit-outer-spin-button,
-        ::-webkit-inner-spin-button
-            -webkit-appearance: none
-            margin: 0
-        [type='number']
-            -moz-appearance: textfield
+        @each $event in $events
+            @if $event == hover
+                +media-breakpoint-up(lg)
+                    &:#{$event}
+                        @content
+            @else
+                &:#{$event}
+                    @if $event == focus
+                        outline: none
+                    @content
