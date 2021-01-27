@@ -516,5 +516,7 @@ let snake = new Snake(
 
 // TODO:
 // - html class => id
-// - elements into array: this.element; this.element = docement.createElement
+// - elements into this.data: this.element = this.data...createElement
 // - new click - new interval
+// - delegating for buttons
+// - delegating for form elements

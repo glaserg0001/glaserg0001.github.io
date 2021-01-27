@@ -1,6 +1,7 @@
 .form-qty
     $_border_width: 2px
     $_border_color: color(border)
+    $_color_focus: color(border-active)
 
     display: flex
     flex-wrap: wrap
@@ -22,14 +23,17 @@
         min-width: 1.4em
         position: relative
         font-size: 12px
-        background-color: $grey-100
+        background-color: $white
         border: $_border_width solid $_border_color
         color: $grey-600
         outline: none
 
         +on-event
-            background-color: $grey-200
+            background-color: $grey-100
             color: $grey-700
+            // background-color: $_color_focus
+            // color: $white
+            // border-color: $_color_focus
 
         &::before
             content: ''
@@ -39,10 +43,10 @@
             border: 1px solid
 
         &.m-minus
-            border-right-width: 1px
+            // border-right-width: 1px
 
         &.m-plus
-            border-left-width: 1px
+            // border-left-width: 1px
 
             &::after
                 +positionCenterM
@@ -53,8 +57,11 @@
                 width: 0
                 border: 1px solid
         
+        &:active
+            background-color: $grey-200
+        
         &:disabled
-            color: $grey-100
+            color: $grey-400
 
     &__input
         +inputNumberAppiarancePrevent

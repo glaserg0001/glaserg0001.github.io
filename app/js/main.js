@@ -11,17 +11,18 @@ function componentInput() {
     let inputArr = document.getElementsByClassName('js-form-input');
 
     for (let i = 0; i < inputArr.length; i++) {
-        inputArr[i].addEventListener('focus', (event) => {
+        const input = inputArr[i]
+        input.addEventListener('focus', (event) => {
             event.target.parentElement.classList.add(activeClass)
         })
-        inputArr[i].addEventListener('blur', (event) => {
+        input.addEventListener('blur', (event) => {
             if (event.target.value)
                 event.target.parentElement.classList.add(activeClass)
             else
                 event.target.parentElement.classList.remove(activeClass)
         })
-        if (inputArr[i].value) {
-            !!inputArr[i].parentElement.classList.add(activeClass)
+        if (input.value) {
+            !!input.parentElement.classList.add(activeClass)
         }
     }
 }

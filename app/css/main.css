@@ -2764,12 +2764,12 @@ select.input {
 }
 
 .form-input input:focus {
-  border-color: #1976d2;
+  border-color: #64b5f6;
   outline: none;
 }
 
 .form-input input:focus + label {
-  color: #1976d2;
+  color: #64b5f6;
   opacity: 1;
 }
 
@@ -2814,7 +2814,7 @@ select.input {
   min-width: 1.4em;
   position: relative;
   font-size: 12px;
-  background-color: #fafafa;
+  background-color: #fff;
   border: 2px solid #e0e0e0;
   color: #9e9e9e;
   outline: none;
@@ -2822,7 +2822,7 @@ select.input {
 
 @media (min-width: 1024px) {
   .form-qty__btn:hover {
-    background-color: #f5f5f5;
+    background-color: #fafafa;
     color: #757575;
   }
 }
@@ -2833,14 +2833,6 @@ select.input {
   width: 1em;
   margin: 0 auto;
   border: 1px solid;
-}
-
-.form-qty__btn.m-minus {
-  border-right-width: 1px;
-}
-
-.form-qty__btn.m-plus {
-  border-left-width: 1px;
 }
 
 .form-qty__btn.m-plus::after {
@@ -2857,8 +2849,12 @@ select.input {
   border: 1px solid;
 }
 
+.form-qty__btn:active {
+  background-color: #f5f5f5;
+}
+
 .form-qty__btn:disabled {
-  color: #fafafa;
+  color: #e0e0e0;
 }
 
 .form-qty__input {

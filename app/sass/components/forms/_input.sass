@@ -1,6 +1,6 @@
 .form-input
     $_color_main: $dark
-    $_color_active: $blue-700
+    $_color_focus: color(border-active)
     
     position: relative
     margin-bottom: 10px
@@ -16,11 +16,11 @@
         transition: all 0.2s ease-in-out
 
         &:focus
-            border-color: $_color_active
+            border-color: $_color_focus
             outline: none
 
             & + label
-                color: $_color_active
+                color: $_color_focus
                 opacity: 1
 
     label

@@ -14,6 +14,7 @@ $wrapper: 1200px + $wrap_padding * 2;
 $red-500: #ee6e73;
 $red-600: #b71c1c;
 $teal: #009688;
+// blue
 $blue-100: #bbdefb;
 $blue-200: #90caf9;
 $blue-300: #64b5f6;
@@ -48,7 +49,8 @@ $colors: (
     light: $white,
     // component
     text: $dark,
-    border: $grey-400
+    border: $grey-400,
+    border-active: $blue-300
 );
 
 $grid-breakpoints: (
