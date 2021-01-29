@@ -82,6 +82,14 @@ $spacers: map-merge(
     $spacers
 );
 
+$sizes: () !default;
+$sizes: map-merge((
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  100: 100%
+), $sizes);
+
 // Grid columns
 $grid-columns: 12 !default;
 $grid-gutter-width: 20px !default;

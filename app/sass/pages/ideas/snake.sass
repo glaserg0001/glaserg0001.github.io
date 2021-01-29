@@ -27,6 +27,23 @@
     font-family: monospace
     user-select: none
 
+    // elements START
+    &__btn
+        padding: 5px 15px
+        background-color: $white
+        color: $dark
+        border: 2px solid color(border)
+
+        +on-event([hover, focus])
+            background-color: $dark
+            color: $white
+            border: 2px solid $dark
+        
+        &:disabled
+            opacity: 0.5
+        
+    // elements END
+
     &-settings
         width: 300px
         max-width: 100%
@@ -56,17 +73,20 @@
             border-top: 1px solid color(border)
 
         &__goto
-            margin-bottom: 5px
+            padding-bottom: 10px
+            margin-bottom: 8px
+            border-bottom: 1px solid color(border)
 
             &__button
-                // $_btn-color: $blue-700
-                $_btn-color: $grey-500
+                $_color: $grey-500
+                $_color_active: $grey-600
                 position: relative
                 padding: 4px 8px 4px 34px
                 background-color: $white
-                border: 2px solid $_btn-color
+                border: 2px solid $_color
                 border-radius: 5px
                 font-size: 14px
+                transition: all 0.1s
 
                 &::before
                     content: ''
@@ -75,8 +95,9 @@
                     top: 0
                     bottom: 0
                     width: 26px
-                    background-color: $_btn-color
-                    border-right: 2px solid $_btn-color
+                    background-color: $_color
+                    border-right: 2px solid $_color
+                    transition: inherit
 
                 &::after
                     content: ''
@@ -89,13 +110,17 @@
                     border-right-color: currentColor
                     border-right-width: 10px
                     border-left: none
+                    transition: inherit
                 
-                +on-event
+                +on-event([hover, focus])
+                    border-color: $_color_active
+
                     &::before
                         background-color: transparent
+                        border-color: $_color_active
                     
                     &::after
-                        color: $_btn-color
+                        color: $_color_active
 
     &-header
         padding-bottom: 10px
@@ -208,6 +233,8 @@
             background-size: 12px 12px
 
     &-footer
+        display: flex
+        justify-content: space-between
         padding-top: 10px
         margin-top: 10px
         border-top: 1px solid $grey-400
@@ -228,6 +255,7 @@
             border-radius: 5px
             background-color: rgba($black, .8)
             color: $white
+            text-align: center
         
         &__close
             position: absolute
@@ -241,7 +269,7 @@
             border: 1px solid transparent
             border-left-color: currentColor
 
-            +on-event
+            +on-event([hover, focus])
                 background-color: rgba($black, .2)
 
             &::before

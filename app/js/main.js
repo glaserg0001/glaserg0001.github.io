@@ -81,7 +81,7 @@ function componentQuantity() {
             plusBtn = input.nextElementSibling,
             min = parseInt(input.getAttribute('min')),
             max = parseInt(input.getAttribute('max')),
-            valBase = input.value
+            valBase = parseInt(input.value)
 
         if (valBase >= max && !isNaN(max)) plusBtn.disabled = true
         if (valBase <= min && !isNaN(min)) minusBtn.disabled = true

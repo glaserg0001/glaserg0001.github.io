@@ -6,7 +6,6 @@ function Snake(id, size, snakeSizeBase) {
     // bloks & elements
     this.blockMiddle = `${this.jsPrefix}-middle`;
     this.blockAlertGameOver = `${this.jsPrefix}-alert-gameover`;
-    this.elAlertGameOverClose = `${this.jsPrefix}-alert-gameover-close`;
     // header
     this.headerScoreValue = `${this.jsPrefix}-score-value`;
     this.headerHiScore = `${this.jsPrefix}-hiscore`;
@@ -55,13 +54,34 @@ function Snake(id, size, snakeSizeBase) {
             scoreLabel: 'Score: ',
             hiScoreLabel: 'Hi-Score: '
         },
+        footer: {
+            buttonStart: 'Start',
+            buttonPause: 'Pause',
+            buttonReset: 'Reset',
+        },
         alert: {
-            gameOverText: `Game Over`,
+            gameOverText: `Game Over<br>You scored {0} points`,
             loadText: 'Loader...'
         },
         error: {
             lengthSnake: `Please enter less length than ${this.x} value for the snake size`
         }
+    }
+    this.message = function () {
+        if (arguments.length == 1) {
+            return arguments[0]
+        }
+
+        let args = Array.prototype.slice.call(arguments);
+        let value = arguments[0];
+        return value.replace(/{(\d)}/g, function (match, p) {
+            let position = Number(p);
+            if (args[position + 1]) {
+                return args[position + 1];
+            // if no arguments found, return the original placeholder
+            }
+            return match;
+        });
     }
     // generate the random integer
     this.getRandomInt = function(min, max) {
@@ -138,6 +158,7 @@ function Snake(id, size, snakeSizeBase) {
             _htmlCTASubmit = document.createElement('button');
         
         _htmlCTA.classList.add(`${this.blockName}-settings__cta`);
+        _htmlCTASubmit.classList.add(`${this.blockName}__btn`, 'w-100');
         $data.htmlCTASubmit = _htmlCTASubmit
         _htmlCTASubmit.innerText = $data.CTASubmit;
         _htmlCTA.append(_htmlCTASubmit);
@@ -349,15 +370,17 @@ function Snake(id, size, snakeSizeBase) {
     }
     // Alert for game over event
     this.alertGameOver = function () {
-        const _alert = document.createElement('div');
-        const _alertBody = document.createElement('div');
-        const _alertClose = document.createElement('button');
+        const 
+            $data = this.data.alert,
+            _alert = document.createElement('div'),
+            _alertBody = document.createElement('div'),
+            _alertClose = document.createElement('button')
 
         _alert.classList.add(`${this.blockName}-alert-gameover`, this.blockAlertGameOver);
         _alertBody.classList.add(`${this.blockName}-alert-gameover__body`);
-        _alertClose.classList.add(`${this.blockName}-alert-gameover__close`, this.elAlertGameOverClose);
+        _alertClose.classList.add(`${this.blockName}-alert-gameover__close`);
 
-        _alertBody.innerText = this.data.alert.gameOverText;
+        _alertBody.innerHTML = this.message($data.gameOverText, this.scoreValue);
         _alertBody.append(_alertClose);
         _alert.append(_alertBody);
         document.getElementsByClassName(this.blockMiddle)[0].append(_alert);
@@ -466,21 +489,20 @@ function Snake(id, size, snakeSizeBase) {
     };
     // ==== Footer
     this.footer = function () {
-        const _footer = document.createElement('div');
+        const
+            $data = this.data.footer,
+            _footer = document.createElement('div'),
+            btnStart = document.createElement('button'),
+            btnPause = document.createElement('button'),
+            btnReset = document.createElement('button');
+        
         _footer.classList.add(`${this.blockName}-footer`);
-
-        const btnStart = document.createElement('button');
-        const btnPause = document.createElement('button');
-        const btnReset = document.createElement('button');
-
-        btnStart.classList.add(this.buttonStart);
-        btnPause.classList.add(this.buttonPause);
-        btnReset.classList.add(this.buttonReset);
-        btnPause.style.marginLeft = '100px'; // temporary, should be deleted
-        btnReset.style.float = 'right'; // temporary, should be deleted
-        btnStart.innerText = 'Start';
-        btnPause.innerText = 'Pause';
-        btnReset.innerText = 'Reset';
+        btnStart.classList.add(this.buttonStart, `${this.blockName}__btn`);
+        btnPause.classList.add(this.buttonPause, `${this.blockName}__btn`);
+        btnReset.classList.add(this.buttonReset, `${this.blockName}__btn`);
+        btnStart.innerText = $data.buttonStart;
+        btnPause.innerText = $data.buttonPause;
+        btnReset.innerText = $data.buttonReset;
 
         btnPause.disabled = true;
 
@@ -499,7 +521,7 @@ function Snake(id, size, snakeSizeBase) {
         buttonPause.addEventListener('click', this.gamePause.bind(this, buttonStart, buttonPause));
         // click button Reset
         buttonReset.addEventListener('click', this.gameReset.bind(this, buttonStart, buttonPause, buttonReset));
-        // listener of keyboard
+        // listener of keyboards
         window.addEventListener('keydown', this.snakeMoveArrows.bind(this));
     };
     this.main = function () {
