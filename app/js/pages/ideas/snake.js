@@ -67,22 +67,6 @@ function Snake(id, size, snakeSizeBase) {
             lengthSnake: `Please enter less length than ${this.x} value for the snake size`
         }
     }
-    this.message = function () {
-        if (arguments.length == 1) {
-            return arguments[0]
-        }
-
-        let args = Array.prototype.slice.call(arguments);
-        let value = arguments[0];
-        return value.replace(/{(\d)}/g, function (match, p) {
-            let position = Number(p);
-            if (args[position + 1]) {
-                return args[position + 1];
-            // if no arguments found, return the original placeholder
-            }
-            return match;
-        });
-    }
     // generate the random integer
     this.getRandomInt = function(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
@@ -380,7 +364,7 @@ function Snake(id, size, snakeSizeBase) {
         _alertBody.classList.add(`${this.blockName}-alert-gameover__body`);
         _alertClose.classList.add(`${this.blockName}-alert-gameover__close`);
 
-        _alertBody.innerHTML = this.message($data.gameOverText, this.scoreValue);
+        _alertBody.innerHTML = ResourceMsg($data.gameOverText, this.scoreValue);
         _alertBody.append(_alertClose);
         _alert.append(_alertBody);
         document.getElementsByClassName(this.blockMiddle)[0].append(_alert);

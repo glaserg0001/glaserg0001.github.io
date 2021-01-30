@@ -38,7 +38,8 @@ block content
         label: 'Quantity 1',
         value: 1,
         min: 0,
-        max: 3,
+        max: 12,
+        step: 5,
         disabled: false
       },
       qty2: {
@@ -61,7 +62,7 @@ block content
     .form-qty(class=val.disabled ? 'm-disabled' : '')
       label.form-qty__label=val.label
       button(type='button').form-qty__btn.m-minus
-      input(type='number' value=val.value min=val.min max=val.max disabled=val.disabled tabindex=-1).form-qty__input.js-form-qty-input
+      input(type='number' value=val.value min=val.min max=val.max step=val.step disabled=val.disabled tabindex=-1).form-qty__input.js-form-qty-input
       button(type='button').form-qty__btn.m-plus
   
   //- QTY END

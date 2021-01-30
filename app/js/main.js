@@ -1,4 +1,22 @@
 // common js
+// Methods START
+function ResourceMsg() {
+    if (arguments.length == 1) {
+        return arguments[0]
+    }
+
+    let args = Array.prototype.slice.call(arguments);
+    let value = arguments[0];
+    return value.replace(/{(\d)}/g, function (match, p) {
+        let position = Number(p);
+        if (args[position + 1]) {
+            return args[position + 1];
+        // if no arguments found, return the original placeholder
+        }
+        return match;
+    })
+}
+// Methods END
 // ================================ COMPONENTS START
 
 const x = document.querySelector('.main-container');
@@ -81,7 +99,8 @@ function componentQuantity() {
             plusBtn = input.nextElementSibling,
             min = parseInt(input.getAttribute('min')),
             max = parseInt(input.getAttribute('max')),
-            valBase = parseInt(input.value)
+            valBase = parseInt(input.value),
+            step = input.getAttribute('step') ? parseInt(input.getAttribute('step')) : 1
 
         if (valBase >= max && !isNaN(max)) plusBtn.disabled = true
         if (valBase <= min && !isNaN(min)) minusBtn.disabled = true
@@ -89,23 +108,27 @@ function componentQuantity() {
 
         minusBtn.addEventListener('click', () => {
             if (input.disabled || input.value <= min) return false
-            const val = --input.value
-            if (val == min) minusBtn.disabled = true
+            let val = parseInt(input.value) - step
+            input.value = val < min ? min : val
+            if (val <= min) minusBtn.disabled = true
             if (val < max ) plusBtn.disabled = false
         })
 
         plusBtn.addEventListener('click', () => {
             if (input.disabled || input.value >= max) return false
-            const val = ++input.value
-            if (val == max) plusBtn.disabled = true
+            let val = parseInt(input.value) + step
+            input.value = val > max ? max : val
+            if (val >= max) plusBtn.disabled = true
             if (val > min ) minusBtn.disabled = false
         })
     }
 }
 
-function componentQuantityCreate(value=1, range, label, htmlClass) {
+function componentQuantityCreate(value = 1, range = [], label, htmlClass) {
+    // range = [min, max, step]
     // example:
-    // componentQuantityCreate(5, [1, 9], 'Qty', [null, 'class1', 'class2'])
+    // componentQuantityCreate(5, [1, 9, 2], 'Qty', [null, 'class1', 'class2'])
+    console.log(range)
     const
         wrapper = document.createElement('div'),
         input = document.createElement('input'),
@@ -113,7 +136,10 @@ function componentQuantityCreate(value=1, range, label, htmlClass) {
         btnPlus = document.createElement('button'),
         blockName = 'form-qty', // `${blockName}`
         min = range[0],
-        max = range[1]
+        max = range[1],
+        step = range[2]
+
+        console.log(step)
 
     let _label;
 
@@ -132,6 +158,7 @@ function componentQuantityCreate(value=1, range, label, htmlClass) {
     input.setAttribute('type', 'number')
     if (min) input.setAttribute('min', min)
     if (max) input.setAttribute('max', max)
+    if (step) input.setAttribute('step', step)
     input.setAttribute('tabindex', -1)
     input.value = value
     input.classList.add(`${blockName}__input` ,'js-form-qty-input')
