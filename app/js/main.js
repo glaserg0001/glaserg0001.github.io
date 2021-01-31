@@ -1,6 +1,8 @@
-// common js
-// Methods START
+const x = document.querySelector('.main-container');
+// Helpers START
 function ResourceMsg() {
+    // Example:
+    // ResourceMsg('Text of {0}', 'Message'); Text of Message  
     if (arguments.length == 1) {
         return arguments[0]
     }
@@ -16,11 +18,25 @@ function ResourceMsg() {
         return match;
     })
 }
-// Methods END
+// Create Svg Icon
+function iconSvgCreate(name, file = 'img/icons.svg') {
+    const
+        svg = document.createElement('svg'),
+        use = document.createElement('use')
+    
+    svg.classList.add('icon')
+    use.setAttribute('xlink:href', `${file}#${name}`)
+    svg.append(use)
+    return svg
+}
+
+let a = iconSvgCreate('icon-test')
+
+x.append(a)
+
+// Helpers END
+
 // ================================ COMPONENTS START
-
-const x = document.querySelector('.main-container');
-
 // form
 // ======== Input START
 function componentInput() {

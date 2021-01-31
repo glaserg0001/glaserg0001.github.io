@@ -2647,6 +2647,13 @@ select.input {
   transform: rotate(-20deg);
 }
 
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
 /*show from:
     hide_lap - 1300
     hide_tab - 1025
