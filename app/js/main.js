@@ -126,6 +126,7 @@ function componentQuantity() {
 
 function componentQuantityCreate(value = 1, range = [], label, htmlClass) {
     // range = [min, max, step]
+    // htmlClass = [null, 'class1', 'class2']; null - remove previous classes
     // example:
     // componentQuantityCreate(5, [1, 9, 2], 'Qty', [null, 'class1', 'class2'])
     console.log(range)
