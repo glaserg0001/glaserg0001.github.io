@@ -34,6 +34,27 @@ let a = iconSvgCreate('icon-test')
 
 x.append(a)
 
+let xhr = new XMLHttpRequest()
+
+xhr.open('GET', 'img/icons.svg')
+xhr.onload = function() {
+  console.log(`Загружено: ${xhr.status} ${xhr.response}`);
+};
+
+xhr.onerror = function() { // происходит, только когда запрос совсем не получилось выполнить
+  console.log(`Ошибка соединения`);
+};
+
+xhr.send()
+
+xhr.onprogress = function(event) { // запускается периодически
+  // event.loaded - количество загруженных байт
+  // event.lengthComputable = равно true, если сервер присылает заголовок Content-Length
+  // event.total - количество байт всего (только если lengthComputable равно true)
+  console.log(`Загружено ${event.loaded} из ${event.total}`);
+};
+// console.log(xhr)
+
 // Helpers END
 
 // ================================ COMPONENTS START
