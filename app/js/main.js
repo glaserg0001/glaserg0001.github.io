@@ -19,41 +19,45 @@ function ResourceMsg() {
     })
 }
 // Create Svg Icon
-function iconSvgCreate(name, file = 'img/icons.svg') {
+function iconSvgCreate(container, name, file = 'img/icons.svg') {
     const
-        svg = document.createElement('svg'),
-        use = document.createElement('use')
-    
-    svg.classList.add('icon')
-    use.setAttribute('xlink:href', `${file}#${name}`)
-    svg.append(use)
+        svg = `<svg class="icon"><use xlink:href="${file}#${name}"></use></svg>`,
+        use = `<use xlink:href="${file}#${name}"></use>`
+
+    if (typeof container == 'string')
+        container = document.querySelector(container)
+
+    if (container)
+        container.innerHTML = svg
+    else
+        console.log('error')
+
     return svg
 }
 
-let a = iconSvgCreate('icon-test')
+const gg = document.querySelector('.gg')
+const q = document.createElement('div')
 
-x.append(a)
+iconSvgCreate(q, 'icon-test')
 
+gg.append(q)
+
+// x.append(a)
+
+// == XMLHttpRequest START ==
 let xhr = new XMLHttpRequest()
-
 xhr.open('GET', 'img/icons.svg')
 xhr.onload = function() {
-  console.log(`Загружено: ${xhr.status} ${xhr.response}`);
+    // console.log(`Загружено: ${xhr.status} ${xhr.response}`);
 };
-
-xhr.onerror = function() { // происходит, только когда запрос совсем не получилось выполнить
-  console.log(`Ошибка соединения`);
+xhr.onerror = function() {
+    // console.log(`Ошибка соединения`);
 };
-
 xhr.send()
-
-xhr.onprogress = function(event) { // запускается периодически
-  // event.loaded - количество загруженных байт
-  // event.lengthComputable = равно true, если сервер присылает заголовок Content-Length
-  // event.total - количество байт всего (только если lengthComputable равно true)
-  console.log(`Загружено ${event.loaded} из ${event.total}`);
+xhr.onprogress = function(event) {
+    // console.log(`Загружено ${event.loaded} из ${event.total}`);
 };
-// console.log(xhr)
+// == XMLHttpRequest END ==
 
 // Helpers END
 
