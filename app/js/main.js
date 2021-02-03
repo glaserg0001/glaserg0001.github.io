@@ -18,11 +18,11 @@ function ResourceMsg() {
         return match;
     })
 }
+
 // Create Svg Icon
 function iconSvgCreate(container, name, file = 'img/icons.svg') {
-    const
-        svg = `<svg class="icon"><use xlink:href="${file}#${name}"></use></svg>`,
-        use = `<use xlink:href="${file}#${name}"></use>`
+    // container: null, string, element (createElelment)
+    const svg = `<svg class="icon"><use xlink:href="${file}#${name}"></use></svg>`
 
     if (typeof container == 'string')
         container = document.querySelector(container)
@@ -30,33 +30,22 @@ function iconSvgCreate(container, name, file = 'img/icons.svg') {
     if (container)
         container.innerHTML = svg
     else
-        console.log('error')
-
-    return svg
+        return svg
 }
 
-const gg = document.querySelector('.gg')
-const q = document.createElement('div')
-
-iconSvgCreate(q, 'icon-test')
-
-gg.append(q)
-
-// x.append(a)
-
 // == XMLHttpRequest START ==
-let xhr = new XMLHttpRequest()
-xhr.open('GET', 'img/icons.svg')
-xhr.onload = function() {
-    // console.log(`Загружено: ${xhr.status} ${xhr.response}`);
-};
-xhr.onerror = function() {
-    // console.log(`Ошибка соединения`);
-};
-xhr.send()
-xhr.onprogress = function(event) {
-    // console.log(`Загружено ${event.loaded} из ${event.total}`);
-};
+// let xhr = new XMLHttpRequest()
+// xhr.open('GET', 'img/icons.svg')
+// xhr.onload = function() {
+//     // console.log(`Загружено: ${xhr.status} ${xhr.response}`);
+// };
+// xhr.onerror = function() {
+//     // console.log(`Ошибка соединения`);
+// };
+// xhr.send()
+// xhr.onprogress = function(event) {
+//     // console.log(`Загружено ${event.loaded} из ${event.total}`);
+// };
 // == XMLHttpRequest END ==
 
 // Helpers END
