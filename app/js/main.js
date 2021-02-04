@@ -21,6 +21,7 @@ function ResourceMsg() {
 
 // Create Svg Icon
 function iconSvgCreate(container, name, file = 'img/icons.svg') {
+    // Example: iconSvgCreate('.wrap', 'icon-test')
     // container: null, string, element (createElelment)
     const svg = `<svg class="icon"><use xlink:href="${file}#${name}"></use></svg>`
 
@@ -32,22 +33,6 @@ function iconSvgCreate(container, name, file = 'img/icons.svg') {
     else
         return svg
 }
-
-// == XMLHttpRequest START ==
-// let xhr = new XMLHttpRequest()
-// xhr.open('GET', 'img/icons.svg')
-// xhr.onload = function() {
-//     // console.log(`Загружено: ${xhr.status} ${xhr.response}`);
-// };
-// xhr.onerror = function() {
-//     // console.log(`Ошибка соединения`);
-// };
-// xhr.send()
-// xhr.onprogress = function(event) {
-//     // console.log(`Загружено ${event.loaded} из ${event.total}`);
-// };
-// == XMLHttpRequest END ==
-
 // Helpers END
 
 // ================================ COMPONENTS START
