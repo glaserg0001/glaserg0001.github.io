@@ -10,3 +10,7 @@ mixin listOfLinks(name)
               a(href=item.linkOuter class=`link_icon ${item.icon}` target="_blank")
             a(href=item.link).list-link= item.title
 
+//- TODO: add classes
+mixin icon(name)
+  svg.icon
+    use(xlink:href=`${URL_file('img/icons', baseUrlLvl, 'svg')}#${name}`)

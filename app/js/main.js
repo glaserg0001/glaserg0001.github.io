@@ -18,7 +18,6 @@ function ResourceMsg() {
         return match;
     })
 }
-
 // Create Svg Icon
 function iconSvgCreate(container, name, file = 'img/icons.svg') {
     // Example: iconSvgCreate('.wrap', 'icon-test')
@@ -34,7 +33,6 @@ function iconSvgCreate(container, name, file = 'img/icons.svg') {
         return svg
 }
 // Helpers END
-
 // ================================ COMPONENTS START
 // form
 // ======== Input START
