@@ -1,19 +1,21 @@
--  var URL_Pug_MainNav = function(file, index = false) {
--    return '/app/' + file + (index ? '/' : '.html')
--  }
+-
+  var URL_Pug_MainNav = function(file, index = false) {
+    return '/app/' + file + (index ? '/' : '.html')
+  }
 
 //- function gerates the URL for files
-- var URL_file = function(file, lvl = 0, type = 'css') {
--   var lvlDir = ''
--   while (lvl > 0) {
--     lvlDir = lvlDir + '../'
--     lvl--
--   }
--   if (type == 'ico') {
--     return lvlDir + 'favicon.ico'
--   }
--   if (type == 'svg') {
--     return lvlDir + `${file}.${type}`
--   }
--   return lvlDir + `${type}/${file}.${type}`
-- }
+-
+  var URL_file = function(file, lvl = 0, type = 'css') {
+    var lvlDir = ''
+    while (lvl > 0) {
+      lvlDir = lvlDir + '../'
+      lvl--
+    }
+    if (type == 'ico') {
+      return lvlDir + 'favicon.ico'
+    }
+    if (type == 'svg') {
+      return lvlDir + `${file}.${type}`
+    }
+    return lvlDir + `${type}/${file}.${type}`
+  }

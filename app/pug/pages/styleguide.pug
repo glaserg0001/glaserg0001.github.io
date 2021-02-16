@@ -27,7 +27,7 @@ block content
     }
 
   each val, key in inputFields
-    div(class='form-input ' + (val.label ? ' m-label' : ''))
+    div(class='form-input ' + (val.label ? 'm-label' : ''))
       input(type='text' value=val.value class=val.label ? 'js-form-input' : '')
       label=val.label
   //- INPUT END
@@ -57,7 +57,7 @@ block content
         disabled: true
       },
     }
-  h3='Quantity'
+  h3 Quantity
   each val, key in qtyFields
     .form-qty(class=val.disabled ? 'm-disabled' : '')
       label.form-qty__label=val.label
@@ -67,12 +67,19 @@ block content
   
   //- QTY END
   //- ICONS START
-  //- svg.icon
-  //-   use(xlink:href='img/icons.svg#icon-test')
-  .gg
+
+  h2 Icons
+  -
+    var iconsSVG = [
+      'icon-test',
+    ]
+  if iconsSVG
+    ul.sg-icons__list
+      each val in iconsSVG
+        li.sg-icons__item(data-name=val)
+          +iconSvg(val)
   //- ICONS END
 
-  +icon('icon-test')
 
 block scripts
   script(src= URL_file('pages/styleguide', baseUrlLvl, 'js'))

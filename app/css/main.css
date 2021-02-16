@@ -2647,7 +2647,7 @@ select.input {
   transform: rotate(-20deg);
 }
 
-.icon {
+.icon-svg {
   display: inline-block;
   width: 1em;
   height: 1em;

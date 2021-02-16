@@ -11,10 +11,6 @@ function Snake(id, size, snakeSizeBase) {
     this.headerHiScore = `${this.jsPrefix}-hiscore`;
     this.headerHiScoreValue = `${this.jsPrefix}-hiscore-value`;
     this.headerHiScoreList = `${this.jsPrefix}-hiscore-list`;
-    // buttons
-    this.buttonStart = `${this.jsPrefix}-btn-start`;
-    this.buttonPause = `${this.jsPrefix}-btn-pause`;
-    this.buttonReset = `${this.jsPrefix}-btn-reset`;
 
     this.container = document.getElementById(id);
     this.x = size[0];
@@ -54,7 +50,11 @@ function Snake(id, size, snakeSizeBase) {
             scoreLabel: 'Score: ',
             hiScoreLabel: 'Hi-Score: '
         },
+        middle: {},
         footer: {
+            htmlButtonStart: null,
+            htmlButtonPause: null,
+            htmlButtonReset: null,
             buttonStart: 'Start',
             buttonPause: 'Pause',
             buttonReset: 'Reset',
@@ -226,13 +226,13 @@ function Snake(id, size, snakeSizeBase) {
         }
 
         if (this.readyToStart && (event.code == 'Enter' || event.code == 'ArrowRight')) {
-            document.getElementsByClassName(this.buttonStart)[0].click();
+            this.data.footer.htmlButtonStart.click();
             this.direction = 'right'
         } else if (this.isPause && event.code == 'Enter') {
-            document.getElementsByClassName(this.buttonStart)[0].click();
+            this.data.footer.htmlButtonStart.click();
         }
 
-        const buttonPause = document.getElementsByClassName(this.buttonPause)[0];
+        const buttonPause = this.data.footer.htmlButtonPause;
         if (event.code == 'Space' && !buttonPause.disabled) {
             buttonPause.click();
         }
@@ -296,11 +296,10 @@ function Snake(id, size, snakeSizeBase) {
         snakeHeadNew.classList.add('snake-body', 'm-head');
         
         if (this.gameOver) {
-            const buttonPause = document.getElementsByClassName(this.buttonPause)[0];
             clearInterval(this.interval);
             this.alertGameOver();
             this.scoreHigh();
-            buttonPause.disabled = true;
+            this.data.footer.htmlButtonPause.disabled = true;
         } else if (snakeHasFood) {
             snakeHeadNew.classList.remove('snake-food');
             this.foodCreate();
@@ -316,17 +315,17 @@ function Snake(id, size, snakeSizeBase) {
         this.enableKeydown = true;
     };
     // Snake move. Activated by the Start button
-    this.snakeMove = function (buttonStart, buttonPause) {
+    this.snakeMove = function () {
         this.enableKeydown = true
         this.readyToStart = false
         this.isPause = false
-        buttonStart.disabled = true
-        buttonPause.disabled = false
+        this.data.footer.htmlButtonStart.disabled = true
+        this.data.footer.htmlButtonPause.disabled = false
         
         this.interval = setInterval(this.snakeInterval.bind(this), this.snakeSpeed);
     };
     // reset Game
-    this.gameReset = function (buttonStart, buttonPause, buttonReset) {
+    this.gameReset = function () {
         const _middle = document.getElementsByClassName(this.blockMiddle)[0];
         _middle.innerHTML = '';
         this.coords = [];
@@ -336,21 +335,21 @@ function Snake(id, size, snakeSizeBase) {
         this.enableKeydown = false;
         this.readyToStart = true;
         this.isPause = false;
-        buttonStart.disabled = false;
-        buttonPause.disabled = true;
-        buttonReset.blur();
+        this.data.footer.htmlButtonStart.disabled = false;
+        this.data.footer.htmlButtonPause.disabled = true;
+        this.data.footer.htmlButtonReset.blur();
         if (!this.gameOver && this.scoreValue) this.scoreHigh(); // should be launched before this.scoreValue = 0
         this.scoreValue = 0;
         this.score(true);
         this.middle();
     };
     // the button Pause
-    this.gamePause = function (buttonStart, buttonPause) {
+    this.gamePause = function () {
         clearInterval(this.interval);
         this.enableKeydown = false;
         this.isPause = true;
-        buttonStart.disabled = false;
-        buttonPause.blur();
+        this.data.footer.htmlButtonStart.disabled = false;
+        this.data.footer.htmlButtonPause.blur();
     }
     // Alert for game over event
     this.alertGameOver = function () {
@@ -473,6 +472,7 @@ function Snake(id, size, snakeSizeBase) {
     };
     // ==== Footer
     this.footer = function () {
+        
         const
             $data = this.data.footer,
             _footer = document.createElement('div'),
@@ -481,12 +481,15 @@ function Snake(id, size, snakeSizeBase) {
             btnReset = document.createElement('button');
         
         _footer.classList.add(`${this.blockName}-footer`);
-        btnStart.classList.add(this.buttonStart, `${this.blockName}__btn`);
-        btnPause.classList.add(this.buttonPause, `${this.blockName}__btn`);
-        btnReset.classList.add(this.buttonReset, `${this.blockName}__btn`);
+        btnStart.classList.add(`${this.blockName}__btn`);
+        btnPause.classList.add(`${this.blockName}__btn`);
+        btnReset.classList.add(`${this.blockName}__btn`);
         btnStart.innerText = $data.buttonStart;
         btnPause.innerText = $data.buttonPause;
         btnReset.innerText = $data.buttonReset;
+        $data.htmlButtonStart = btnStart;
+        $data.htmlButtonPause = btnPause;
+        $data.htmlButtonReset = btnReset;
 
         btnPause.disabled = true;
 
@@ -496,15 +499,15 @@ function Snake(id, size, snakeSizeBase) {
         this.container.append(_footer);
     };
     this.events = function () {
-        const buttonStart = document.getElementsByClassName(this.buttonStart)[0];
-        const buttonPause = document.getElementsByClassName(this.buttonPause)[0];
-        const buttonReset = document.getElementsByClassName(this.buttonReset)[0];
+        const buttonStart = this.data.footer.htmlButtonStart;
+        const buttonPause = this.data.footer.htmlButtonPause;
+        const buttonReset = this.data.footer.htmlButtonReset;
         // click button Start
-        buttonStart.addEventListener('click', this.snakeMove.bind(this, buttonStart, buttonPause));
+        buttonStart.addEventListener('click', this.snakeMove.bind(this));
         // click button Pause
-        buttonPause.addEventListener('click', this.gamePause.bind(this, buttonStart, buttonPause));
+        buttonPause.addEventListener('click', this.gamePause.bind(this));
         // click button Reset
-        buttonReset.addEventListener('click', this.gameReset.bind(this, buttonStart, buttonPause, buttonReset));
+        buttonReset.addEventListener('click', this.gameReset.bind(this));
         // listener of keyboards
         window.addEventListener('keydown', this.snakeMoveArrows.bind(this));
     };

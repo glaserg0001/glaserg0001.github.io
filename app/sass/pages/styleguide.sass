@@ -1,0 +1,22 @@
+@import ../abstracts/index
+
+.sg-icons
+    &__list
+        display: flex
+        flex-wrap: wrap
+
+    &__item
+        flex: 0 1 120px
+        padding: 10px
+        margin: 5px
+        box-shadow: 5px 5px 5px rgba($black, .1)
+        border: 1px solid color(border)
+        text-align: center
+        border-radius: 5px
+        font-size: 40px
+
+        &::after
+            content: attr(data-name)
+            display: block
+            margin-top: 10px
+            font-size: 16px

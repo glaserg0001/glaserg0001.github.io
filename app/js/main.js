@@ -19,10 +19,21 @@ function ResourceMsg() {
     })
 }
 // Create Svg Icon
-function iconSvgCreate(container, name, file = 'img/icons.svg') {
+function iconSvgCreate(
+    container,
+    name,
+    lvlup = 0,
+    cssClass = '',
+    file = 'img/icons.svg'
+) {
     // Example: iconSvgCreate('.wrap', 'icon-test')
     // container: null, string, element (createElelment)
-    const svg = `<svg class="icon"><use xlink:href="${file}#${name}"></use></svg>`
+    let lvlupUrl = ''
+    while (lvlup > 0) {
+        lvlupUrl = lvlupUrl + '../'
+        lvlup--
+    }
+    const svg = `<svg class="icon-svg ${cssClass}"><use xlink:href="${lvlupUrl}${file}#${name}"></use></svg>`
 
     if (typeof container == 'string')
         container = document.querySelector(container)
@@ -32,6 +43,7 @@ function iconSvgCreate(container, name, file = 'img/icons.svg') {
     else
         return svg
 }
+
 // Helpers END
 // ================================ COMPONENTS START
 // form
