@@ -24,7 +24,7 @@ function Snake(id, size, snakeSizeBase) {
     this.enableKeydown = true; // allow to change direction
     this.readyToStart = true;
     this.isPause = false;
-    this.snakeSpeed = 200;
+    this.snakeSpeed;
     this.interval;
     this.scoreValue = 0;
     this.hiScoreArray = [];
@@ -35,6 +35,7 @@ function Snake(id, size, snakeSizeBase) {
             htmlSizeXInput: null,
             htmlSizeYInput: null,
             htmlSnakeSizeInput: null,
+            htmlSnakeSpeedInput: null,
             htmlCTASubmit: null,
             htmlSettings: null,
             settingsHeading: 'Settings',
@@ -44,7 +45,19 @@ function Snake(id, size, snakeSizeBase) {
             SnakeHeading: 'Snake',
             snakeSizeLabel: 'Snake Size:',
             CTASubmit: 'Submit',
-            GotoSettingsButton: 'Go to Settings'
+            GotoSettingsButton: 'Go to Settings',
+            snakeSpeedLabel: 'Snake Speed',
+            snakeSpeedArray: [
+                900,
+                800,
+                700,
+                600,
+                500,
+                400,
+                300,
+                200,
+                100
+            ]
         },
         header: {
             scoreLabel: 'Score: ',
@@ -126,9 +139,13 @@ function Snake(id, size, snakeSizeBase) {
         _htmlSnakeHeading.classList.add(`${this.blockName}-settings__group__heading`);
         _htmlSnakeRow.classList.add('row');
         _htmlSnakeColSize.classList.add('col-6');
-        _htmlSnakeColSpeed.classList.add('col-6');
         _htmlSnakeHeading.innerText = $data.SnakeHeading;
         // == Snake Speed
+        _htmlSnakeColSpeed.classList.add('col-6');
+        const _snakeSpeed = componentQuantityCreate(1, [1, 9], $data.snakeSpeedLabel, 'mx-auto');
+        $data.htmlSnakeSpeedInput = _snakeSpeed.input
+        _htmlSnakeColSpeed.append(_snakeSpeed.wrap)
+
         _htmlSnakeColSize.append(_snakeSize.wrap)
         _htmlSnakeRow.append(_htmlSnakeColSize, _htmlSnakeColSpeed)
 
@@ -157,7 +174,9 @@ function Snake(id, size, snakeSizeBase) {
         this.container.append(_htmlSettings);
         // initialize input component
         componentInput();
-        // click om the "Sumbit" button
+        // initialize Qty component
+        componentQuantity();
+        // click on the "Sumbit" button
         _htmlCTASubmit.addEventListener('click', this.settingsSubmit.bind(this, $data))
     }
     // method for the 'Submit' button within the settings
@@ -165,6 +184,8 @@ function Snake(id, size, snakeSizeBase) {
         this.x = +$data.htmlSizeXInput.value;
         this.y = +$data.htmlSizeYInput.value;
         this.snakeSizeBase = +$data.htmlSnakeSizeInput.value;
+        this.snakeSpeed = $data.snakeSpeedArray[$data.htmlSnakeSpeedInput.value - 1];
+        console.log(this.snakeSpeed)
         $data.htmlSettings.remove()
 
         this.header();

@@ -151,10 +151,11 @@ function componentQuantity() {
 
 function componentQuantityCreate(value = 1, range = [], label, htmlClass) {
     // range = [min, max, step]
-    // htmlClass = [null, 'class1', 'class2']; null - remove previous classes
+    // htmlClass = [null, 'class1', 'class2'] or string; null - remove previous classes
     // example:
+    // componentQuantityCreate(5, [1, 9, 2], 'Qty', 'class1')
     // componentQuantityCreate(5, [1, 9, 2], 'Qty', [null, 'class1', 'class2'])
-    console.log(range)
+
     const
         wrapper = document.createElement('div'),
         input = document.createElement('input'),
@@ -164,8 +165,6 @@ function componentQuantityCreate(value = 1, range = [], label, htmlClass) {
         min = range[0],
         max = range[1],
         step = range[2]
-
-        console.log(step)
 
     let _label;
 

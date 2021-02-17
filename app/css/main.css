@@ -2855,9 +2855,10 @@ select.input {
 .form-qty__label {
   width: 100%;
   font-size: 14px;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   line-height: 1;
   text-align: center;
+  opacity: 0.5;
 }
 
 .form-qty__btn {
