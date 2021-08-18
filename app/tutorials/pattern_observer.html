@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Page 1</title>
+    <title>Observer Pattern</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="robots" content="noindex, nofollow">
@@ -49,15 +49,41 @@
         </div>
       </header>
       <div class="container main-container ">
-        <div id="some-id" style="left: 10px;right: 20px"></div>
-        <button class="js-btn">Submit</button>
-        <button class="js-btn-1">Change Class</button>
       </div>
     </div>
     <footer class="footer">
       <div class="footer-copy">2020 - 2021</div>
     </footer>
     <script src="../js/main.js"></script>
-    <script src="../js/pages/draft/page_1.js"></script>
+    <script>
+      class Subject {
+        constructor() {
+          this.observers = []
+        }
+      
+        subscribe(observer) {
+          this.observers.push(observer)
+        }
+      
+        unsubscribe(observer) {
+          this.observers = this.observers.filter(obs => obs !== observer)
+        }
+      
+        fire(changes) {
+          this.observers.forEach(observer => {
+            observer.update(changes)
+          })
+        }
+      }
+      
+      class Observer {
+        constructor(state) {
+          this.state = state
+          this.initialState = state
+      
+          update(changes) {}
+        }
+      }
+    </script>
   </body>
 </html>

@@ -2611,8 +2611,7 @@ select.input {
   height: 18em;
   margin: 100px 0 0 10%;
   font-size: 15px;
-  transition: all 1s;
-  display: none !important;
+  transition: all .8s;
 }
 
 .cup-inner {
@@ -2635,8 +2634,8 @@ select.input {
   bottom: -20%;
   width: 200%;
   background-color: red;
-  filter: blur(4px);
-  transition: all 1s;
+  filter: blur(2px);
+  transition: all .8s;
 }
 
 .cup:hover {
@@ -3177,7 +3176,7 @@ select.input {
   position: relative;
   z-index: 1;
   padding: 10px 0;
-  background-color: #009688;
+  background-color: #1976d2;
   color: #fff;
   font-family: "Comic Sans MS", Verdana, Geneva, sans-serif;
 }

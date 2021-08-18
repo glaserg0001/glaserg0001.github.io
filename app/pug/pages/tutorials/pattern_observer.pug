@@ -1,0 +1,41 @@
+extends ../../base/main
+
+block variables
+  - var pageTitle = 'Observer Pattern'
+  - var baseUrlLvl = 1
+
+block styles
+  //- link(rel='stylesheet' href= URL_file('pages/tutorials/name', baseUrlLvl))
+
+block content
+
+block scripts
+  script.
+    class Subject {
+      constructor() {
+        this.observers = []
+      }
+
+      subscribe(observer) {
+        this.observers.push(observer)
+      }
+
+      unsubscribe(observer) {
+        this.observers = this.observers.filter(obs => obs !== observer)
+      }
+
+      fire(changes) {
+        this.observers.forEach(observer => {
+          observer.update(changes)
+        })
+      }
+    }
+
+    class Observer {
+      constructor(state) {
+        this.state = state
+        this.initialState = state
+
+        update(changes) {}
+      }
+    }
