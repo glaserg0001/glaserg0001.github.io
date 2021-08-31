@@ -8,6 +8,7 @@ block styles
   //- link(rel='stylesheet' href= URL_file('pages/tutorials/name', baseUrlLvl))
 
 block content
+  h1 Observer Pattern
 
 block scripts
   script.
@@ -24,18 +25,47 @@ block scripts
         this.observers = this.observers.filter(obs => obs !== observer)
       }
 
-      fire(changes) {
+      // Emit
+      fire(action) {
         this.observers.forEach(observer => {
-          observer.update(changes)
+          observer.update(action)
         })
       }
     }
 
     class Observer {
-      constructor(state) {
+      constructor(state = 1) {
         this.state = state
         this.initialState = state
+      }
 
-        update(changes) {}
+      update(action) {
+        switch (action.type) {
+          case 'INCREMENT':
+            this.state = ++this.state
+            break
+          case 'DECTEMENT':
+            this.state = --this.state
+            break
+          case 'ADD':
+            this.state += action.payload
+            break
+          default: this.state = this.initialState
+        }
       }
     }
+
+    const stream$ = new Subject()
+
+    const obs1 = new Observer()
+    const obs2 = new Observer(42)
+
+    stream$.subscribe(obs1)
+    stream$.subscribe(obs2)
+
+    stream$.fire({type : 'INCREMENT'})
+    stream$.fire({type : 'INCREMENT'})
+    stream$.fire({type : 'ADD', payload: 10})
+
+    console.log(obs1.state)
+    console.log(obs2.state)
