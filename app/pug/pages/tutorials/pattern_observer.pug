@@ -10,8 +10,14 @@ block styles
 block content
   h1 Observer Pattern
 
+  textarea.textField
+  div Words Count:
+    p.countField
+
 block scripts
   script.
+    //- Minin
+    //- https://www.youtube.com/watch?v=YJVj4XNASDk&t=5166s
     class Subject {
       constructor() {
         this.observers = []
@@ -57,15 +63,59 @@ block scripts
 
     const stream$ = new Subject()
 
-    const obs1 = new Observer()
-    const obs2 = new Observer(42)
+      const obs1 = new Observer()
+      const obs2 = new Observer(42)
 
-    stream$.subscribe(obs1)
-    stream$.subscribe(obs2)
+      stream$.subscribe(obs1)
+      stream$.subscribe(obs2)
 
-    stream$.fire({type : 'INCREMENT'})
-    stream$.fire({type : 'INCREMENT'})
-    stream$.fire({type : 'ADD', payload: 10})
+      stream$.fire({type : 'INCREMENT'})
+      stream$.fire({type : 'INCREMENT'})
+      stream$.fire({type : 'ADD', payload: 10})
 
-    console.log(obs1.state)
-    console.log(obs2.state)
+      //- console.log(obs1.state)
+      //- console.log(obs2.state)
+      //- console.log(stream$.observers)
+
+    //- https://monsterlessons.com/project/lessons/observer-pattern-v-javascript
+    class EventObserver {
+      constructor () {
+        this.observers = []
+      }
+
+      subscribe (fn) {
+        this.observers.push(fn)
+      }
+
+      unsubscribe (fn) {
+        this.observers = this.observers.filter(subscriber => subscriber != fn)
+      }
+
+      broadcast(data) {
+        this.observers.forEach(subscriber => subscriber (data))
+      }
+    }
+    //- const observer = new EventObserver()
+    //- observer.subscribe(data => {
+    //-   console.log('subscribe was fired', data)
+    //- })
+    //- observer.broadcast({someData: 'hello'})
+
+    const blogObserver = new EventObserver()
+
+      const textField = document.querySelector('.textField')
+      const countField = document.querySelector('.countField')
+
+      const getWordsCount = text =>
+        text ? text.trim().split(/\s+/).length : 0
+
+      blogObserver.subscribe(text => {
+        //- console.log('broadcast catched', text)
+        countField.innerHTML = getWordsCount(text)
+      })
+
+      textField.addEventListener('keyup', () => {
+        blogObserver.broadcast(textField.value)
+      })
+
+      console.log(blogObserver.observers)
