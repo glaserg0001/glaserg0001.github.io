@@ -1,0 +1,15 @@
+extends ../../base/main
+
+block variables
+  - var pageTitle = 'Sea Battle'
+  - var baseUrlLvl = 1
+
+block styles
+  link(rel='stylesheet' href= URL_file('pages/ideas/sea_battle', baseUrlLvl))
+
+block content
+  a(href="https://confluence.ontrq.com/pages/viewpage.action?spaceKey=KB&title=Difficult+level+-+native+JS" target="_blank") Description
+  #sea-battle
+
+block scripts
+  script(src= URL_file('pages/ideas/sea_battle', baseUrlLvl, 'js'))
