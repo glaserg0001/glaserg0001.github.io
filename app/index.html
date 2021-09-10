@@ -51,7 +51,27 @@
         </div>
       </header>
       <div class="container main-container ">
-        <h1>Home Page</h1>
+        <h1>Home Page</h1><img class="main-banner" src="img/banners/nasa.jpg" alt="image"><img class="main-banner m-half" src="img/banners/space.jpg" alt="image"><img class="main-banner m-half" src="img/banners/aragon.jpg" alt="image"><img class="main-banner m-bottom" src="img/banners/kevin.jpg" alt="image">
+        <style>
+          .main-banner {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            margin-bottom: 2px;
+          }
+          .m-half {
+            width: calc(50% - 1px);
+          }
+          .m-half + .m-half {
+            margin-left: 2px;
+          }
+          .m-top {
+            object-position: center top;
+          }
+          .m-bottom {
+            object-position: center bottom;
+          }
+        </style>
       </div>
     </div>
     <footer class="footer">

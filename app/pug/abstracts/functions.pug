@@ -11,11 +11,17 @@
       lvlDir = lvlDir + '../'
       lvl--
     }
-    if (type == 'ico') {
-      return lvlDir + 'favicon.ico'
+
+    switch (type) {
+      case 'ico':
+        return lvlDir + 'favicon.ico'
+        break;
+      case 'svg':
+      case 'jpg':
+      case 'jpeg':
+      case 'png':
+        return lvlDir + `img/${file}.${type}`
+      default:
+        return lvlDir + `${type}/${file}.${type}`
     }
-    if (type == 'svg') {
-      return lvlDir + `${file}.${type}`
-    }
-    return lvlDir + `${type}/${file}.${type}`
   }

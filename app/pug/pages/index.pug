@@ -5,3 +5,26 @@ block variables
 
 block content
   h1 Home Page
+  img(src=URL_file('banners/nasa', baseUrlLvl, 'jpg'), alt="image").main-banner
+  img(src=URL_file('banners/space', baseUrlLvl, 'jpg'), alt="image").main-banner.m-half
+  img(src=URL_file('banners/aragon', baseUrlLvl, 'jpg'), alt="image").main-banner.m-half
+  img(src=URL_file('banners/kevin', baseUrlLvl, 'jpg'), alt="image").main-banner.m-bottom
+  style.
+    .main-banner {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      margin-bottom: 2px;
+    }
+    .m-half {
+      width: calc(50% - 1px);
+    }
+    .m-half + .m-half {
+      margin-left: 2px;
+    }
+    .m-top {
+      object-position: center top;
+    }
+    .m-bottom {
+      object-position: center bottom;
+    }
