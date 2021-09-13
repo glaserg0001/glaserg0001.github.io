@@ -1,68 +1,112 @@
 class SeaBattle {
     constructor(id) {
         this.container = document.getElementById(id);
-        this.css = {
-            btn: 'btn',
-            header: 'sb-header',
-            headerTitle: 'sb-header__title',
-            headerNotification: 'sb-header__notification',
-            main: 'sb-main',
-            footer: 'sb-footer',
-        }
 
         this.data = {
-            title: 'Sea Battle',
+            header: {
+                el: null,
+                css: 'sb-header'
+            },
+            headerTitle: {
+                css: 'sb-header__title',
+                text: 'Sea Battle'
+            },
+            main: {
+                el: null,
+                css: 'sb-main'
+            },
+            footer: {
+                el: null,
+                css: 'sb-footer'
+            },
             notification: {
+                el: null,
+                css: 'sb-header__notification',
                 placeShips: 'Place your ships'
             },
             btn: {
+                css: 'btn',
                 reload: {
                     el: null,
                     text: 'Reload',
                 },
-                auto: 'Place ships automatically'
+                auto: {
+                    el: null,
+                    text: 'Place ships automatically'
+                },
+                start: {
+                    el: null,
+                    text: 'start the game',
+                },
+                again: {
+                    el: null,
+                    text: 'Play again',
+                },
+            },
+            manually: {
+                el: null,
+                css: 'sb-manually'
             }
         }
     }
 
     createBaseLayout() {
         // ==== header ====
-        const header = document.createElement('div');
-        header.classList.add(this.css.header);
+        this.data.header.el = document.createElement('div');
+        this.data.header.el.classList.add(this.data.header.css);
 
         const headerTitle = document.createElement('h1');
-        headerTitle.classList.add(this.css.headerTitle);
-        headerTitle.innerText = this.data.title;
+        headerTitle.classList.add(this.data.headerTitle.css);
+        headerTitle.innerText = this.data.headerTitle.text;
 
-        const headerNotification = document.createElement('div');
-        headerNotification.classList.add(this.css.headerNotification);
-        headerNotification.innerText = this.data.notification.placeShips;
+        this.data.notification.el = document.createElement('div');
+        this.data.notification.el.classList.add(this.data.notification.css);
+        this.data.notification.el.innerText = this.data.notification.placeShips;
 
-        header.append(
+        this.data.header.el.append(
             headerTitle,
-            headerNotification
+            this.data.notification.el
         );
         
         // ==== main ====
-        const main = document.createElement('div');
-        main.classList.add(this.css.main);
+        this.data.main.el = document.createElement('div');
+        this.data.main.el.classList.add(this.data.main.css);
 
         // ==== footer ====
-        const footer = document.createElement('div');
-        footer.classList.add(this.css.footer);
+        this.data.footer.el = document.createElement('div');
+        this.data.footer.el.classList.add(this.data.footer.css);
 
         this.container.append(
-            header,
-            main,
-            footer
+            this.data.header.el,
+            this.data.main.el,
+            this.data.footer.el
         )
     }
 
     createBtns() {
-        const btnReload = document.createElement('button');
-        btnReload.classList.add(this.css.btn);
-        btnReload.innerText = this.data.btn.reload.text;
-        this.data.btn.reload.el = btnReload;
+        // reload
+        this.data.btn.reload.el = document.createElement('button');
+        this.data.btn.reload.el.classList.add(this.data.btn.css);
+        this.data.btn.reload.el.innerText = this.data.btn.reload.text;
+
+        // auto
+        this.data.btn.auto.el = document.createElement('button');
+        this.data.btn.auto.el.classList.add(this.data.btn.css);
+        this.data.btn.auto.el.innerText = this.data.btn.auto.text;
+
+        // start
+        this.data.btn.start.el = document.createElement('button');
+        this.data.btn.start.el.classList.add(this.data.btn.css);
+        this.data.btn.start.el.innerText = this.data.btn.start.text;
+
+        // again
+        this.data.btn.again.el = document.createElement('button');
+        this.data.btn.again.el.classList.add(this.data.btn.css);
+        this.data.btn.again.el.innerText = this.data.btn.again.text;
+    }
+
+    createManuallyLayout() {
+
     }
 
     createField() {}
