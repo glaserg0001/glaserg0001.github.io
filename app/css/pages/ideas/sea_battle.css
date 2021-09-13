@@ -14,3 +14,63 @@
   background-color: #f0f8ff;
   text-align: center;
 }
+
+.sb-info {
+  font-size: 14px;
+  text-align: center;
+}
+
+.sb-field {
+  display: table;
+  padding: 30px 0 0 30px;
+  counter-reset: rowCounter;
+}
+
+.sb-field__row {
+  position: relative;
+  display: flex;
+  border-left: 1px solid #c0c0c0;
+  border-bottom: 1px solid #c0c0c0;
+}
+
+.sb-field__row:first-child {
+  border-top: 1px solid #c0c0c0;
+  counter-reset: columnCounter;
+}
+
+.sb-field__row:first-child .sb-field__cell::before {
+  counter-increment: columnCounter;
+  content: counter(columnCounter, upper-alpha);
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 30px;
+  padding-bottom: 5px;
+  font-size: 14px;
+  color: #00ab1a;
+  text-align: center;
+}
+
+.sb-field__row::before {
+  counter-increment: rowCounter;
+  content: counter(rowCounter);
+  position: absolute;
+  top: 0;
+  right: 100%;
+  width: 30px;
+  height: 30px;
+  padding-right: 10px;
+  line-height: 30px;
+  font-size: 14px;
+  color: #00ab1a;
+  text-align: right;
+}
+
+.sb-field__cell {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-right: 1px solid #c0c0c0;
+  background-color: #fff;
+}

@@ -4,7 +4,7 @@ class SeaBattle {
 
         this.data = {
             header: {
-                el: null,
+                el: document.createElement('div'),
                 css: 'sb-header'
             },
             headerTitle: {
@@ -12,55 +12,73 @@ class SeaBattle {
                 text: 'Sea Battle'
             },
             main: {
-                el: null,
+                el: document.createElement('div'),
                 css: 'sb-main'
             },
             footer: {
-                el: null,
+                el: document.createElement('div'),
                 css: 'sb-footer'
             },
             notification: {
-                el: null,
+                el: document.createElement('div'),
                 css: 'sb-header__notification',
                 placeShips: 'Place your ships'
             },
             btn: {
                 css: 'btn',
                 reload: {
-                    el: null,
+                    el: document.createElement('button'),
                     text: 'Reload',
                 },
                 auto: {
-                    el: null,
+                    el: document.createElement('button'),
                     text: 'Place ships automatically'
                 },
                 start: {
-                    el: null,
+                    el: document.createElement('button'),
                     text: 'start the game',
                 },
                 again: {
-                    el: null,
+                    el: document.createElement('button'),
                     text: 'Play again',
                 },
             },
             manually: {
-                el: null,
+                el: document.createElement('div'),
                 css: 'sb-manually'
+            },
+            manuallyShips: {
+                el: document.createElement('div'),
+                css: 'sb-manually__ships'
+            },
+            info: {
+                el: document.createElement('div'),
+                css: 'sb-info',
+                text: 'Place your ships on the battlefield. Click on a ship to turn it.'
+            },
+            field: {
+                el: document.createElement('div'),
+                css: 'sb-field',
+                cssRow: 'sb-field__row',
+                cssCell: 'sb-field__cell'
             }
         }
+
+        this.field = []
+        this.fieldData = []
     }
 
     createBaseLayout() {
         // ==== header ====
-        this.data.header.el = document.createElement('div');
-        this.data.header.el.classList.add(this.data.header.css);
+        // this.data.header.el = document.createElement('div');
+        this.data.header.el.className = this.data.header.css;
 
         const headerTitle = document.createElement('h1');
-        headerTitle.classList.add(this.data.headerTitle.css);
+        headerTitle.className = this.data.headerTitle.css;
         headerTitle.innerText = this.data.headerTitle.text;
 
-        this.data.notification.el = document.createElement('div');
-        this.data.notification.el.classList.add(this.data.notification.css);
+        // this.data.notification.el = document.createElement('div');
+        this.data.notification.el.className = this.data.notification.css;
         this.data.notification.el.innerText = this.data.notification.placeShips;
 
         this.data.header.el.append(
@@ -69,12 +87,12 @@ class SeaBattle {
         );
         
         // ==== main ====
-        this.data.main.el = document.createElement('div');
-        this.data.main.el.classList.add(this.data.main.css);
+        // this.data.main.el = document.createElement('div');
+        this.data.main.el.className = this.data.main.css;
 
         // ==== footer ====
-        this.data.footer.el = document.createElement('div');
-        this.data.footer.el.classList.add(this.data.footer.css);
+        // this.data.footer.el = document.createElement('div');
+        this.data.footer.el.className = this.data.footer.css;
 
         this.container.append(
             this.data.header.el,
@@ -85,35 +103,87 @@ class SeaBattle {
 
     createBtns() {
         // reload
-        this.data.btn.reload.el = document.createElement('button');
-        this.data.btn.reload.el.classList.add(this.data.btn.css);
+        // this.data.btn.reload.el = document.createElement('button');
+        this.data.btn.reload.el.className = this.data.btn.css;
         this.data.btn.reload.el.innerText = this.data.btn.reload.text;
 
         // auto
-        this.data.btn.auto.el = document.createElement('button');
-        this.data.btn.auto.el.classList.add(this.data.btn.css);
+        // this.data.btn.auto.el = document.createElement('button');
+        this.data.btn.auto.el.className = this.data.btn.css;
         this.data.btn.auto.el.innerText = this.data.btn.auto.text;
 
         // start
-        this.data.btn.start.el = document.createElement('button');
-        this.data.btn.start.el.classList.add(this.data.btn.css);
+        // this.data.btn.start.el = document.createElement('button');
+        this.data.btn.start.el.className = this.data.btn.css;
         this.data.btn.start.el.innerText = this.data.btn.start.text;
 
         // again
-        this.data.btn.again.el = document.createElement('button');
-        this.data.btn.again.el.classList.add(this.data.btn.css);
+        // this.data.btn.again.el = document.createElement('button');
+        this.data.btn.again.el.className = this.data.btn.css;
         this.data.btn.again.el.innerText = this.data.btn.again.text;
     }
 
     createManuallyLayout() {
+        // this.data.manually.el = document.createElement('div');
+        this.data.manually.el.className = this.data.manually.css;
+
+        const
+            row = document.createElement('div'),
+            colLeft = document.createElement('div'),
+            colRight = document.createElement('div')
+
+        row.className = 'row'
+        colLeft.className = 'col-6'
+        colRight.className = 'col-6'
+
+        this.data.manuallyShips.el.className = this.data.manuallyShips.css;
+        this.data.info.el.className = this.data.info.css;
+        this.data.info.el.innerText = this.data.info.text;
+
+        this.data.field.el.className = this.data.field.css;
+
+        colLeft.append(
+            this.data.info.el,
+            this.data.manuallyShips.el
+        )
+        colRight.append(
+            this.data.field.el
+        )
+        row.append(
+            colLeft,
+            colRight
+        )
+        this.data.manually.el.append(row)
+        this.data.main.el.append(this.data.manually.el);
+        this.createField()
 
     }
 
-    createField() {}
+    createField() {
+        for (let i = 0; i < 10; i++) {
+            const row = document.createElement('div');
+            const rowArr = [];
+            const rowArrData = [];
+            row.className = this.data.field.cssRow;
+
+            for (let j = 0; j < 10; j++) {
+                const cell = document.createElement('button');
+                cell.className = this.data.field.cssCell;
+                row.append(cell)
+                rowArr.push(cell)
+                rowArrData.push(null)
+            }
+
+            this.field.push(rowArr)
+            this.fieldData.push(rowArrData)
+            this.data.field.el.append(row)
+        }
+    }
 
     init() {
         this.createBtns()
         this.createBaseLayout()
+        this.createManuallyLayout()
     }
 }
 
