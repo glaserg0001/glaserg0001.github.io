@@ -61,11 +61,19 @@ class SeaBattle {
                 css: 'sb-field',
                 cssRow: 'sb-field__row',
                 cssCell: 'sb-field__cell'
+            },
+            fieldAI: {
+                el: document.createElement('div'),
+                css: 'sb-field',
+                cssRow: 'sb-field__row',
+                cssCell: 'sb-field__cell'
             }
         }
 
         this.field = []
         this.fieldData = []
+        this.fieldAI = []
+        this.fieldAIData = []
     }
 
     createBaseLayout() {
@@ -155,11 +163,11 @@ class SeaBattle {
         )
         this.data.manually.el.append(row)
         this.data.main.el.append(this.data.manually.el);
-        this.createField()
+        this.createField();
 
     }
 
-    createField() {
+    createField(ai, button) {
         for (let i = 0; i < 10; i++) {
             const row = document.createElement('div');
             const rowArr = [];
@@ -167,17 +175,21 @@ class SeaBattle {
             row.className = this.data.field.cssRow;
 
             for (let j = 0; j < 10; j++) {
-                const cell = document.createElement('button');
+                const cell = button ?
+                    document.createElement('button') :
+                    document.createElement('div');
                 cell.className = this.data.field.cssCell;
                 row.append(cell)
                 rowArr.push(cell)
                 rowArrData.push(null)
             }
 
-            this.field.push(rowArr)
-            this.fieldData.push(rowArrData)
-            this.data.field.el.append(row)
+            ai ? this.fieldAI.push(rowArr) : this.field.push(rowArr)
+            ai ? this.fieldAIData.push(rowArrData) : this.fieldData.push(rowArrData)
+            ai ? this.data.fieldAI.el.append(row) : this.data.field.el.append(row)
+            // aa.push(row)
         }
+        // return aa;
     }
 
     init() {
