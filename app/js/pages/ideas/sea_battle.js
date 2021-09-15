@@ -70,10 +70,10 @@ class SeaBattle {
             }
         }
 
-        this.field = []
-        this.fieldData = []
-        this.fieldAI = []
-        this.fieldAIData = []
+        this.field
+        this.fieldData
+        this.fieldAI
+        this.fieldAIData
     }
 
     createBaseLayout() {
@@ -144,30 +144,61 @@ class SeaBattle {
         colLeft.className = 'col-6'
         colRight.className = 'col-6'
 
-        this.data.manuallyShips.el.className = this.data.manuallyShips.css;
-        this.data.info.el.className = this.data.info.css;
-        this.data.info.el.innerText = this.data.info.text;
+        this.data.manuallyShips.el.className = this.data.manuallyShips.css
+        this.data.info.el.className = this.data.info.css
+        this.data.info.el.innerText = this.data.info.text
 
-        this.data.field.el.className = this.data.field.css;
+        // this.data.field.el.className = this.data.field.css
 
         colLeft.append(
             this.data.info.el,
             this.data.manuallyShips.el
         )
         colRight.append(
-            this.data.field.el
+            // this.data.field.el
         )
         row.append(
             colLeft,
             colRight
         )
         this.data.manually.el.append(row)
-        this.data.main.el.append(this.data.manually.el);
-        this.createField();
+        this.data.main.el.append(this.data.manually.el)
+        
+        this.fieldData = this.createFieldData(10, 10)
+        
+        const a = this.createField(this.fieldData)
+        console.log(a)
 
     }
 
-    createField(ai, button) {
+    createFieldData(row, column) {
+        const arr = []
+        for (let i = 0; i < row; i++) {
+            const arrRow = []
+            for (let j = 0; j < column; j++) {
+                arrRow.push(null)
+            }
+            arr.push(arrRow)
+        }
+        return arr
+    }
+
+    createField(arr) {
+        const arrElements = []
+        arr.forEach(y => {
+            const arrRow = []
+            y.forEach(x => {
+                const el = document.createElement('div')
+                el.className = 'f__row aa'
+                arrRow.push(el)
+            })
+            arrElements.push(arrRow)
+        })
+
+        return arrElements
+    }
+
+    _createField(ai) {
         for (let i = 0; i < 10; i++) {
             const row = document.createElement('div');
             const rowArr = [];
@@ -175,9 +206,7 @@ class SeaBattle {
             row.className = this.data.field.cssRow;
 
             for (let j = 0; j < 10; j++) {
-                const cell = button ?
-                    document.createElement('button') :
-                    document.createElement('div');
+                const cell = document.createElement('div');
                 cell.className = this.data.field.cssCell;
                 row.append(cell)
                 rowArr.push(cell)
