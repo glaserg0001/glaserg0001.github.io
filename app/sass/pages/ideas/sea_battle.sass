@@ -10,23 +10,23 @@ $white: #fff
 .sb-header
     margin-bottom: 20px
 
-    &__title
-        font-size: 28px
-        text-align: center
-    
-    &__notification
-        padding: 10px 20px
-        max-width: 320px
-        margin: 0 auto
-        background-color: $gray-100
-        text-align: center
+.sb-notification
+    padding: 10px 20px
+    max-width: 320px
+    margin: 0 auto
+    background-color: $gray-100
+    text-align: center
+
+.sb-title
+    font-size: 28px
+    text-align: center
 
 .sb-info
     font-size: 14px
     text-align: center
 
 .sb-field
-    $this: &
+    $this: 'sb-field'
 
     display: table
     padding: 30px 0 0 30px
@@ -42,7 +42,7 @@ $white: #fff
             border-top: 1px solid $gray-300
             counter-reset: columnCounter
 
-            #{$this}__cell::before
+            .#{$this}__cell::before
                 // https://www.w3.org/TR/CSS21/generate.html#propdef-counter-increment
                 counter-increment: columnCounter
                 content: counter(columnCounter, upper-alpha)

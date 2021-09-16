@@ -3,27 +3,27 @@ class SeaBattle {
         this.container = document.getElementById(id);
 
         this.data = {
-            header: {
-                el: document.createElement('div'),
-                css: 'sb-header'
-            },
-            headerTitle: {
-                css: 'sb-header__title',
-                text: 'Sea Battle'
-            },
-            main: {
-                el: document.createElement('div'),
-                css: 'sb-main'
-            },
-            footer: {
-                el: document.createElement('div'),
-                css: 'sb-footer'
-            },
-            notification: {
-                el: document.createElement('div'),
-                css: 'sb-header__notification',
-                placeShips: 'Place your ships'
-            },
+            // header: {
+            //     el: document.createElement('div'),
+            //     css: 'sb-header'
+            // },
+            // headerTitle: {
+            //     css: 'sb-header__title',
+            //     text: 'Sea Battle'
+            // },
+            // main: {
+            //     el: document.createElement('div'),
+            //     css: 'sb-main'
+            // },
+            // footer: {
+            //     el: document.createElement('div'),
+            //     css: 'sb-footer'
+            // },
+            // notification: {
+            //     el: document.createElement('div'),
+            //     css: 'sb-header__notification',
+            //     placeShips: 'Place your ships'
+            // },
             btn: {
                 css: 'btn',
                 reload: {
@@ -70,6 +70,13 @@ class SeaBattle {
             }
         }
 
+        this.resource = {
+            title: 'Sea Battle',
+            notification: 'Place your ships'
+        }
+
+        this.element = new Object()
+
         this.field
         this.fieldData
         this.fieldAI
@@ -78,34 +85,38 @@ class SeaBattle {
 
     createBaseLayout() {
         // ==== header ====
-        // this.data.header.el = document.createElement('div');
-        this.data.header.el.className = this.data.header.css;
+        const header = document.createElement('div')
+        header.className = 'sb-header'
+        this.element.header = header
 
-        const headerTitle = document.createElement('h1');
-        headerTitle.className = this.data.headerTitle.css;
-        headerTitle.innerText = this.data.headerTitle.text;
+        const title = document.createElement('h1')
+        title.className = 'sb-title'
+        title.innerText = this.resource.title
 
-        // this.data.notification.el = document.createElement('div');
-        this.data.notification.el.className = this.data.notification.css;
-        this.data.notification.el.innerText = this.data.notification.placeShips;
+        const notification = document.createElement('div')
+        notification.className = 'sb-notification'
+        notification.innerText = this.resource.notification
+        this.element.notification = notification
 
-        this.data.header.el.append(
-            headerTitle,
-            this.data.notification.el
+        header.append(
+            title,
+            notification
         );
         
         // ==== main ====
-        // this.data.main.el = document.createElement('div');
-        this.data.main.el.className = this.data.main.css;
+        const main = document.createElement('div')
+        main.className = 'sb-main'
+        this.element.main = main
 
         // ==== footer ====
-        // this.data.footer.el = document.createElement('div');
-        this.data.footer.el.className = this.data.footer.css;
+        const footer = document.createElement('div')
+        footer.className = 'sb-footer'
+        this.element.footer = footer
 
         this.container.append(
-            this.data.header.el,
-            this.data.main.el,
-            this.data.footer.el
+            header,
+            main,
+            footer
         )
     }
 
@@ -162,13 +173,7 @@ class SeaBattle {
             colRight
         )
         this.data.manually.el.append(row)
-        this.data.main.el.append(this.data.manually.el)
-        
-        this.fieldData = this.createFieldData(10, 10)
-        
-        const a = this.createField(this.fieldData)
-        console.log(a)
-
+        this.element.footer.append(this.data.manually.el)
     }
 
     createFieldData(row, column) {
@@ -189,7 +194,7 @@ class SeaBattle {
             const arrRow = []
             y.forEach(x => {
                 const el = document.createElement('div')
-                el.className = 'f__row aa'
+                el.className = 'f__row'
                 arrRow.push(el)
             })
             arrElements.push(arrRow)
@@ -222,9 +227,14 @@ class SeaBattle {
     }
 
     init() {
+        this.fieldData = this.createFieldData(10, 10)
+        this.fieldAIData = this.createFieldData(10, 10)
+        this.field = this.createField(this.fieldData)
+        this.fieldAI = this.createField(this.fieldAIData)
         this.createBtns()
         this.createBaseLayout()
         this.createManuallyLayout()
+        // this.data.field = document.createElement('div')
     }
 }
 
