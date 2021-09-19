@@ -1,11 +1,15 @@
 @import '../../abstracts/index'
 
 $success: #00ab1a
+$success-light: #e5f6e7
 $danger: red
 $gray-100: #f0f8ff
 $gray-200: #e5f6e7
 $gray-300: #c0c0c0
 $white: #fff
+
+.sb-btn
+    padding: 5px 15px
 
 .sb-header
     margin-bottom: 20px
@@ -22,8 +26,37 @@ $white: #fff
     text-align: center
 
 .sb-info
+    margin-bottom: 20px
     font-size: 14px
     text-align: center
+
+.sb-port
+    display: table
+
+    &__item
+        display: flex
+        justify-content: space-between
+        margin-bottom: 30px
+
+.sb-ship
+    $size: 32px
+
+    height: $size
+    background-color: $success-light
+    border: 2px solid $success
+    margin-right: 15px
+
+    &--1
+        width: $size
+
+    &--2
+        width: $size * 2
+
+    &--3
+        width: $size * 3
+
+    &--4
+        width: $size * 4
 
 .sb-field
     $this: 'sb-field'
@@ -36,7 +69,6 @@ $white: #fff
         position: relative
         display: flex
         border-left: 1px solid $gray-300
-        border-bottom: 1px solid $gray-300
 
         &:first-child
             border-top: 1px solid $gray-300
@@ -56,15 +88,12 @@ $white: #fff
                 color: $success
                 text-align: center
 
-
-
         &::before
             counter-increment: rowCounter
             content: counter(rowCounter)
             position: absolute
             top: 0
             right: 100%
-            width: 30px
             height: 30px
             padding-right: 10px
             line-height: 30px
@@ -78,4 +107,5 @@ $white: #fff
         height: 30px
         border: none
         border-right: 1px solid $gray-300
+        border-bottom: 1px solid $gray-300
         background-color: $white

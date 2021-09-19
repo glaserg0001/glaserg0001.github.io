@@ -24,55 +24,64 @@ class SeaBattle {
             //     css: 'sb-header__notification',
             //     placeShips: 'Place your ships'
             // },
-            btn: {
-                css: 'btn',
-                reload: {
-                    el: document.createElement('button'),
-                    text: 'Reload',
-                },
-                auto: {
-                    el: document.createElement('button'),
-                    text: 'Place ships automatically'
-                },
-                start: {
-                    el: document.createElement('button'),
-                    text: 'start the game',
-                },
-                again: {
-                    el: document.createElement('button'),
-                    text: 'Play again',
-                },
-            },
-            manually: {
-                el: document.createElement('div'),
-                css: 'sb-manually'
-            },
-            manuallyShips: {
-                el: document.createElement('div'),
-                css: 'sb-manually__ships'
-            },
-            info: {
-                el: document.createElement('div'),
-                css: 'sb-info',
-                text: 'Place your ships on the battlefield. Click on a ship to turn it.'
-            },
-            field: {
-                el: document.createElement('div'),
-                css: 'sb-field',
-                cssRow: 'sb-field__row',
-                cssCell: 'sb-field__cell'
-            },
-            fieldAI: {
-                el: document.createElement('div'),
-                css: 'sb-field',
-                cssRow: 'sb-field__row',
-                cssCell: 'sb-field__cell'
-            }
+            // btn: {
+            //     css: 'btn',
+            //     reload: {
+            //         el: document.createElement('button'),
+            //         text: 'Reload',
+            //     },
+            //     auto: {
+            //         el: document.createElement('button'),
+            //         text: 'Place ships automatically'
+            //     },
+            //     start: {
+            //         el: document.createElement('button'),
+            //         text: 'start the game',
+            //     },
+            //     again: {
+            //         el: document.createElement('button'),
+            //         text: 'Play again',
+            //     },
+            // },
+            // manually: {
+            //     el: document.createElement('div'),
+            //     css: 'sb-manually'
+            // },
+            // manuallyShips: {
+            //     el: document.createElement('div'),
+            //     css: 'sb-manually__ships'
+            // },
+            // info: {
+            //     el: document.createElement('div'),
+            //     css: 'sb-info',
+            //     text: 'Place your ships on the battlefield. Click on a ship to turn it.'
+            // },
+            // field: {
+            //     el: document.createElement('div'),
+            //     css: 'sb-field',
+            //     cssRow: 'sb-field__row',
+            //     cssCell: 'sb-field__cell'
+            // },
+            // fieldAI: {
+            //     el: document.createElement('div'),
+            //     css: 'sb-field',
+            //     cssRow: 'sb-field__row',
+            //     cssCell: 'sb-field__cell'
+            // }
         }
 
         this.resource = {
             title: 'Sea Battle',
-            notification: 'Place your ships'
+            notification: {
+                placeShips: 'Place your ships'
+            },
+            btn: {
+                reload: 'Reload',
+                auto: 'Place ships automatically',
+                start: 'start the game',
+                again: 'Play again'
+            },
+            info: 'Place your ships on the battlefield. Click on a ship to turn it.',
         }
 
         this.element = new Object()
@@ -95,7 +104,6 @@ class SeaBattle {
 
         const notification = document.createElement('div')
         notification.className = 'sb-notification'
-        notification.innerText = this.resource.notification
         this.element.notification = notification
 
         header.append(
@@ -121,59 +129,136 @@ class SeaBattle {
     }
 
     createBtns() {
-        // reload
-        // this.data.btn.reload.el = document.createElement('button');
-        this.data.btn.reload.el.className = this.data.btn.css;
-        this.data.btn.reload.el.innerText = this.data.btn.reload.text;
+        const
+            commonCss = 'sb-btn',
+            reload = document.createElement('button'),
+            auto = document.createElement('button'),
+            start = document.createElement('button'),
+            again = document.createElement('button')
 
-        // auto
-        // this.data.btn.auto.el = document.createElement('button');
-        this.data.btn.auto.el.className = this.data.btn.css;
-        this.data.btn.auto.el.innerText = this.data.btn.auto.text;
+        reload.className = commonCss
+        reload.innerText = this.resource.btn.reload
 
-        // start
-        // this.data.btn.start.el = document.createElement('button');
-        this.data.btn.start.el.className = this.data.btn.css;
-        this.data.btn.start.el.innerText = this.data.btn.start.text;
+        auto.className = commonCss
+        auto.innerText = this.resource.btn.auto
 
-        // again
-        // this.data.btn.again.el = document.createElement('button');
-        this.data.btn.again.el.className = this.data.btn.css;
-        this.data.btn.again.el.innerText = this.data.btn.again.text;
+        start.className = commonCss
+        start.innerText = this.resource.btn.start
+
+        again.className = commonCss
+        again.innerText = this.resource.btn.again
+
+        return {
+            reload: reload,
+            auto: auto,
+            start: start,
+            again: again
+        }
     }
 
-    createManuallyLayout() {
-        // this.data.manually.el = document.createElement('div');
-        this.data.manually.el.className = this.data.manually.css;
+    createShip(size) {
+        const ship = document.createElement('div')
+        ship.className = `sb-ship sb-ship--${size}`
 
+        return ship
+    }
+
+    createPort() {
+        const port = document.createElement('div')
+        port.className = 'sb-port'
+
+        const portItem1 = document.createElement('div')
+        const portItem2 = document.createElement('div')
+        const portItem3 = document.createElement('div')
+        const portItem4 = document.createElement('div')
+
+        portItem1.className = 'sb-port__item'
+        portItem2.className = 'sb-port__item'
+        portItem3.className = 'sb-port__item'
+        portItem4.className = 'sb-port__item'
+
+        this.element.ships = new Object()
+        this.element.ships.ship4   = this.createShip(4)
+        this.element.ships.ship3_1 = this.createShip(3)
+        this.element.ships.ship3_2 = this.createShip(3)
+        this.element.ships.ship2_1 = this.createShip(2)
+        this.element.ships.ship2_2 = this.createShip(2)
+        this.element.ships.ship2_3 = this.createShip(2)
+        this.element.ships.ship1_1 = this.createShip(1)
+        this.element.ships.ship1_2 = this.createShip(1)
+        this.element.ships.ship1_3 = this.createShip(1)
+        this.element.ships.ship1_4 = this.createShip(1)
+
+        portItem1.append(
+            this.element.ships.ship4
+        )
+        portItem2.append(
+            this.element.ships.ship3_1,
+            this.element.ships.ship3_2
+        )
+        portItem3.append(
+            this.element.ships.ship2_1,
+            this.element.ships.ship2_2,
+            this.element.ships.ship2_3
+        )
+        portItem4.append(
+            this.element.ships.ship1_1,
+            this.element.ships.ship1_2,
+            this.element.ships.ship1_3,
+            this.element.ships.ship1_4
+        )
+
+        port.append(
+            portItem1,
+            portItem2,
+            portItem3,
+            portItem4
+        )
+
+        return port
+    }
+
+    createManuallyStep() {
+        this.createPort()
         const
             row = document.createElement('div'),
             colLeft = document.createElement('div'),
-            colRight = document.createElement('div')
+            colRight = document.createElement('div'),
+            info = document.createElement('div')
 
+        // base
         row.className = 'row'
         colLeft.className = 'col-6'
         colRight.className = 'col-6'
 
-        this.data.manuallyShips.el.className = this.data.manuallyShips.css
-        this.data.info.el.className = this.data.info.css
-        this.data.info.el.innerText = this.data.info.text
+        // header
+        this.element.notification.innerText = this.resource.notification.placeShips
+        // main
+        info.className = 'sb-info'
+        info.innerText = this.resource.info
+        //footer
+        this.element.footer.append(
+            this.element.btn.reload,
+            this.element.btn.auto,
+            this.element.btn.start
+        )
 
-        // this.data.field.el.className = this.data.field.css
+        console.log(this.createPort())
 
         colLeft.append(
-            this.data.info.el,
-            this.data.manuallyShips.el
+            info,
+            this.createPort()
         )
         colRight.append(
-            // this.data.field.el
+            this.field.html
         )
         row.append(
             colLeft,
             colRight
         )
-        this.data.manually.el.append(row)
-        this.element.footer.append(this.data.manually.el)
+        this.element.main.append(
+            row
+        )
     }
 
     createFieldData(row, column) {
@@ -189,41 +274,35 @@ class SeaBattle {
     }
 
     createField(arr) {
-        const arrElements = []
+        const
+            arrElements = [],
+            field = document.createElement('div')
+
+        field.className = 'sb-field'
+
         arr.forEach(y => {
-            const arrRow = []
+            const
+                arrRow = [],
+                row = document.createElement('div')
+
+            row.className = 'sb-field__row'
+
             y.forEach(x => {
                 const el = document.createElement('div')
-                el.className = 'f__row'
+                el.className = 'sb-field__cell'
                 arrRow.push(el)
+                row.append(el)
+                
             })
+
             arrElements.push(arrRow)
+            field.append(row)
         })
 
-        return arrElements
-    }
-
-    _createField(ai) {
-        for (let i = 0; i < 10; i++) {
-            const row = document.createElement('div');
-            const rowArr = [];
-            const rowArrData = [];
-            row.className = this.data.field.cssRow;
-
-            for (let j = 0; j < 10; j++) {
-                const cell = document.createElement('div');
-                cell.className = this.data.field.cssCell;
-                row.append(cell)
-                rowArr.push(cell)
-                rowArrData.push(null)
-            }
-
-            ai ? this.fieldAI.push(rowArr) : this.field.push(rowArr)
-            ai ? this.fieldAIData.push(rowArrData) : this.fieldData.push(rowArrData)
-            ai ? this.data.fieldAI.el.append(row) : this.data.field.el.append(row)
-            // aa.push(row)
+        return {
+            coords: arrElements,
+            html: field
         }
-        // return aa;
     }
 
     init() {
@@ -231,13 +310,13 @@ class SeaBattle {
         this.fieldAIData = this.createFieldData(10, 10)
         this.field = this.createField(this.fieldData)
         this.fieldAI = this.createField(this.fieldAIData)
-        this.createBtns()
+        this.element.btn = this.createBtns()
         this.createBaseLayout()
-        this.createManuallyLayout()
-        // this.data.field = document.createElement('div')
+        this.createManuallyStep()
     }
 }
 
 const seaBattle = new SeaBattle('sea-battle');
 seaBattle.init()
 console.log(seaBattle)
+console.log(seaBattle.element.ships)
