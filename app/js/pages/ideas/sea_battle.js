@@ -2,74 +2,6 @@ class SeaBattle {
     constructor(id) {
         this.container = document.getElementById(id);
 
-        this.data = {
-            // header: {
-            //     el: document.createElement('div'),
-            //     css: 'sb-header'
-            // },
-            // headerTitle: {
-            //     css: 'sb-header__title',
-            //     text: 'Sea Battle'
-            // },
-            // main: {
-            //     el: document.createElement('div'),
-            //     css: 'sb-main'
-            // },
-            // footer: {
-            //     el: document.createElement('div'),
-            //     css: 'sb-footer'
-            // },
-            // notification: {
-            //     el: document.createElement('div'),
-            //     css: 'sb-header__notification',
-            //     placeShips: 'Place your ships'
-            // },
-            // btn: {
-            //     css: 'btn',
-            //     reload: {
-            //         el: document.createElement('button'),
-            //         text: 'Reload',
-            //     },
-            //     auto: {
-            //         el: document.createElement('button'),
-            //         text: 'Place ships automatically'
-            //     },
-            //     start: {
-            //         el: document.createElement('button'),
-            //         text: 'start the game',
-            //     },
-            //     again: {
-            //         el: document.createElement('button'),
-            //         text: 'Play again',
-            //     },
-            // },
-            // manually: {
-            //     el: document.createElement('div'),
-            //     css: 'sb-manually'
-            // },
-            // manuallyShips: {
-            //     el: document.createElement('div'),
-            //     css: 'sb-manually__ships'
-            // },
-            // info: {
-            //     el: document.createElement('div'),
-            //     css: 'sb-info',
-            //     text: 'Place your ships on the battlefield. Click on a ship to turn it.'
-            // },
-            // field: {
-            //     el: document.createElement('div'),
-            //     css: 'sb-field',
-            //     cssRow: 'sb-field__row',
-            //     cssCell: 'sb-field__cell'
-            // },
-            // fieldAI: {
-            //     el: document.createElement('div'),
-            //     css: 'sb-field',
-            //     cssRow: 'sb-field__row',
-            //     cssCell: 'sb-field__cell'
-            // }
-        }
-
         this.resource = {
             title: 'Sea Battle',
             notification: {
@@ -189,6 +121,8 @@ class SeaBattle {
         this.element.ships.ship1_3 = this.createShip(1)
         this.element.ships.ship1_4 = this.createShip(1)
 
+        this.element.ships.ship4.setAttribute('id', 'ball') // temporary
+
         portItem1.append(
             this.element.ships.ship4
         )
@@ -227,9 +161,9 @@ class SeaBattle {
             info = document.createElement('div')
 
         // base
-        row.className = 'row'
-        colLeft.className = 'col-6'
-        colRight.className = 'col-6'
+        row.className = 'row justify-content-center'
+        colLeft.className = 'col-auto'
+        colRight.className = 'col-auto'
 
         // header
         this.element.notification.innerText = this.resource.notification.placeShips
@@ -320,3 +254,30 @@ const seaBattle = new SeaBattle('sea-battle');
 seaBattle.init()
 console.log(seaBattle)
 console.log(seaBattle.element.ships)
+
+// https://learn.javascript.ru/mouse-drag-and-drop
+ball.onmousedown = function(event) {
+    ball.style.position = 'absolute';
+    ball.style.zIndex = 1000;
+    document.body.append(ball);
+
+    console.log(event)
+    
+    moveAt(event.pageX, event.pageY);
+    
+    function moveAt(pageX, pageY) {
+        ball.style.left = pageX - ball.offsetWidth / 2 + 'px';
+        ball.style.top = pageY - ball.offsetHeight / 2 + 'px';
+    }
+    
+    function onMouseMove(event) {
+        moveAt(event.pageX, event.pageY);
+    }
+    
+    document.addEventListener('mousemove', onMouseMove);
+    
+    ball.onmouseup = function() {
+        document.removeEventListener('mousemove', onMouseMove);
+        ball.onmouseup = null;
+    };
+};
