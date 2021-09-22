@@ -27,7 +27,7 @@
 }
 
 .sb-port {
-  display: table;
+  width: 210px;
 }
 
 .sb-port__item {
@@ -38,9 +38,8 @@
 
 .sb-ship {
   height: 32px;
-  background-color: #e5f6e7;
+  background-color: rgba(0, 171, 26, 0.1);
   border: 2px solid #00ab1a;
-  margin-right: 15px;
 }
 
 .sb-ship--1 {
@@ -60,7 +59,6 @@
 }
 
 .sb-field {
-  display: table;
   padding: 30px 0 0 30px;
   counter-reset: rowCounter;
 }
