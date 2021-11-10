@@ -30,13 +30,16 @@
   width: 210px;
 }
 
-.sb-port__item {
+.sb-port__line {
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
 }
 
 .sb-ship {
+  position: absolute;
+  top: -1px;
+  left: -1px;
   height: 32px;
   background-color: rgba(0, 171, 26, 0.1);
   border: 2px solid #00ab1a;
@@ -55,6 +58,25 @@
 }
 
 .sb-ship--4 {
+  width: 122px;
+}
+
+.sb-ship__container {
+  position: relative;
+  height: 32px;
+  border: 1px dotted #c0c0c0;
+  width: 32px;
+}
+
+.sb-ship__container--2 {
+  width: 64px;
+}
+
+.sb-ship__container--3 {
+  width: 96px;
+}
+
+.sb-ship__container--4 {
   width: 122px;
 }
 

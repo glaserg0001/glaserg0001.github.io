@@ -10,7 +10,7 @@ class SeaBattle {
             btn: {
                 reload: 'Reload',
                 auto: 'Place ships automatically',
-                start: 'start the game',
+                start: 'Start the game',
                 again: 'Play again'
             },
             info: 'Place your ships on the battlefield. Click on a ship to turn it.',
@@ -89,10 +89,17 @@ class SeaBattle {
     }
 
     createShip(size) {
-        const ship = document.createElement('div')
+        const
+            shipContainer = document.createElement('div'), 
+            ship = document.createElement('div')
         ship.className = `sb-ship sb-ship--${size}`
+        shipContainer.className = `sb-ship__container sb-ship__container--${size}`
+        shipContainer.append(ship)
 
-        return ship
+        return {
+            container: shipContainer,
+            el: ship
+        }
     }
 
     createPort() {
@@ -104,42 +111,56 @@ class SeaBattle {
         const portItem3 = document.createElement('div')
         const portItem4 = document.createElement('div')
 
-        portItem1.className = 'sb-port__item'
-        portItem2.className = 'sb-port__item'
-        portItem3.className = 'sb-port__item'
-        portItem4.className = 'sb-port__item'
+        portItem1.className = 'sb-port__line'
+        portItem2.className = 'sb-port__line'
+        portItem3.className = 'sb-port__line'
+        portItem4.className = 'sb-port__line'
 
         this.element.ships = new Object()
-        this.element.ships.ship4   = this.createShip(4)
-        this.element.ships.ship3_1 = this.createShip(3)
-        this.element.ships.ship3_2 = this.createShip(3)
-        this.element.ships.ship2_1 = this.createShip(2)
-        this.element.ships.ship2_2 = this.createShip(2)
-        this.element.ships.ship2_3 = this.createShip(2)
-        this.element.ships.ship1_1 = this.createShip(1)
-        this.element.ships.ship1_2 = this.createShip(1)
-        this.element.ships.ship1_3 = this.createShip(1)
-        this.element.ships.ship1_4 = this.createShip(1)
 
-        this.element.ships.ship4.setAttribute('id', 'ball') // temporary
+        const shipArr = {}
+
+        shipArr.ship4   = this.createShip(4)
+        shipArr.ship3_1 = this.createShip(3)
+        shipArr.ship3_2 = this.createShip(3)
+        shipArr.ship2_1 = this.createShip(2)
+        shipArr.ship2_2 = this.createShip(2)
+        shipArr.ship2_3 = this.createShip(2)
+        shipArr.ship1_1 = this.createShip(1)
+        shipArr.ship1_2 = this.createShip(1)
+        shipArr.ship1_3 = this.createShip(1)
+        shipArr.ship1_4 = this.createShip(1)
+
+        this.element.ships.ship4   = shipArr.ship4
+        this.element.ships.ship3_1 = shipArr.ship3_1
+        this.element.ships.ship3_2 = shipArr.ship3_2
+        this.element.ships.ship2_1 = shipArr.ship2_1
+        this.element.ships.ship2_2 = shipArr.ship2_2
+        this.element.ships.ship2_3 = shipArr.ship2_3
+        this.element.ships.ship1_1 = shipArr.ship1_1
+        this.element.ships.ship1_2 = shipArr.ship1_2
+        this.element.ships.ship1_3 = shipArr.ship1_3
+        this.element.ships.ship1_4 = shipArr.ship1_4
+
+        shipArr.ship4.el.setAttribute('id', 'ball') // temporary
 
         portItem1.append(
-            this.element.ships.ship4
+            shipArr.ship4.container
         )
         portItem2.append(
-            this.element.ships.ship3_1,
-            this.element.ships.ship3_2
+            shipArr.ship3_1.container,
+            shipArr.ship3_2.container
         )
         portItem3.append(
-            this.element.ships.ship2_1,
-            this.element.ships.ship2_2,
-            this.element.ships.ship2_3
+            shipArr.ship2_1.container,
+            shipArr.ship2_2.container,
+            shipArr.ship2_3.container
         )
         portItem4.append(
-            this.element.ships.ship1_1,
-            this.element.ships.ship1_2,
-            this.element.ships.ship1_3,
-            this.element.ships.ship1_4
+           shipArr.ship1_1.container,
+           shipArr.ship1_2.container,
+           shipArr.ship1_3.container,
+           shipArr.ship1_4.container
         )
 
         port.append(
@@ -153,7 +174,7 @@ class SeaBattle {
     }
 
     createManuallyStep() {
-        this.createPort()
+        // this.createPort()
         const
             row = document.createElement('div'),
             colLeft = document.createElement('div'),
@@ -177,7 +198,7 @@ class SeaBattle {
             this.element.btn.start
         )
 
-        console.log(this.createPort())
+        // console.log(this.createPort())
 
         colLeft.append(
             info,
@@ -252,8 +273,8 @@ class SeaBattle {
 
 const seaBattle = new SeaBattle('sea-battle');
 seaBattle.init()
-console.log(seaBattle)
-console.log(seaBattle.element.ships)
+// console.log(seaBattle)
+// console.log(seaBattle.element.ships)
 
 // https://learn.javascript.ru/mouse-drag-and-drop
 ball.ondragstart = function() {

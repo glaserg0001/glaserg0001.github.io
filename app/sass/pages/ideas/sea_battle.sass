@@ -35,7 +35,7 @@ $cell-size: 30px
 .sb-port
     width: 210px
 
-    &__item
+    &__line
         display: flex
         justify-content: space-between
         margin-bottom: 30px
@@ -43,6 +43,9 @@ $cell-size: 30px
 .sb-ship
     $size: $cell-size + 2
 
+    position: absolute
+    top: -1px
+    left: -1px
     height: $size
     background-color: rgba($success, 0.1)
     border: 2px solid $success
@@ -58,6 +61,23 @@ $cell-size: 30px
 
     &--4
         width: $size * 4 - 2 * 3
+
+    &__container
+        position: relative
+        height: $size
+        border: 1px dotted $gray-300
+        
+        &--1
+        width: $size
+
+        &--2
+            width: $size * 2
+
+        &--3
+            width: $size * 3
+
+        &--4
+            width: $size * 4 - 2 * 3
 
 .sb-field
     $this: 'sb-field'
