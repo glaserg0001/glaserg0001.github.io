@@ -299,9 +299,22 @@ ball.onmousedown = function(event) {
         ball.style.top = pageY - shiftY + 'px';
     }
     
+    let currentDroppable = null;
+
     function onMouseMove(event) {
-        event.preventDefault()
         moveAt(event.pageX, event.pageY);
+
+        ball.hidden = true
+        let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+        console.log(elemBelow)
+        ball.hidden = false
+
+        if (!elemBelow) return;
+        let droppableBelow = elemBelow.closest('.sb-field')
+
+        if (currentDroppable != droppableBelow) {
+            
+        }
     }
     
     document.addEventListener('mousemove', onMouseMove);
