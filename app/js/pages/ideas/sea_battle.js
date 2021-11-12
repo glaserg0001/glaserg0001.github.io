@@ -306,14 +306,24 @@ ball.onmousedown = function(event) {
 
         ball.hidden = true
         let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
-        console.log(elemBelow)
+        // console.log(elemBelow)
         ball.hidden = false
 
         if (!elemBelow) return;
-        let droppableBelow = elemBelow.closest('.sb-field')
+        let droppableBelow = elemBelow.closest('.sb-field__cell')
 
         if (currentDroppable != droppableBelow) {
-            
+            if (currentDroppable) {
+              leaveDroppable(currentDroppable);
+            }
+            currentDroppable = droppableBelow;
+            if (currentDroppable) {
+              enterDroppable(currentDroppable);
+            }
+          }
+
+        if (currentDroppable != droppableBelow) {
+
         }
     }
     
@@ -323,4 +333,12 @@ ball.onmousedown = function(event) {
         document.removeEventListener('mousemove', onMouseMove);
         ball.onmouseup = null;
     };
+
+    function enterDroppable(elem) {
+        elem.style.background = 'pink';
+      }
+  
+      function leaveDroppable(elem) {
+        elem.style.background = '';
+      }
 };
