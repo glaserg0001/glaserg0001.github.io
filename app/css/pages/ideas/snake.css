@@ -16,12 +16,10 @@
   border: 2px solid #e0e0e0;
 }
 
-@media (min-width: 1024px) {
-  .s-field__btn:hover {
-    background-color: #212121;
-    color: #fff;
-    border: 2px solid #212121;
-  }
+.s-field__btn:hover {
+  background-color: #212121;
+  color: #fff;
+  border: 2px solid #212121;
 }
 
 .s-field__btn:focus {
@@ -110,17 +108,17 @@
   transition: inherit;
 }
 
-@media (min-width: 1024px) {
-  .s-field-settings__goto__button:hover {
-    border-color: #9e9e9e;
-  }
-  .s-field-settings__goto__button:hover::before {
-    background-color: transparent;
-    border-color: #9e9e9e;
-  }
-  .s-field-settings__goto__button:hover::after {
-    color: #9e9e9e;
-  }
+.s-field-settings__goto__button:hover {
+  border-color: #9e9e9e;
+}
+
+.s-field-settings__goto__button:hover::before {
+  background-color: transparent;
+  border-color: #9e9e9e;
+}
+
+.s-field-settings__goto__button:hover::after {
+  color: #9e9e9e;
 }
 
 .s-field-settings__goto__button:focus {
@@ -213,11 +211,9 @@
   border-top: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-@media (min-width: 1024px) {
-  .s-field-header__hiscore__item:hover {
-    cursor: default;
-    background-color: rgba(0, 0, 0, 0.2);
-  }
+.s-field-header__hiscore__item:hover {
+  cursor: default;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .s-field-header__hiscore__item.m-highlight {
@@ -306,10 +302,8 @@
   border-left-color: currentColor;
 }
 
-@media (min-width: 1024px) {
-  .s-field-alert-gameover__close:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
+.s-field-alert-gameover__close:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .s-field-alert-gameover__close:focus {

@@ -96,6 +96,10 @@ class SeaBattle {
         shipContainer.className = `sb-ship__container sb-ship__container--${size}`
         shipContainer.append(ship)
 
+
+
+        this.mouse(ship)
+
         return {
             container: shipContainer,
             el: ship
@@ -142,7 +146,10 @@ class SeaBattle {
         this.element.ships.ship1_3 = shipArr.ship1_3
         this.element.ships.ship1_4 = shipArr.ship1_4
 
-        shipArr.ship4.el.setAttribute('id', 'ball') // temporary
+
+
+
+        // shipArr.ship4.el.setAttribute('id', 'ship') // temporary
 
         portItem1.append(
             shipArr.ship4.container
@@ -260,6 +267,139 @@ class SeaBattle {
         }
     }
 
+    mouse($ship) {
+        $ship.addEventListener('dragstart', () => {return false})
+
+        console.log($ship)
+        
+        $ship.addEventListener('mousedown', event => {
+            const field = document.querySelector('.sb-field')
+
+            const {
+                top: shipTop,
+                left: shipLeft,
+                right: shipRight,
+                bottom: shipBottom
+            } = $ship.getBoundingClientRect();
+        
+            let basePageX = event.pageX;
+            let basePageY = event.pageY;
+        
+            const shiftX = event.clientX - shipLeft;
+            const shiftY = event.clientY - shipTop;
+        
+            const {
+                top: fieldTop,
+                left: fieldLeft,
+                right: fieldRight,
+                bottom: fieldBottom
+            } = field.getBoundingClientRect();
+        
+            // $ship.style.position = 'absolute';
+            $ship.style.zIndex = 1000;
+            // document.body.append($ship);
+        
+            // moveAt(event.pageX, event.pageY);
+            
+            function moveAt(pageX, pageY) {
+                if (pageX) {
+                    // ship.style.left = pageX - shiftX + 'px';
+                    // ship.style.top = pageY - shiftY + 'px';
+                    $ship.style.left = pageX - basePageX + 'px';
+                    $ship.style.top = pageY - basePageY + 'px';
+                } else {
+                    $ship.style.left = 0;
+                    $ship.style.top = 0;
+                }
+            }
+        
+            let currentDroppable = null;
+        
+            function onMouseMove(event) {
+                moveAt(event.pageX, event.pageY);
+        
+                const {
+                        top: targetTop,
+                        left: targetLeft,
+                        right: targetRight,
+                        bottom: targetBottom
+                    } = event.target.getBoundingClientRect();
+        
+                // on cell
+                $ship.hidden = true
+                let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+                event.target.elBelow = elemBelow
+                $ship.hidden = false
+        
+        
+                // console.log(
+                //     'top', targetTop, 
+                //     'left', targetLeft,
+                //     'right', targetRight,
+                //     'bottom', targetBottom
+                // )
+        
+                // inside the field
+                if (
+                    targetTop > fieldTop &&
+                    targetLeft > fieldLeft &&
+                    targetRight < fieldRight &&
+                    targetBottom < fieldBottom
+                ) {
+                    event.target.style.background = 'green'
+                    event.target.insideField = true
+                } else {
+                    event.target.style.background = ''
+                    event.target.insideField = false
+                }
+        
+                // console.log(event.target.elBelow)
+                console.log()
+        
+                // ------------------------
+                
+                if (!elemBelow) return;
+                let droppableBelow = elemBelow.closest('.sb-field__cell')
+                
+                if (currentDroppable != droppableBelow) {
+                    if (currentDroppable) {
+                        leaveDroppable(currentDroppable);
+                    }
+                    currentDroppable = droppableBelow;
+                    if (currentDroppable) {
+                        enterDroppable(currentDroppable);
+                    }
+                    function enterDroppable(elem) {
+                        elem.style.background = 'pink';
+                    }
+                
+                    function leaveDroppable(elem) {
+                        elem.style.background = '';
+                    }
+                }
+
+            }
+            
+            document.addEventListener('mousemove', onMouseMove);
+            
+            window.onmouseup = function () {
+                console.log('onmouseup')
+                document.removeEventListener('mousemove', onMouseMove);
+                window.onmouseup = null;
+            
+                moveAt(null)
+            
+                if (!event.target.elBelow) {
+                    // moveAt(null)
+                }
+            
+                if (event.target.insideField) {
+                    event.target.elBelow.append($ship);
+                }
+            }
+        })
+    }
+
     init() {
         this.fieldData = this.createFieldData(10, 10)
         this.fieldAIData = this.createFieldData(10, 10)
@@ -277,68 +417,3 @@ seaBattle.init()
 // console.log(seaBattle.element.ships)
 
 // https://learn.javascript.ru/mouse-drag-and-drop
-ball.ondragstart = function() {
-    return false;
-};
-
-ball.onmousedown = function(event) {
-    let shiftX = event.clientX - ball.getBoundingClientRect().left;
-    let shiftY = event.clientY - ball.getBoundingClientRect().top;
-
-    ball.style.position = 'absolute';
-    ball.style.zIndex = 1000;
-    document.body.append(ball);
-
-    console.log(event)
-
-    
-    moveAt(event.pageX, event.pageY);
-    
-    function moveAt(pageX, pageY) {
-        ball.style.left = pageX - shiftX + 'px';
-        ball.style.top = pageY - shiftY + 'px';
-    }
-    
-    let currentDroppable = null;
-
-    function onMouseMove(event) {
-        moveAt(event.pageX, event.pageY);
-
-        ball.hidden = true
-        let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
-        // console.log(elemBelow)
-        ball.hidden = false
-
-        if (!elemBelow) return;
-        let droppableBelow = elemBelow.closest('.sb-field__cell')
-
-        if (currentDroppable != droppableBelow) {
-            if (currentDroppable) {
-              leaveDroppable(currentDroppable);
-            }
-            currentDroppable = droppableBelow;
-            if (currentDroppable) {
-              enterDroppable(currentDroppable);
-            }
-          }
-
-        if (currentDroppable != droppableBelow) {
-
-        }
-    }
-    
-    document.addEventListener('mousemove', onMouseMove);
-    
-    ball.onmouseup = function() {
-        document.removeEventListener('mousemove', onMouseMove);
-        ball.onmouseup = null;
-    };
-
-    function enterDroppable(elem) {
-        elem.style.background = 'pink';
-      }
-  
-      function leaveDroppable(elem) {
-        elem.style.background = '';
-      }
-};

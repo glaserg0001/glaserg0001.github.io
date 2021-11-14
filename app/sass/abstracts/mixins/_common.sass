@@ -92,15 +92,15 @@
     // Example: +on-event([hover, focus])
 
     @if $events == null
-        +media-breakpoint-up(lg)
-            &:hover
-                @content
+        // +media-breakpoint-up(lg)
+        &:hover
+            @content
     @else
         @each $event in $events
             @if $event == hover
-                +media-breakpoint-up(lg)
-                    &:#{$event}
-                        @content
+                // +media-breakpoint-up(lg)
+                &:#{$event}
+                    @content
             @else
                 &:#{$event}
                     @if $event == focus

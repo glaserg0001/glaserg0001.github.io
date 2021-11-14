@@ -58,10 +58,8 @@
   flex: 1 0 0;
 }
 
-@media (min-width: 1024px) {
-  .mlp-btn:hover {
-    background-color: #fafafa;
-  }
+.mlp-btn:hover {
+  background-color: #fafafa;
 }
 
 .mlp-btn + .mlp-btn {
@@ -74,10 +72,8 @@
   color: #fff;
 }
 
-@media (min-width: 1024px) {
-  .mlp-btn.m-primary:hover {
-    background-color: #eb575d;
-  }
+.mlp-btn.m-primary:hover {
+  background-color: #eb575d;
 }
 
 .mlp-result {

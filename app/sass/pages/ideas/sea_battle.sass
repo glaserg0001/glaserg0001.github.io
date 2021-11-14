@@ -8,12 +8,17 @@ $gray-300: #c0c0c0
 $white: #fff
 
 $cell-size: 30px
+$whip-size: $cell-size
 
 .sb-btn
     padding: 5px 15px
 
 .sb-header
     margin-bottom: 20px
+    margin-top: 400px // !!!
+
+.sb-footer
+    margin-bottom: 400px
 
 .sb-notification
     padding: 10px 20px
@@ -41,49 +46,50 @@ $cell-size: 30px
         margin-bottom: 30px
 
 .sb-ship
-    $size: $cell-size + 2
-
     position: absolute
-    top: -1px
-    left: -1px
-    height: $size
+    top: 0
+    left: 0
+    height: $whip-size
     background-color: rgba($success, 0.1)
     border: 2px solid $success
+    margin: -1px
 
     &--1
-        width: $size
+        width: $whip-size
 
     &--2
-        width: $size * 2
+        width: $whip-size * 2
 
     &--3
-        width: $size * 3
+        width: $whip-size * 3
 
     &--4
-        width: $size * 4 - 2 * 3
+        // width: $whip-size * 4 - 2 * 3
+        width: $whip-size * 4
 
     &__container
         position: relative
-        height: $size
+        height: $whip-size
         border: 1px dotted $gray-300
         
         &--1
-        width: $size
+        width: $whip-size
 
         &--2
-            width: $size * 2
+            width: $whip-size * 2
 
         &--3
-            width: $size * 3
+            width: $whip-size * 3
 
         &--4
-            width: $size * 4 - 2 * 3
+            width: $whip-size * 4
 
 .sb-field
     $this: 'sb-field'
 
     margin: $cell-size 0 0 $cell-size
     counter-reset: rowCounter
+    user-select: none
 
     &__row
         position: relative

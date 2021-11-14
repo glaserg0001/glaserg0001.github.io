@@ -19,10 +19,8 @@
   transition: all 0.1s linear;
 }
 
-@media (min-width: 1024px) {
-  .crop-btn:hover {
-    background-color: #f5f5f5;
-  }
+.crop-btn:hover {
+  background-color: #f5f5f5;
 }
 
 .crop-btn:focus {
