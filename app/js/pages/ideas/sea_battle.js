@@ -232,16 +232,18 @@ class SeaBattle {
 
         field.className = 'sb-field'
 
-        arr.forEach(y => {
+        arr.forEach((y, yi) => {
             const
                 arrRow = [],
                 row = document.createElement('div')
 
             row.className = 'sb-field__row'
 
-            y.forEach(x => {
+            y.forEach((x,xi) => {
                 const el = document.createElement('div')
                 el.className = 'sb-field__cell'
+                el.dataset.x = xi
+                el.dataset.y = yi
                 arrRow.push(el)
                 row.append(el)
                 
@@ -259,20 +261,19 @@ class SeaBattle {
 
     mouseEvents($ship) {
         const
+            field = this.field.html,
+            cellsArr = this.field.coords,
             shipWidth = $ship.offsetWidth,
             shipHeight = $ship.offsetHeight,
             cellSize = shipHeight,
             shipDeck = shipWidth / shipHeight;
 
-        $ship.ondragstart = function() {
-            console.log(`off drag for`, $ship)
-            return false;
-          };
+        $ship.ondragstart = function() {return false};
 
         
         $ship.onmousedown = function (event) {
-            const field = document.querySelector('.sb-field')
-    
+            const shipDeckCurrent = Math.floor(event.offsetX / cellSize);
+
             const {
                 top: shipTop,
                 left: shipLeft,
@@ -293,12 +294,6 @@ class SeaBattle {
                 bottom: fieldBottom
             } = field.getBoundingClientRect();
         
-            // $ship.style.position = 'absolute';
-            $ship.style.zIndex = 1000;
-            // document.body.append($ship);
-        
-            // moveAt(event.pageX, event.pageY);
-            
             function moveAt(pageX, pageY) {
                 if (pageX) {
                     // ship.style.left = pageX - shiftX + 'px';
@@ -314,7 +309,7 @@ class SeaBattle {
             let currentDroppable = null;
         
             function onMouseMove(event) {
-                moveAt(event.pageX, event.pageY);
+                // moveAt(event.pageX, event.pageY);
         
                 const {
                         top: targetTop,
@@ -324,37 +319,43 @@ class SeaBattle {
                     } = event.target.getBoundingClientRect();
         
                 // on cell
-                // $ship.hidden = true
+                $ship.hidden = true
                 let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+                // let elemBelow = document.elementsFromPoint(event.clientX, event.clientY)[1];
                 event.target.elBelow = elemBelow
-                // $ship.hidden = false
+                $ship.hidden = false
 
-
-
-                console.log(elemBelow.className)
-        
-        
-                // console.log(
-                //     'top', targetTop, 
-                //     'left', targetLeft,
-                //     'right', targetRight,
-                //     'bottom', targetBottom
-                // )
-        
-                // inside the field
+                // check if inside the field
                 if (
                     targetTop > fieldTop &&
                     targetLeft > fieldLeft &&
                     targetRight < fieldRight &&
                     targetBottom < fieldBottom
                 ) {
-                    event.target.style.borderColor = 'blue'
+                    event.target.style.color = 'blue'
                     event.target.insideField = true
+
+                    const targetCell = Number(elemBelow.dataset.x) - shipDeckCurrent
+                    const targetRow = Number(elemBelow.dataset.y)
+
+                    const {top, left} = cellsArr[targetRow][targetCell].getBoundingClientRect()
+                    
+                    // console.log(top)
+
+                    console.log(cellsArr[targetRow][targetCell].pageX)
+                    // console.log(basePageX)
+
+                    moveAt(left + window.pageXOffset, top + window.pageYOffset)
+
+                    
                 } else {
-                    event.target.style.borderColor = ''
+                    event.target.style.color = ''
                     event.target.insideField = false
+                    moveAt(event.pageX, event.pageY);
                 }
-        
+
+                // console.log(basePageX, basePageY)
+
                 // ------------------------
                 
                 if (!elemBelow) return;
@@ -385,15 +386,17 @@ class SeaBattle {
                 console.log('mouseUp')
                 document.removeEventListener('mousemove', onMouseMove);
                 window.onmouseup = null;
+
+                const _elBelow = event.target.elBelow;
             
                 moveAt(null)
             
-                if (!event.target.elBelow) {
-                    // moveAt(null)
-                }
-            
                 if (event.target.insideField) {
-                    event.target.elBelow.append($ship);
+                    // console.log(Number(_elBelow.dataset.x))
+                    // console.log(shipDeckCurrent)
+                    const targetCell = Number(_elBelow.dataset.x) - shipDeckCurrent
+                    const targetRow = Number(_elBelow.dataset.y)
+                    cellsArr[targetRow][targetCell].append($ship);
                 }
             }
         }
@@ -418,7 +421,7 @@ class SeaBattle {
 
 const seaBattle = new SeaBattle('sea-battle');
 seaBattle.init()
-// console.log(seaBattle)
+console.log(seaBattle)
 // console.log(seaBattle.field.coords[0][0].offsetWidth)
 // console.log(seaBattle.element.ships)
 
