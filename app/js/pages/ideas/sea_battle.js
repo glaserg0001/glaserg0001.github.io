@@ -96,10 +96,6 @@ class SeaBattle {
         shipContainer.className = `sb-ship__container sb-ship__container--${size}`
         shipContainer.append(ship)
 
-
-
-        this.mouse(ship)
-
         return {
             container: shipContainer,
             el: ship
@@ -135,21 +131,16 @@ class SeaBattle {
         shipArr.ship1_3 = this.createShip(1)
         shipArr.ship1_4 = this.createShip(1)
 
-        this.element.ships.ship4   = shipArr.ship4
-        this.element.ships.ship3_1 = shipArr.ship3_1
-        this.element.ships.ship3_2 = shipArr.ship3_2
-        this.element.ships.ship2_1 = shipArr.ship2_1
-        this.element.ships.ship2_2 = shipArr.ship2_2
-        this.element.ships.ship2_3 = shipArr.ship2_3
-        this.element.ships.ship1_1 = shipArr.ship1_1
-        this.element.ships.ship1_2 = shipArr.ship1_2
-        this.element.ships.ship1_3 = shipArr.ship1_3
-        this.element.ships.ship1_4 = shipArr.ship1_4
-
-
-
-
-        // shipArr.ship4.el.setAttribute('id', 'ship') // temporary
+        this.element.ships.ship4   = shipArr.ship4.el
+        this.element.ships.ship3_1 = shipArr.ship3_1.el
+        this.element.ships.ship3_2 = shipArr.ship3_2.el
+        this.element.ships.ship2_1 = shipArr.ship2_1.el
+        this.element.ships.ship2_2 = shipArr.ship2_2.el
+        this.element.ships.ship2_3 = shipArr.ship2_3.el
+        this.element.ships.ship1_1 = shipArr.ship1_1.el
+        this.element.ships.ship1_2 = shipArr.ship1_2.el
+        this.element.ships.ship1_3 = shipArr.ship1_3.el
+        this.element.ships.ship1_4 = shipArr.ship1_4.el
 
         portItem1.append(
             shipArr.ship4.container
@@ -181,7 +172,6 @@ class SeaBattle {
     }
 
     createManuallyStep() {
-        // this.createPort()
         const
             row = document.createElement('div'),
             colLeft = document.createElement('div'),
@@ -205,8 +195,6 @@ class SeaBattle {
             this.element.btn.start
         )
 
-        // console.log(this.createPort())
-
         colLeft.append(
             info,
             this.createPort()
@@ -221,6 +209,8 @@ class SeaBattle {
         this.element.main.append(
             row
         )
+
+        this.mouseEventsInit()
     }
 
     createFieldData(row, column) {
@@ -267,14 +257,22 @@ class SeaBattle {
         }
     }
 
-    mouse($ship) {
-        $ship.addEventListener('dragstart', () => {return false})
+    mouseEvents($ship) {
+        const
+            shipWidth = $ship.offsetWidth,
+            shipHeight = $ship.offsetHeight,
+            cellSize = shipHeight,
+            shipDeck = shipWidth / shipHeight;
 
-        console.log($ship)
+        $ship.ondragstart = function() {
+            console.log(`off drag for`, $ship)
+            return false;
+          };
+
         
-        $ship.addEventListener('mousedown', event => {
+        $ship.onmousedown = function (event) {
             const field = document.querySelector('.sb-field')
-
+    
             const {
                 top: shipTop,
                 left: shipLeft,
@@ -312,7 +310,7 @@ class SeaBattle {
                     $ship.style.top = 0;
                 }
             }
-        
+
             let currentDroppable = null;
         
             function onMouseMove(event) {
@@ -326,10 +324,14 @@ class SeaBattle {
                     } = event.target.getBoundingClientRect();
         
                 // on cell
-                $ship.hidden = true
+                // $ship.hidden = true
                 let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
                 event.target.elBelow = elemBelow
-                $ship.hidden = false
+                // $ship.hidden = false
+
+
+
+                console.log(elemBelow.className)
         
         
                 // console.log(
@@ -346,15 +348,12 @@ class SeaBattle {
                     targetRight < fieldRight &&
                     targetBottom < fieldBottom
                 ) {
-                    event.target.style.background = 'green'
+                    event.target.style.borderColor = 'blue'
                     event.target.insideField = true
                 } else {
-                    event.target.style.background = ''
+                    event.target.style.borderColor = ''
                     event.target.insideField = false
                 }
-        
-                // console.log(event.target.elBelow)
-                console.log()
         
                 // ------------------------
                 
@@ -377,13 +376,13 @@ class SeaBattle {
                         elem.style.background = '';
                     }
                 }
-
+    
             }
-            
+
             document.addEventListener('mousemove', onMouseMove);
-            
+
             window.onmouseup = function () {
-                console.log('onmouseup')
+                console.log('mouseUp')
                 document.removeEventListener('mousemove', onMouseMove);
                 window.onmouseup = null;
             
@@ -397,7 +396,13 @@ class SeaBattle {
                     event.target.elBelow.append($ship);
                 }
             }
-        })
+        }
+    }
+
+    mouseEventsInit() {
+        for (let key in this.element.ships) {
+            this.mouseEvents(this.element.ships[key])
+        }
     }
 
     init() {
@@ -414,6 +419,7 @@ class SeaBattle {
 const seaBattle = new SeaBattle('sea-battle');
 seaBattle.init()
 // console.log(seaBattle)
+// console.log(seaBattle.field.coords[0][0].offsetWidth)
 // console.log(seaBattle.element.ships)
 
 // https://learn.javascript.ru/mouse-drag-and-drop
