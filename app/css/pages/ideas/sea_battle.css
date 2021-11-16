@@ -115,6 +115,7 @@
   font-size: 14px;
   color: #00ab1a;
   text-align: center;
+  pointer-events: none;
 }
 
 .sb-field__row::before {
@@ -129,6 +130,7 @@
   font-size: 14px;
   color: #00ab1a;
   text-align: right;
+  pointer-events: none;
 }
 
 .sb-field__cell {
