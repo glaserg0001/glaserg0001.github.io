@@ -50,6 +50,7 @@
   color: #00ab1a;
   box-shadow: inset 0 0 0 1px currentColor, 0 0 0 1px currentColor;
   z-index: 1;
+  cursor: move;
 }
 
 .sb-ship--1 {

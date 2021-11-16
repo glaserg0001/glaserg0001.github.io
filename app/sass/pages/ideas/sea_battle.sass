@@ -8,7 +8,7 @@ $gray-300: #c0c0c0
 $white: #fff
 
 $cell-size: 30px
-$whip-size: $cell-size
+$ship-size: $cell-size
 
 .sb-btn
     padding: 5px 15px
@@ -49,44 +49,45 @@ $whip-size: $cell-size
     position: absolute
     top: 0
     left: 0
-    height: $whip-size
+    height: $ship-size
     background-color: rgba($success, 0.1)
     // border: 2px solid $success
     color: $success
     box-shadow: inset 0 0 0 1px currentColor, 0 0 0 1px currentColor
     // margin: -1px
     z-index: 1
+    cursor: move
 
     &--1
-        width: $whip-size
+        width: $ship-size
 
     &--2
-        width: $whip-size * 2
+        width: $ship-size * 2
 
     &--3
-        width: $whip-size * 3
+        width: $ship-size * 3
 
     &--4
-        // width: $whip-size * 4 - 2 * 3
-        width: $whip-size * 4
+        // width: $ship-size * 4 - 2 * 3
+        width: $ship-size * 4
 
     &__container
         position: relative
-        height: $whip-size
+        height: $ship-size
         // border: 1px dotted $gray-300
         outline: 1px dashed $gray-300
         
         &--1
-        width: $whip-size
+        width: $ship-size
 
         &--2
-            width: $whip-size * 2
+            width: $ship-size * 2
 
         &--3
-            width: $whip-size * 3
+            width: $ship-size * 3
 
         &--4
-            width: $whip-size * 4
+            width: $ship-size * 4
 
 .sb-field
     $this: 'sb-field'
