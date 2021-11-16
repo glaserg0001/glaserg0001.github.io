@@ -342,14 +342,14 @@ class SeaBattle {
                     event.target.style.color = 'blue'
                     event.target.insideField = true
 
-                    const targetCell = Number(elemBelow.dataset.x) - shipDeckCurrent
-                    const targetRow = Number(elemBelow.dataset.y)
-
+                    
                     function getTargetCell(params) {
-                        
+                        const targetCell = Number(elemBelow.dataset.x) - shipDeckCurrent
+                        const targetRow = Number(elemBelow.dataset.y)
+                        return cellsArr[targetRow][targetCell]
                     }
 
-                    const {top, left} = cellsArr[targetRow][targetCell].getBoundingClientRect()
+                    const {top, left} = getTargetCell().getBoundingClientRect()
                     
                     // console.log(top)
 
