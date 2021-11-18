@@ -282,6 +282,19 @@ class SeaBattle {
                 return cellsArr[targetRow][targetCell]
             }
 
+            function moveAt(pageX, pageY) {
+                console.log(pageY)
+                if (pageX) {
+                    // ship.style.left = pageX - shiftX + 'px';
+                    // ship.style.top = pageY - shiftY + 'px';
+                    $ship.style.left = Math.floor(pageX) - basePageX + 'px';
+                    $ship.style.top = pageY - basePageY + 'px';
+                } else {
+                    $ship.style.left = 0;
+                    $ship.style.top = 0;
+                }
+            }
+
             // const {
             //     top: shipTop,
             //     left: shipLeft,
@@ -304,19 +317,7 @@ class SeaBattle {
                 bottom: fieldBottom
             } = field.getBoundingClientRect();
         
-            function moveAt(pageX, pageY) {
-                if (pageX) {
-                    // ship.style.left = pageX - shiftX + 'px';
-                    // ship.style.top = pageY - shiftY + 'px';
-                    $ship.style.left = pageX - basePageX + 'px';
-                    $ship.style.top = pageY - basePageY + 'px';
-                } else {
-                    $ship.style.left = 0;
-                    $ship.style.top = 0;
-                }
-            }
-
-            let currentDroppable = null;
+            
         
             function onMouseMove(event) {
                 // moveAt(event.pageX, event.pageY);
@@ -346,9 +347,10 @@ class SeaBattle {
                     event.target.insideField = true
 
                     
-                    const a = getTargetCell(elemBelow)
-                    if (a) {
-                        const {top, left} = a.getBoundingClientRect()
+                    const firstDeck = getTargetCell(elemBelow)
+
+                    if (firstDeck) {
+                        const {top, left} = firstDeck.getBoundingClientRect()
                         moveAt(left + eventOffsetX, top + eventOffsetY + window.pageYOffset)
                     } else {
                         moveAt(event.pageX, event.pageY);
