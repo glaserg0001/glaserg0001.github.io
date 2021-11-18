@@ -279,11 +279,13 @@ class SeaBattle {
             function getTargetCell(below) {
                 const targetCell = Number(below.dataset.x) - shipDeckCurrent
                 const targetRow = Number(below.dataset.y)
-                return cellsArr[targetRow][targetCell]
+                console.log(targetCell, targetRow)
+                if (!isNaN(targetCell) || !isNaN(targetRow)) {
+                    return cellsArr[targetRow][targetCell]
+                }
             }
 
             function moveAt(pageX, pageY) {
-                console.log(pageY)
                 if (pageX) {
                     // ship.style.left = pageX - shiftX + 'px';
                     // ship.style.top = pageY - shiftY + 'px';
@@ -327,21 +329,22 @@ class SeaBattle {
                         left: targetLeft,
                         right: targetRight,
                         bottom: targetBottom
-                    } = event.target.getBoundingClientRect();
-        
+                    } = $ship.getBoundingClientRect();
+                
+                    
                 // on cell
                 $ship.hidden = true
                 let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
                 // let elemBelow = document.elementsFromPoint(event.clientX, event.clientY)[1];
                 event.target.elBelow = elemBelow
                 $ship.hidden = false
-                
+
                 // ==== check if inside the field
                 if (
-                    targetTop > fieldTop &&
-                    targetLeft > fieldLeft &&
-                    targetRight < fieldRight &&
-                    targetBottom < fieldBottom
+                    targetTop >= fieldTop &&
+                    targetLeft >= fieldLeft &&
+                    targetRight <= fieldRight &&
+                    targetBottom <= fieldBottom
                 ) {
                     event.target.style.color = 'blue'
                     event.target.insideField = true
