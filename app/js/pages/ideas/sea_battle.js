@@ -1,6 +1,8 @@
 class SeaBattle {
-    constructor(id) {
+    constructor(id, size) {
         this.container = document.getElementById(id);
+        this.fieldCols = size[0] || size
+        this.fieldRows = size[1] || this.fieldCols
 
         this.resource = {
             title: 'Sea Battle',
@@ -242,10 +244,12 @@ class SeaBattle {
             y.forEach((x,xi) => {
                 const el = document.createElement('div')
                 el.className = 'sb-field__cell'
-                el.dataset.x = xi
-                el.dataset.y = yi
+                el.column = xi
+                el.row = yi
                 arrRow.push(el)
                 row.append(el)
+                // temporary
+                // el.innerText = xi
                 
             })
 
@@ -277,10 +281,10 @@ class SeaBattle {
             const shipDeckCurrent = Math.floor(eventOffsetX / cellSize);
             
             function getTargetCell(below) {
-                const targetCell = Number(below.dataset.x) - shipDeckCurrent
-                const targetRow = Number(below.dataset.y)
-                console.log(targetCell, targetRow)
-                if (!isNaN(targetCell) || !isNaN(targetRow)) {
+                const targetCell = Number(below.column) - shipDeckCurrent
+                const targetRow = Number(below.row)
+                const afterLastCell = targetCell + shipDeck
+                if (!isNaN(targetCell) && !isNaN(targetRow) && afterLastCell < 11) {
                     return cellsArr[targetRow][targetCell]
                 }
             }
@@ -307,7 +311,6 @@ class SeaBattle {
             let basePageX = event.pageX;
             let basePageY = event.pageY;
 
-            // console.log(event)
         
             // const shiftX = event.clientX - shipLeft;
             // const shiftY = event.clientY - shipTop;
@@ -341,13 +344,13 @@ class SeaBattle {
 
                 // ==== check if inside the field
                 if (
-                    targetTop >= fieldTop &&
-                    targetLeft >= fieldLeft &&
-                    targetRight <= fieldRight &&
-                    targetBottom <= fieldBottom
+                    targetTop >= fieldTop - 10 &&
+                    targetLeft >= fieldLeft - 10 &&
+                    targetRight <= fieldRight + 10 &&
+                    targetBottom <= fieldBottom + 10
                 ) {
-                    event.target.style.color = 'blue'
-                    event.target.insideField = true
+                    $ship.style.color = 'blue'
+                    $ship.insideField = true
 
                     
                     const firstDeck = getTargetCell(elemBelow)
@@ -396,8 +399,8 @@ class SeaBattle {
     }
 
     init() {
-        this.fieldData = this.createFieldData(10, 10)
-        this.fieldAIData = this.createFieldData(10, 10)
+        this.fieldData = this.createFieldData(this.fieldRows, this.fieldCols)
+        this.fieldAIData = this.createFieldData(this.fieldRows, this.fieldCols)
         this.field = this.createField(this.fieldData)
         this.fieldAI = this.createField(this.fieldAIData)
         this.element.btn = this.createBtns()
@@ -406,9 +409,10 @@ class SeaBattle {
     }
 }
 
-const seaBattle = new SeaBattle('sea-battle');
+const seaBattle = new SeaBattle('sea-battle', 10);
 seaBattle.init()
-// console.log(seaBattle)
+console.log(seaBattle.fieldCols, seaBattle.fieldRows)
+// console.log(seaBattle.field.coords)
 // console.log(seaBattle.field.coords[0][0].offsetWidth)
 // console.log(seaBattle.element.ships)
 
