@@ -341,6 +341,8 @@ class SeaBattle {
         
             function onMouseMove(event) {
                 console.log('mouseMove')
+                $ship._dragStarted = true
+                
                 // dragStarted
                 // moveAt(event.pageX, event.pageY);
         
@@ -392,6 +394,7 @@ class SeaBattle {
 
             window.onmouseup = function () {
                 console.log('mouseUp')
+                $ship._dragStarted = false
                 document.removeEventListener('mousemove', onMouseMove);
                 window.onmouseup = null;
 
