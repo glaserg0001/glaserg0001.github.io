@@ -96,6 +96,7 @@ class SeaBattle {
             ship = document.createElement('div')
         ship.className = `sb-ship sb-ship--${size}`
         shipContainer.className = `sb-ship__container sb-ship__container--${size}`
+        ship._vertical = false
         shipContainer.append(ship)
 
         return {
@@ -244,8 +245,8 @@ class SeaBattle {
             y.forEach((x,xi) => {
                 const el = document.createElement('div')
                 el.className = 'sb-field__cell'
-                el.column = xi
-                el.row = yi
+                el._column = xi
+                el._row = yi
                 arrRow.push(el)
                 row.append(el)
                 // temporary
@@ -274,6 +275,20 @@ class SeaBattle {
 
         $ship.ondragstart = function() {return false};
 
+        // $ship.onclick = function (event) {
+        //     console.log('click')
+        // }
+
+        // document.addEventListener('click', function (e) {
+        //     // console.log(this._vertical)
+        //     e.stopPropagation()
+        //     // e.stopImmediatePropagation()
+        //     console.log(e.target)
+        //     // this._vertical = !this._vertical
+
+        //     // this.classList.toggle('m-vertical', this._vertical)
+        // })
+
         
         $ship.onmousedown = function (event) {
             const eventOffsetX = event.offsetX;
@@ -281,8 +296,8 @@ class SeaBattle {
             const shipDeckCurrent = Math.floor(eventOffsetX / cellSize);
             
             function getTargetCell(below) {
-                const targetCell = Number(below.column) - shipDeckCurrent
-                const targetRow = Number(below.row)
+                const targetCell = Number(below._column) - shipDeckCurrent
+                const targetRow = Number(below._row)
                 const afterLastCell = targetCell + shipDeck
                 if (!isNaN(targetCell) && !isNaN(targetRow) && afterLastCell < 11) {
                     return cellsArr[targetRow][targetCell]
@@ -325,6 +340,8 @@ class SeaBattle {
             
         
             function onMouseMove(event) {
+                console.log('mouseMove')
+                // dragStarted
                 // moveAt(event.pageX, event.pageY);
         
                 const {
@@ -350,7 +367,7 @@ class SeaBattle {
                     targetBottom <= fieldBottom + 10
                 ) {
                     $ship.style.color = 'blue'
-                    $ship.insideField = true
+                    $ship._insideField = true
 
                     
                     const firstDeck = getTargetCell(elemBelow)
@@ -366,7 +383,7 @@ class SeaBattle {
                     
                 } else {
                     event.target.style.color = ''
-                    event.target.insideField = false
+                    event.target._insideField = false
                     moveAt(event.pageX, event.pageY);
                 }
             }
@@ -382,7 +399,7 @@ class SeaBattle {
             
                 moveAt(null)
 
-                if (event.target.insideField) {
+                if (event.target._insideField) {
                     getTargetCell(_elBelow).append($ship);
                     // const targetCell = Number(_elBelow.dataset.x) - shipDeckCurrent
                     // const targetRow = Number(_elBelow.dataset.y)
@@ -411,8 +428,8 @@ class SeaBattle {
 
 const seaBattle = new SeaBattle('sea-battle', 10);
 seaBattle.init()
-console.log(seaBattle.fieldCols, seaBattle.fieldRows)
-// console.log(seaBattle.field.coords)
+console.log(seaBattle)
+console.log(seaBattle.element.ships)
 // console.log(seaBattle.field.coords[0][0].offsetWidth)
 // console.log(seaBattle.element.ships)
 

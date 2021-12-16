@@ -71,6 +71,10 @@ $ship-size: $cell-size
         // width: $ship-size * 4 - 2 * 3
         width: $ship-size * 4
 
+    &.m-vertical
+        transform-origin: 0 0
+        transform: rotate(90deg) translateY(-100%)
+
     &__container
         position: relative
         height: $ship-size

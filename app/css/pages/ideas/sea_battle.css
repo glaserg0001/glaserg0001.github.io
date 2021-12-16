@@ -69,6 +69,11 @@
   width: 120px;
 }
 
+.sb-ship.m-vertical {
+  transform-origin: 0 0;
+  transform: rotate(90deg) translateY(-100%);
+}
+
 .sb-ship__container {
   position: relative;
   height: 30px;
