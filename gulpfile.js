@@ -1,6 +1,7 @@
 var
     gulp            = require('gulp'),
-    sass            = require('gulp-sass'),
+    // sass            = require('gulp-sass'),
+    sass = require('gulp-sass')(require('sass')),
     browserSync     = require('browser-sync'),
     del             = require('del'),
     sourcemaps      = require('gulp-sourcemaps'),

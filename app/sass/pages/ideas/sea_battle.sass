@@ -82,7 +82,7 @@ $ship-size: $cell-size
         outline: 1px dashed $gray-300
         
         &--1
-        width: $ship-size
+            width: $ship-size
 
         &--2
             width: $ship-size * 2
@@ -96,6 +96,7 @@ $ship-size: $cell-size
 .sb-field
     $this: 'sb-field'
 
+    display: table
     margin: $cell-size 0 0 $cell-size
     counter-reset: rowCounter
     user-select: none

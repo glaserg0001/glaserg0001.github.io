@@ -11,5 +11,5 @@
     @return if($next, breakpoint-min($next, $breakpoints) - .02, null)
 
 @function breakpoint-infix($name, $breakpoints: $grid-breakpoints)
-    @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+    @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}")
 // frid END

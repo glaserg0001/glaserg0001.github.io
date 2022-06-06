@@ -78,6 +78,9 @@
   position: relative;
   height: 30px;
   outline: 1px dashed #c0c0c0;
+}
+
+.sb-ship__container--1 {
   width: 30px;
 }
 
@@ -94,6 +97,7 @@
 }
 
 .sb-field {
+  display: table;
   margin: 30px 0 0 30px;
   counter-reset: rowCounter;
   user-select: none;

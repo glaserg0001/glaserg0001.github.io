@@ -14,7 +14,7 @@
 }
 
 .mlp-inputfield::before {
-  content: 'X';
+  content: "X";
   font-size: 2em;
   font-weight: 700;
   margin: -0.5em 0.2em -0.5em auto;
@@ -103,7 +103,7 @@
 }
 
 .mlp-result-header-item + .mlp-result-header-item::before {
-  content: 'x';
+  content: "x";
   position: absolute;
   top: -0.8em;
   left: -0.5em;
@@ -115,7 +115,7 @@
 }
 
 .mlp-result-middle + .mlp-result-middle::before {
-  content: '+';
+  content: "+";
   position: absolute;
   left: -0.5em;
   top: -0.68em;

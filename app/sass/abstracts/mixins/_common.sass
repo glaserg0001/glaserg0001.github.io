@@ -21,9 +21,9 @@
 
 =clear
     &:after
-        content: '';
-        display: table;
-        clear: both;
+        content: ''
+        display: table
+        clear: both
 
 =rw($width)
     @media only screen and (max-width: $width+ "px")
@@ -65,8 +65,8 @@
     transform: translate(-50%, 0)
 
 =centerY
-    position: absolute;
-    top: 50%;
+    position: absolute
+    top: 50%
     transform: translate(0, -50%)
 
 =bgi($pos: center)
@@ -82,11 +82,11 @@
         @content
 
 =full
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
+    position: absolute
+    top: 0
+    right: 0
+    left: 0
+    bottom: 0
 
 =on-event($events: null)
     // Example: +on-event([hover, focus])

@@ -1,3 +1,5 @@
+@use "sass:math"
+    
 .form-qty
     $_border_width: 2px
     $_border_color: color(border)
@@ -24,7 +26,7 @@
 
     &__btn
         flex: 0 0 30px
-        max-width: percentage(1/3)
+        max-width: math.percentage(math.div(1, 3))
         min-width: 1.4em
         position: relative
         font-size: 12px

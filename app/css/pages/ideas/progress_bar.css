@@ -300,7 +300,6 @@
     content: "100%";
   }
 }
-
 @keyframes clip {
   0% {
     clip-path: inset(0% 100% -1px 0%);
@@ -309,7 +308,6 @@
     clip-path: inset(0% -1% -1px 0%);
   }
 }
-
 .progress_wrap {
   height: 100%;
   margin: 0;
@@ -331,7 +329,7 @@
 }
 
 .progress:before, .progress:after {
-  content: '';
+  content: "";
   padding: inherit;
   width: 100%;
   height: 100%;

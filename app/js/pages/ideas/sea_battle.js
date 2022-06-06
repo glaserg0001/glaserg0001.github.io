@@ -3,6 +3,7 @@ class SeaBattle {
         this.container = document.getElementById(id);
         this.fieldCols = size[0] || size
         this.fieldRows = size[1] || this.fieldCols
+        this.fieldDelta = 10
 
         this.resource = {
             title: 'Sea Battle',
@@ -266,8 +267,10 @@ class SeaBattle {
 
     mouseEvents($ship) {
         const
+            fieldCols = this.fieldCols,
             field = this.field.html,
             cellsArr = this.field.coords,
+            fieldDelta = this.fieldDelta,
             shipWidth = $ship.offsetWidth,
             shipHeight = $ship.offsetHeight,
             cellSize = shipHeight,
@@ -291,23 +294,34 @@ class SeaBattle {
 
         
         $ship.onmousedown = function (event) {
-            const eventOffsetX = event.offsetX;
+            const eventOffsetX = event.offsetX; // postion of mouse related to ship
             const eventOffsetY = event.offsetY;
             const shipDeckCurrent = Math.floor(eventOffsetX / cellSize);
+
+            const {
+                top: fieldTop,
+                left: fieldLeft,
+                right: fieldRight,
+                bottom: fieldBottom
+            } = field.getBoundingClientRect();
             
             function getTargetCell(below) {
+                // debugger
                 const targetCell = Number(below._column) - shipDeckCurrent
                 const targetRow = Number(below._row)
                 const afterLastCell = targetCell + shipDeck
-                if (!isNaN(targetCell) && !isNaN(targetRow) && afterLastCell < 11) {
+
+                if (!isNaN(targetCell) && !isNaN(targetRow) && afterLastCell <= fieldCols) {
+                    // console.log(targetCell, targetRow, afterLastCell, cellsArr[targetRow][targetCell])
                     return cellsArr[targetRow][targetCell]
                 }
+
+                return null
             }
 
-            function moveAt(pageX, pageY) {
+            // function set up position for the ship
+            function setShipPosition(pageX, pageY) {
                 if (pageX) {
-                    // ship.style.left = pageX - shiftX + 'px';
-                    // ship.style.top = pageY - shiftY + 'px';
                     $ship.style.left = Math.floor(pageX) - basePageX + 'px';
                     $ship.style.top = pageY - basePageY + 'px';
                 } else {
@@ -316,36 +330,17 @@ class SeaBattle {
                 }
             }
 
-            // const {
-            //     top: shipTop,
-            //     left: shipLeft,
-            //     right: shipRight,
-            //     bottom: shipBottom
-            // } = $ship.getBoundingClientRect();
-        
+            console.log(event.pageX)
+
             let basePageX = event.pageX;
             let basePageY = event.pageY;
 
-        
-            // const shiftX = event.clientX - shipLeft;
-            // const shiftY = event.clientY - shipTop;
-        
-            const {
-                top: fieldTop,
-                left: fieldLeft,
-                right: fieldRight,
-                bottom: fieldBottom
-            } = field.getBoundingClientRect();
-        
             
-        
+            
+            // onMouseMove START
             function onMouseMove(event) {
-                console.log('mouseMove')
                 $ship._dragStarted = true
                 
-                // dragStarted
-                // moveAt(event.pageX, event.pageY);
-        
                 const {
                         top: targetTop,
                         left: targetLeft,
@@ -353,57 +348,65 @@ class SeaBattle {
                         bottom: targetBottom
                     } = $ship.getBoundingClientRect();
                 
+                // console.log(targetTop, targetLeft)
+                // console.log(fieldTop, fieldLeft)
                     
                 // on cell
+                // == define position of the dragging ship START
                 $ship.hidden = true
                 let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
                 // let elemBelow = document.elementsFromPoint(event.clientX, event.clientY)[1];
+                // console.log(event.target.elBelow)
                 event.target.elBelow = elemBelow
                 $ship.hidden = false
+                // == define position of the dragging ship END
 
-                // ==== check if inside the field
+                // ==== check if ship inside the field
                 if (
-                    targetTop >= fieldTop - 10 &&
-                    targetLeft >= fieldLeft - 10 &&
-                    targetRight <= fieldRight + 10 &&
-                    targetBottom <= fieldBottom + 10
+                    targetTop >= fieldTop - fieldDelta &&
+                    targetLeft >= fieldLeft - fieldDelta &&
+                    targetRight <= fieldRight + fieldDelta &&
+                    targetBottom <= fieldBottom + fieldDelta
                 ) {
                     $ship.style.color = 'blue'
                     $ship._insideField = true
 
                     
-                    const firstDeck = getTargetCell(elemBelow)
+                    const onCell = getTargetCell(elemBelow)
 
-                    if (firstDeck) {
-                        const {top, left} = firstDeck.getBoundingClientRect()
-                        moveAt(left + eventOffsetX, top + eventOffsetY + window.pageYOffset)
+                    
+                    if (onCell) { // allowedToDrop
+                        const {top, left} = onCell.getBoundingClientRect()
+                        console.log(event.pageX, left, eventOffsetX)
+                        setShipPosition(left + eventOffsetX, top + eventOffsetY + window.pageYOffset)
                     } else {
-                        moveAt(event.pageX, event.pageY);
+                        setShipPosition(event.pageX, event.pageY);
                     }
-                    
-
-                    
                 } else {
                     event.target.style.color = ''
                     event.target._insideField = false
-                    moveAt(event.pageX, event.pageY);
+                    setShipPosition(event.pageX, event.pageY);
                 }
-            }
+            } // onMouseMove END
 
             document.addEventListener('mousemove', onMouseMove);
 
+            // release the ship
             window.onmouseup = function () {
-                console.log('mouseUp')
                 $ship._dragStarted = false
                 document.removeEventListener('mousemove', onMouseMove);
                 window.onmouseup = null;
 
                 const _elBelow = event.target.elBelow;
-            
-                moveAt(null)
 
+                
+                setShipPosition(null)
+                // console.log((_elBelow))
+                
                 if (event.target._insideField) {
-                    getTargetCell(_elBelow).append($ship);
+                    if (getTargetCell(_elBelow)) {
+                        getTargetCell(_elBelow).append($ship);
+                    }
                     // const targetCell = Number(_elBelow.dataset.x) - shipDeckCurrent
                     // const targetRow = Number(_elBelow.dataset.y)
                     // cellsArr[targetRow][targetCell].append($ship);
@@ -431,8 +434,8 @@ class SeaBattle {
 
 const seaBattle = new SeaBattle('sea-battle', 10);
 seaBattle.init()
-console.log(seaBattle)
-console.log(seaBattle.element.ships)
+// console.log(seaBattle)
+// console.log(seaBattle.element.ships)
 // console.log(seaBattle.field.coords[0][0].offsetWidth)
 // console.log(seaBattle.element.ships)
 

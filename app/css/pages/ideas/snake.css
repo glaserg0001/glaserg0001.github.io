@@ -83,7 +83,7 @@
 }
 
 .s-field-settings__goto__button::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -95,7 +95,7 @@
 }
 
 .s-field-settings__goto__button::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 6px;
   top: 50%;
@@ -181,7 +181,7 @@
 }
 
 .s-field-header__hiscore__list::before {
-  content: '';
+  content: "";
   position: absolute;
   right: 0;
   top: -12px;
@@ -191,7 +191,7 @@
 }
 
 .s-field-header__hiscore__list::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -28px;
   right: 0;
@@ -204,7 +204,7 @@
 
 .s-field-header__hiscore__item {
   padding: 4px 10px 3px;
-  transition: background-color .2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .s-field-header__hiscore__item + .s-field-header__hiscore__item {
@@ -226,7 +226,7 @@
 }
 
 .s-field-middle::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: 0;
@@ -312,7 +312,7 @@
 }
 
 .s-field-alert-gameover__close::before {
-  content: 'x';
+  content: "x";
   position: relative;
   top: -1px;
 }
@@ -341,7 +341,6 @@
     color: #ee6e73;
   }
 }
-
 @keyframes middle-show {
   0% {
     height: 100%;
@@ -350,7 +349,6 @@
     height: 0;
   }
 }
-
 @keyframes text-blink {
   0% {
     opacity: 0.2;

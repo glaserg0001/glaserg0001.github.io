@@ -63,19 +63,19 @@ block scripts
 
     const stream$ = new Subject()
 
-      const obs1 = new Observer()
-      const obs2 = new Observer(42)
+    const obs1 = new Observer()
+    const obs2 = new Observer(42)
 
-      stream$.subscribe(obs1)
-      stream$.subscribe(obs2)
+    stream$.subscribe(obs1)
+    stream$.subscribe(obs2)
 
-      stream$.fire({type : 'INCREMENT'})
-      stream$.fire({type : 'INCREMENT'})
-      stream$.fire({type : 'ADD', payload: 10})
+    stream$.fire({type : 'INCREMENT'})
+    stream$.fire({type : 'INCREMENT'})
+    stream$.fire({type : 'ADD', payload: 10})
 
-      //- console.log(obs1.state)
-      //- console.log(obs2.state)
-      //- console.log(stream$.observers)
+    //- console.log(obs1.state)
+    //- console.log(obs2.state)
+    //- console.log(stream$.observers)
 
     //- https://monsterlessons.com/project/lessons/observer-pattern-v-javascript
     class EventObserver {
